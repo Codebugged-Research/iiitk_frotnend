@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.js": "/material-kit-react/static/js/main.106ca359.chunk.js",
+    "main.js.map": "/material-kit-react/static/js/main.106ca359.chunk.js.map",
+    "runtime-main.js": "/material-kit-react/static/js/runtime-main.73ab262f.js",
+    "runtime-main.js.map": "/material-kit-react/static/js/runtime-main.73ab262f.js.map",
+    "static/js/2.42c0eaf8.chunk.js": "/material-kit-react/static/js/2.42c0eaf8.chunk.js",
+    "static/js/2.42c0eaf8.chunk.js.map": "/material-kit-react/static/js/2.42c0eaf8.chunk.js.map",
+    "index.html": "/material-kit-react/index.html",
+    "static/js/2.42c0eaf8.chunk.js.LICENSE.txt": "/material-kit-react/static/js/2.42c0eaf8.chunk.js.LICENSE.txt",
+    "static/media/bg-about-us.cf9a123e.jpg": "/material-kit-react/static/media/bg-about-us.cf9a123e.jpg",
+    "static/media/bg-presentation.88963029.jpg": "/material-kit-react/static/media/bg-presentation.88963029.jpg",
+    "static/media/bg-sign-in-basic.f327db1d.jpeg": "/material-kit-react/static/media/bg-sign-in-basic.f327db1d.jpeg",
+    "static/media/bruce-mars.8a606c4a.jpg": "/material-kit-react/static/media/bruce-mars.8a606c4a.jpg",
+    "static/media/ivana-square.f7bc23b2.jpg": "/material-kit-react/static/media/ivana-square.f7bc23b2.jpg",
+    "static/media/ivana-squares.3c555b85.jpg": "/material-kit-react/static/media/ivana-squares.3c555b85.jpg",
+    "static/media/logo-apple.f9c2682e.svg": "/material-kit-react/static/media/logo-apple.f9c2682e.svg",
+    "static/media/logo-coinbase.87e91c7f.svg": "/material-kit-react/static/media/logo-coinbase.87e91c7f.svg",
+    "static/media/logo-digitalocean.a1f147b0.svg": "/material-kit-react/static/media/logo-digitalocean.a1f147b0.svg",
+    "static/media/logo-facebook.106d2ac0.svg": "/material-kit-react/static/media/logo-facebook.106d2ac0.svg",
+    "static/media/logo-nasa.c5d11f88.svg": "/material-kit-react/static/media/logo-nasa.c5d11f88.svg",
+    "static/media/logo-netflix.432ed6b5.svg": "/material-kit-react/static/media/logo-netflix.432ed6b5.svg",
+    "static/media/logo-pinterest.84470903.svg": "/material-kit-react/static/media/logo-pinterest.84470903.svg",
+    "static/media/logo-spotify.7e255dc6.svg": "/material-kit-react/static/media/logo-spotify.7e255dc6.svg",
+    "static/media/logo-vodafone.b3e8486c.svg": "/material-kit-react/static/media/logo-vodafone.b3e8486c.svg",
+    "static/media/macbook.e0a8c5d5.png": "/material-kit-react/static/media/macbook.e0a8c5d5.png",
+    "static/media/rotating-card-bg-back.183088de.jpeg": "/material-kit-react/static/media/rotating-card-bg-back.183088de.jpeg",
+    "static/media/rotating-card-bg-front.bdcdfadc.jpeg": "/material-kit-react/static/media/rotating-card-bg-front.bdcdfadc.jpeg",
+    "static/media/team-5.d59ab7b9.jpg": "/material-kit-react/static/media/team-5.d59ab7b9.jpg",
+    "static/media/waves-white.7e7579c6.svg": "/material-kit-react/static/media/waves-white.7e7579c6.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73ab262f.js",
+    "static/js/2.42c0eaf8.chunk.js",
+    "static/js/main.106ca359.chunk.js"
+  ]
+}
