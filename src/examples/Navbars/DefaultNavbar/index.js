@@ -488,7 +488,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
           >
             {renderNavbarItems}
           </MKBox>
-          <MKBox ml={{ xs: "auto", lg: 0 }}>
+          <MKBox ml={{ xs: "auto", lg: 0 }} display={mobileView ? "none" : "bblock"}>
             {action &&
               (action.type === "internal" ? (
                 <>

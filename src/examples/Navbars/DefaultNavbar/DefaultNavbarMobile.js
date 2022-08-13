@@ -24,6 +24,8 @@ import PropTypes from "prop-types";
 // @mui material components
 import Collapse from "@mui/material/Collapse";
 import MuiLink from "@mui/material/Link";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import LoginIcon from "@mui/icons-material/Login";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -152,6 +154,62 @@ function DefaultNavbarMobile({ routes, open }) {
     <Collapse in={Boolean(open)} timeout="auto" unmountOnExit>
       <MKBox width="calc(100% + 1.625rem)" my={2} ml={-2}>
         {renderNavbarItems}
+        <MKTypography
+          key={0}
+          component={MuiLink}
+          to="/signup"
+          href="/signup"
+          target="_blank"
+          minWidth="11.25rem"
+          display="block"
+          variant="button"
+          color="text"
+          textTransform="capitalize"
+          fontWeight="regular"
+          py={0.625}
+          px={2}
+          sx={({ palette: { grey, dark }, borders: { borderRadius } }) => ({
+            borderRadius: borderRadius.md,
+            cursor: "pointer",
+            transition: "all 300ms linear",
+
+            "&:hover": {
+              backgroundColor: grey[200],
+              color: dark.main,
+            },
+          })}
+        >
+          <ExitToAppIcon />
+          &nbsp; signup
+        </MKTypography>
+        <MKTypography
+          key={0}
+          component={MuiLink}
+          to="/signin"
+          href="/signin"
+          target="_blank"
+          minWidth="11.25rem"
+          display="block"
+          variant="button"
+          color="text"
+          textTransform="capitalize"
+          fontWeight="regular"
+          py={0.625}
+          px={2}
+          sx={({ palette: { grey, dark }, borders: { borderRadius } }) => ({
+            borderRadius: borderRadius.md,
+            cursor: "pointer",
+            transition: "all 300ms linear",
+
+            "&:hover": {
+              backgroundColor: grey[200],
+              color: dark.main,
+            },
+          })}
+        >
+          <LoginIcon />
+          &nbsp; Login
+        </MKTypography>
       </MKBox>
     </Collapse>
   );
