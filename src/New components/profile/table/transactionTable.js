@@ -1,14 +1,7 @@
 /*eslint-disable */
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import {
-  TableContainer,
-  Paper,
-  Grid,
-  Typography,
-  TablePagination,
-  TableFooter,
-} from "@mui/material";
+import { TableContainer, Paper, Grid, Typography, TablePagination } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
@@ -26,35 +19,36 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "5px",
       background: theme.palette.secondary.dark,
     },
-    [theme.breakpoints.up('xl')]: {
-      width:"350%",
+    [theme.breakpoints.up("xl")]: {
+      width: "350%",
     },
-    [theme.breakpoints.down('xl')]: {
-      width:"280%",
+    [theme.breakpoints.down("xl")]: {
+      width: "280%",
     },
-    [theme.breakpoints.down('lg')]: {
-      width:"200%",
+    [theme.breakpoints.down("lg")]: {
+      width: "200%",
     },
-    [theme.breakpoints.down('md')]: {
-      width:"150%",
+    [theme.breakpoints.down("md")]: {
+      width: "150%",
     },
-    [theme.breakpoints.down('sm')]: {
-      width:"85%",
+    [theme.breakpoints.down("sm")]: {
+      width: "85%",
     },
   },
-  pagination:{
-    [theme.breakpoints.down('md')]: {
-      width:"100%",
+  pagination: {
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
     },
-    [theme.breakpoints.down('sm')]: {
-      width:"50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "50%",
     },
-    width:"150%",
+    width: "150%",
+    marginTop:10,
   },
   tableHeaderCell: {
-    top:0,
-    position:"sticky",
-    height:"50px",
+    top: 0,
+    position: "sticky",
+    height: "50px",
     fontWeight: "bold",
     backgroundColor: theme.palette.secondary.dark,
     color: theme.palette.getContrastText(theme.palette.secondary.dark),
@@ -63,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     color: theme.palette.secondary.dark,
   },
-
 }));
 
 function TTable() {
@@ -170,22 +163,31 @@ function TTable() {
     setPage(0);
   };
 
-
   return (
     <Grid>
-    <TableContainer component={Paper} className={classes.tableContainer}>
-      <table className={classes.table}>
-        <tr>
-          <th className={classes.tableHeaderCell} style={{width:"10%"}}>S.no</th>
-          <th className={classes.tableHeaderCell} style={{width:"30%"}}>Data Info</th>
-          <th className={classes.tableHeaderCell} style={{width:"25%"}}>Account NO</th>
-          <th className={classes.tableHeaderCell} style={{width:"25%"}}>Date</th>
-          <th className={classes.tableHeaderCell} style={{width:"100%"}}>Paid</th>
-        </tr>
+      <TableContainer component={Paper} className={classes.tableContainer}>
+        <table className={classes.table}>
+          <tr>
+            <th className={classes.tableHeaderCell} style={{ width: "10%" }}>
+              S.no
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "30%" }}>
+              Data Info
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "25%" }}>
+              Account NO
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "25%" }}>
+              Date
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "100%" }}>
+              Paid
+            </th>
+          </tr>
           {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
             <tr key={index}>
-              <td style={{paddingLeft:50}}>{index+1}</td>
-              <td style={{paddingLeft:50,paddingTop:12}}>
+              <td style={{ paddingLeft: 50 }}>{index + 1}</td>
+              <td style={{ paddingLeft: 50, paddingTop: 12 }}>
                 <Grid container>
                   <Grid item>
                     <Typography className={classes.name}>Place : {row.place}</Typography>
@@ -198,28 +200,25 @@ function TTable() {
                   </Grid>
                 </Grid>
               </td>
-              <td style={{paddingLeft:70}}>
+              <td style={{ paddingLeft: 70 }}>
                 <Typography color="textSecondary" variant="h6">
-                {row.account}
+                  {row.account}
                 </Typography>
               </td>
-              <td style={{paddingLeft:80}}>
+              <td style={{ paddingLeft: 80 }}>
                 <Typography color="primary" variant="subtitle2">
                   {row.Date}
                 </Typography>
               </td>
-              <td style={{paddingLeft:50,paddingRight:50}}>
-                <Typography
-                  className={classes.status}
-                  style={{color:"green"}}
-                >
-                ₹{row.amount}
+              <td style={{ paddingLeft: 50, paddingRight: 50 }}>
+                <Typography className={classes.status} style={{ color: "green" }}>
+                  ₹{row.amount}
                 </Typography>
               </td>
             </tr>
           ))}
-      </table>
-    </TableContainer>
+        </table>
+      </TableContainer>
       <TablePagination
         className={classes.pagination}
         rowsPerPageOptions={[10, 25, 100]}

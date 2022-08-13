@@ -1,13 +1,58 @@
+/*eslint-disable */
 // @mui material components
 import Container from "@mui/material/Container";
 import { Grid, TextField } from "@mui/material";
 import { useState } from "react";
+import { makeStyles } from "@mui/styles";
+import {useMediaQuery} from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKButton from "components/MKButton";
+// for resoponsiveness
+const useStyles = makeStyles((theme) => ({
+  form: {
+    [theme.breakpoints.down("lg")]: {
+      width:"200%",
+      paddingBottom:2,
+      display:"block",
+    },
+    [theme.breakpoints.down("md")]: {
+      width:"150%",
+      paddingBottom:2,
+      display:"block",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width:"80%",
+      paddingBottom:2,
+      display:"block",
+    },
+  },
+  text: {
+    [theme.breakpoints.down("lg")]: {
+      width:"80%",
+      marginLeft:0,
+      paddingBottom:5,
+    },
+    [theme.breakpoints.down("md")]: {
+      width:"80%",
+      marginLeft:0,
+      paddingBottom:5,
+    },
+    [theme.breakpoints.down("sm")]: {
+      width:"80%",
+      marginLeft:0,
+      paddingBottom:5,
+    },
+  },
+}));
+
 
 function UserDetails() {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+  const classes = useStyles();
   // for enable/disable inputs
   const [enable, setEnable] = useState(true);
   // for enable inputs
@@ -25,9 +70,10 @@ function UserDetails() {
           User Details
         </MKTypography>
         {/* first name */}
-        <Grid container spacing={2} width={1000}>
+        <Grid container spacing={isSmall?0:2} width="300%" className={classes.form}>
           <Grid item>
             <TextField
+              className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="First Name"
@@ -37,6 +83,7 @@ function UserDetails() {
             />
             {/* second  name */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="Last Name"
@@ -48,6 +95,7 @@ function UserDetails() {
           <Grid item>
             {/* email */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="email"
@@ -58,6 +106,7 @@ function UserDetails() {
             />
             {/* password */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="password"
@@ -70,6 +119,7 @@ function UserDetails() {
           <Grid item>
             {/* company */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="company / orgainization"
@@ -80,6 +130,7 @@ function UserDetails() {
             />
             {/* industry */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="industry"
@@ -92,6 +143,7 @@ function UserDetails() {
           <Grid item>
             {/* country */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="country"
@@ -102,6 +154,7 @@ function UserDetails() {
             />
             {/* phone */}
             <TextField
+            className={classes.text}
               disabled={enable}
               id="filled-disabled"
               label="phone"
@@ -114,6 +167,8 @@ function UserDetails() {
           <Grid item>
             {/* AADHAR */}
             <TextField
+            className={classes.text}
+
               disabled={enable}
               id="filled-disabled"
               label="aadhar"

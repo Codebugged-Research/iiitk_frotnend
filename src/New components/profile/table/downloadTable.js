@@ -7,7 +7,6 @@ import {
   Grid,
   Typography,
   TablePagination,
-  TableFooter,
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({

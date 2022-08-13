@@ -25,7 +25,7 @@ function AboutCustomer({ value }) {
       </MKTypography>
       <Container>
         <Grid container position="relative" alignItems="center">
-          <Grid display="flex" md={5} height={550}>
+          <Grid display="flex" md={5} height={660}>
             <MKBox>
               {/* tabs */}
               <TabContext value={value} orientation="vertical">
