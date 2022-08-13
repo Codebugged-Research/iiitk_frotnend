@@ -1,3 +1,4 @@
+// segmented files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
 import { Grid, Switch, FormControlLabel, FormGroup } from "@mui/material";
@@ -50,14 +51,12 @@ function Filter1() {
         }}
         sticky
       />
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid
           mt={20}
-          xs={2}
+          xs={2.2}
           sx={{
             height: " 800px",
-            display: "block",
-            position: "fixed",
             overflowX: "clip",
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
@@ -69,34 +68,29 @@ function Filter1() {
               background: "#4D8CC9",
             },
           }}
-          F
         >
           <MKBox
             variant="gradient"
             bgColor="info"
             coloredShadow="info"
             borderRadius="lg"
-            p={1}
+            p={0}
             pt={0.5}
             pb={0.5}
-            mx={5}
+            mx={2}
             mt={2}
           >
             <FormGroup>
               <FormControlLabel
-                control={
-                  <Switch sx={{ color: "white" }} checked={checked} onChange={handleChange} />
-                }
+                control={<Switch checked={checked} onChange={handleChange} />}
                 label={checked ? "Segmented files only" : "IO files only"}
-                sx={{ position: "relative", bgColor: "info", color: "#fff" }}
+                sx={{ position: "relative", bgColor: "info" }}
               />
             </FormGroup>
           </MKBox>
           <Grid
             sx={{
               height: " 700px",
-              display: "block",
-              position: "fixed",
               overflowX: "clip",
               overflowY: "scroll",
               "&::-webkit-scrollbar": {
@@ -105,7 +99,6 @@ function Filter1() {
               },
               "&::-webkit-scrollbar-thumb": {
                 borderRadius: "30px",
-                background: "#4D8CC9",
               },
             }}
           >
@@ -147,7 +140,7 @@ function Filter1() {
             />
             <Cards
               name="  Accuracy"
-              options={["0-5cm", "5-10cm", "10-15cm", "15-20cm", "20-abovecm", "all"]}
+              options={["0-5cm", "5-10cm", "10-15cm", "15-20cm", "20-above", "all"]}
               selected={accuracy}
               onChange={setAccuracy}
             />
@@ -159,7 +152,7 @@ function Filter1() {
             />
           </Grid>
         </Grid>
-        <Grid mt={20} xs={2} ml={40}>
+        <Grid mt={20} xs={2} ml="2%">
           <Main
             checked={checked}
             filterParams={{
@@ -174,7 +167,7 @@ function Filter1() {
             }}
           />
         </Grid>
-        <Grid mt={2} xs={2} ml={110}>
+        <Grid mt={20} ml="44%">
           <Downloadcard
             name="Download"
             btnName={["Download selected", "Download All", "Download in this page"]}

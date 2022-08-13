@@ -4,22 +4,22 @@ import * as React from "react";
 import MKButton from "components/MKButton";
 import axios from "axios";
 import TimeAgo from "timeago-react";
-import { Checkbox, FormControlLabel, Pagination, Typography } from "@mui/material";
-/* eslint-disable */
-function Main({ checked, filterParams }) {
+import { Checkbox, FormControlLabel, Pagination, Typography, Grid } from "@mui/material";
 
-  const [checkedBoxes,setCheckedBoxes]=React.useState(0);
+/*eslint-disable */
+
+function Main({ checked, filterParams }) {
+  const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
   const [filterString, setFilterString] = React.useState("");
   const handleChange = (e, index) => {
     e.preventDefault();
-    const isChecked = e.target.checked
+    const isChecked = e.target.checked;
     if (isChecked) {
-      setCheckedBoxes(checkedBoxes+1)
-    }
-    else {
-      setCheckedBoxes(checkedBoxes-1)
+      setCheckedBoxes(checkedBoxes + 1);
+    } else {
+      setCheckedBoxes(checkedBoxes - 1);
     }
     const newCheckList = [...checkList];
     newCheckList[index] = !newCheckList[index];
@@ -51,7 +51,6 @@ function Main({ checked, filterParams }) {
     if (filterParam.accuracy !== "all") {
       filter = filter + "&accuracy=" + filterParam.accuracy;
     }
-    console.log(filter);
     setFilterString(filter);
   };
   React.useEffect(() => {
@@ -82,22 +81,27 @@ function Main({ checked, filterParams }) {
         setResults(newResults);
       });
   };
+  // for pagination
+  const [page, setPage] = React.useState(1);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
   return (
-    <div item xs={0} sm={0} mt={100} lg={0} xl={3} ml={0}>
+    <div>
       <MKBox
         bgColor="white"
         borderRadius="xl"
         shadow="lg"
         sx={{
           height: " 800px",
-          width: "1180px",
+          width: "350%",
           display: "block",
-          position: "fixed",
-          overflowX: "clip",
-          overflowY: "scroll",
+          position: "relative",
+          overflow: "auto",
           "&::-webkit-scrollbar": {
-            width: "5px",
-            height: "5px",
+            width: "6px",
+            height: "0px",
             zIndex: 2,
           },
           "&::-webkit-scrollbar-thumb": {
@@ -106,24 +110,24 @@ function Main({ checked, filterParams }) {
           },
         }}
         mb={10}
-        mx={5}
       >
         {/*placeholder box */}
         <MKBox
           variant="gradient"
           bgColor="none"
           maxWidth="400px"
-          width="100"
+          width="38%"
+          top={0}
           zIndex={1}
           pl={6}
           py={1}
           pr={15}
-          ml={110}
+          ml="70%"
           borderRadius="lg"
-          position="fixed"
+          position="sticky"
         >
-          <Typography variant="h5">
-            Results &nbsp;  &nbsp;:  &nbsp;{results.length}
+          <Typography variant="h5" fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}>
+            Results &nbsp; &nbsp;: &nbsp;{results.length}
             <br />
             Selected &nbsp;: &nbsp; {checkedBoxes}
           </Typography>
@@ -136,21 +140,28 @@ function Main({ checked, filterParams }) {
           bgColor="info"
           coloredShadow="info"
           borderRadius="lg"
-          p={2}
-          mx={60}
-          zIndex={2}
-          position="fixed"
-          mt={-3}
+          pt="2%"
+          pb="2%"
+          pl="5%"
+          ml="34%"
+          mr="39%"
+          zIndex={3}
+          top={0}
+          mt={{ xl: -16, lg: -20, md: -25, sm: -30 }}
+          position="sticky"
         >
-          <MKTypography variant="h3" color="white">
+          <MKTypography
+            variant="h3"
+            color="white"
+            fontSize={{ xl: "1.5rem", lg: "1.2rem", md: "1rem", sm: "1rem" }}
+          >
             <p>Filter Results</p>
           </MKTypography>
         </MKBox>
-        
-        {/*main card elements box */}
 
+        {/*main card elements box */}
         <MKBox marginTop={10}>
-          {results.map((detail, index) => (
+          {results.slice(page * 10 - 10, page * 10).map((detail, index) => (
             <MKBox
               key={index.toString()}
               variant="gradient"
@@ -161,6 +172,7 @@ function Main({ checked, filterParams }) {
               mx={10}
               mt={3}
               mb={3}
+              fontSize={{ xl: "1rem", lg: "0.8rem" }}
             >
               <FormControlLabel
                 control={
@@ -177,7 +189,7 @@ function Main({ checked, filterParams }) {
                   />
                 }
                 label=""
-                sx={{ position: "absolute", left: 1040 }}
+                sx={{ position: "relative", left: "95%" }}
               />
               <h3>
                 {checked
@@ -214,43 +226,65 @@ function Main({ checked, filterParams }) {
                 />
               </p>
               <br></br>
-              <MKButton
-                variant="gradient"
-                color="info"
-                onClick={() => {
-                  window.open("http://127.0.0.1:5501/threepcs.html", "_blank");
-                }}
+              <Grid
+                display="flex"
+                flexDirection={{ xs: "row", lg: "row" }}
+                justifyContent="space-around"
               >
-                Visualize
-              </MKButton>
-              <span> </span>
-              {/*<MKButton
+                <Grid>
+                  <MKButton
+                    variant="gradient"
+                    color="info"
+                    onClick={() => {
+                      window.open("http://127.0.0.1:5501/threepcs.html", "_blank");
+                    }}
+                  >
+                    Visualize
+                  </MKButton>
+                </Grid>
+                {/*<MKButton
                 variant="gradient"
                 color="info"
                 onClick={() => {
                   window.open("#", "_blank");
                 }}
-              >
+                >
                 Details
               </MKButton>*/}
-              <span> </span>
-              <MKButton
-                variant="gradient"
-                height="fit-content"
-                width="fit-content"
-                color="info"
-                sx={{ position: "relative", left: 730 }}
-                onClick={() => {
-                  window.open("#", "_blank");
-                }}
-              >
-                Download
-              </MKButton>
+                <Grid sx={{ marginLeft: "60%" }}>
+                  <MKButton
+                    variant="gradient"
+                    height="fit-content"
+                    width="fit-content"
+                    color="info"
+                    onClick={() => {
+                      window.open("#", "_blank");
+                    }}
+                  >
+                    Download
+                  </MKButton>
+                </Grid>
+              </Grid>
             </MKBox>
           ))}
         </MKBox>
-        <MKBox align="center" pl={50} pb={10}>
-          <Pagination count={10} color="info" />
+        <MKBox
+          width="100%"
+          display="flex"
+          flexDirection={{ xs: "column", lg: "column" }}
+          justifyContent="space-between"
+          alignItems="center"
+          pb={5}
+          pt={5}
+        >
+          <Pagination
+            width="100%"
+            position="absolute"
+            count={results.length < 10 ? 1 : Math.ceil(results.length / 10)}
+            page={page}
+            onChange={handleChangePage}
+            color="info"
+          />
         </MKBox>
       </MKBox>
     </div>

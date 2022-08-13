@@ -24,18 +24,12 @@ const [downloadInput, setDownloadInput] = React.useState(20);
     }
   };
   return (
-    <div xl={3} height="auto">
+    <div height="auto">
       <MKBox
         bgColor="white"
-        position="fixed"
         borderRadius="xl"
         shadow="lg"
-        display="flex"
-        flexDirection="column"
-        justifyContent=""
-        mt={{ xs: 30, sm: 30, md: 30 }}
-        mx={1}
-        ml={9}
+        width="100%"
       >
         <MKBox
           variant="gradient"
@@ -43,17 +37,15 @@ const [downloadInput, setDownloadInput] = React.useState(20);
           coloredShadow="info"
           borderRadius="lg"
           p={2}
-          mx={9}
-          mt={-3}
+          mx="20%"
         >
           <MKTypography variant="h5" color="white">
             {name}
           </MKTypography>
         </MKBox>
-        <MKBox pl={6}>
-          <MKBox width="100%" component="form" method="post" autocomplete="off" mx={10}>
-            <Grid container spacing={0}>
-              <Grid item xs={0} md={0} mx={-14}>
+        <MKBox>
+          <MKBox width="100%" component="form" method="post" autocomplete="off">
+              <Grid>
                 <h5>
                   <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormGroup>
@@ -96,7 +88,6 @@ const [downloadInput, setDownloadInput] = React.useState(20);
                   </FormControl>
                 </h5>
               </Grid>
-            </Grid>
           </MKBox>
         </MKBox>
       </MKBox>

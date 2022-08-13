@@ -36,24 +36,25 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
 
   React.useEffect(() => {}, [selected]);
   return (
-    <div item xs={0} sm={0} md={0} lg={0} xl={3} ml={{ xs: 0, lg: 0 }} height="auto">
+    <div>
       <MKBox
+      fontSize="1rem"
         bgColor="white"
         borderRadius="xl"
         shadow="lg"
         display="flex"
         flexDirection="column"
         justifyContent=""
-        mt={{ xs: 5, sm: 5, md: 5 }}
-        mb={{ xs: 5, sm: 5, md: 5 }}
-        mx={5}
+        mt={5}
+        mb={5}
+        mx={3}
       >
         <MKBox
           variant="gradient"
           bgColor="info"
           coloredShadow="info"
           borderRadius="lg"
-          p={2}
+          p={1}
           pt={1.2}
           pb={1.2}
           mx={show ? 2 : 0}
@@ -89,17 +90,16 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
                   : "none"
               }
             >
-              <MKBox width="100%" component="form" method="post" autocomplete="off" mx={10}>
-                <Grid container spacing={0}>
-                  <Grid item xs={0} md={-55} mx={-15}>
+              <MKBox width="100%" component="form" method="post" autocomplete="off">
+                <Grid container ml={-4}>
+                  <Grid item>
                     <h5>
-                      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                      <FormControl component="fieldset" variant="standard">
                         <FormGroup>
                           {searchBar && (
                             <Input
                               placeholder={placeholder}
                               onChange={inputHandler}
-                              sx={{ marginBottom: "20px" }}
                             />
                           )}
 

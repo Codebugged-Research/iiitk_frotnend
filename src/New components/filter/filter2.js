@@ -1,3 +1,4 @@
+// io files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
 import { Grid, Switch, FormControlLabel, FormGroup } from "@mui/material";
@@ -21,9 +22,17 @@ function Filter2() {
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
 
-  React.useEffect(() => {
-    console.log(checked);
-  }, [checked, env, datatype, pointrecord, terrain, sensor, charge, dataDensity, accuracy]);
+  React.useEffect(() => {}, [
+    checked,
+    env,
+    datatype,
+    pointrecord,
+    terrain,
+    sensor,
+    charge,
+    dataDensity,
+    accuracy,
+  ]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -45,14 +54,12 @@ function Filter2() {
         sticky
       />
 
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid
           mt={20}
-          xs={2}
+          xs={2.2}
           sx={{
             height: " 800px",
-            display: "block",
-            position: "fixed",
             overflowX: "clip",
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
@@ -70,16 +77,15 @@ function Filter2() {
             bgColor="info"
             coloredShadow="info"
             borderRadius="lg"
-            pr={7.3}
-            pl={2}
+            p={1}
             pt={0.5}
             pb={0.5}
-            mx={5}
+            mx={2.6}
             mt={2}
           >
             <FormGroup>
               <FormControlLabel
-                control={<Switch color="info" checked={checked} onChange={handleChange} />}
+                control={<Switch color="white" checked={checked} onChange={handleChange} />}
                 label={checked ? "Segmented files only" : "IO files only"}
                 sx={{
                   position: "relative",
@@ -91,8 +97,6 @@ function Filter2() {
           <Grid
             sx={{
               height: " 700px",
-              display: "block",
-              position: "fixed",
               overflowX: "clip",
               overflowY: "scroll",
               "&::-webkit-scrollbar": {
@@ -154,7 +158,7 @@ function Filter2() {
             />
             <Cards
               name="  Accuracy"
-              options={["0-5cm", "5-10cm", "10-15cm", "15-20cm", "20-abovecm", "all"]}
+              options={["0-5cm", "5-10cm", "10-15cm", "15-20cm", "20-above", "all"]}
               selected={accuracy}
               onChange={setAccuracy}
             />
@@ -166,7 +170,7 @@ function Filter2() {
             />
           </Grid>
         </Grid>
-        <Grid mt={20} xs={2} ml={40}>
+        <Grid mt={20} xs={2} ml="2%">
           <Main
             checked={checked}
             filterParams={{
@@ -181,7 +185,7 @@ function Filter2() {
             }}
           />
         </Grid>
-        <Grid mt={2} xs={2} ml={110}>
+        <Grid mt={20} ml="44%">
           <Downloadcard
             name="Download"
             btnName={["Download selected", "Download All", "Download in this page"]}
