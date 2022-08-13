@@ -13,7 +13,9 @@ import UserDetails from "./userdetails/userdetails";
 import DownloadInfo from "./userdetails/downloadInfo";
 import Transition from "./userdetails/transition";
 
+
 function AboutCustomer({ value }) {
+
   /* user name */
   const username = "UserName";
   return (
@@ -30,7 +32,6 @@ function AboutCustomer({ value }) {
                 <Box
                   sx={{
                     flexGrow: 1,
-                    bgcolor: "background.paper",
                     position: "relative",
                     height: 324,
                     width: 400,

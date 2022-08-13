@@ -13,16 +13,43 @@ import {
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
     borderRadius: 15,
-    width: "350%",
+    width: "50%",
     height: "500px",
+    borderCollapse: "collapse",
+    borderSpacing: 0,
     overFlow: "hidden",
     "&::-webkit-scrollbar": {
       width: "10px",
+      height: "10px",
     },
     "&::-webkit-scrollbar-thumb": {
       borderRadius: "5px",
       background: theme.palette.secondary.dark,
     },
+    [theme.breakpoints.up('xl')]: {
+      width:"350%",
+    },
+    [theme.breakpoints.down('xl')]: {
+      width:"280%",
+    },
+    [theme.breakpoints.down('lg')]: {
+      width:"200%",
+    },
+    [theme.breakpoints.down('md')]: {
+      width:"150%",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width:"85%",
+    },
+  },
+  pagination:{
+    [theme.breakpoints.down('md')]: {
+      width:"100%",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width:"50%",
+    },
+    width:"150%",
   },
   tableHeaderCell: {
     top:0,
@@ -193,9 +220,8 @@ function TTable() {
           ))}
       </table>
     </TableContainer>
-      <TableFooter>
       <TablePagination
-        style={{width:"150%"}}
+        className={classes.pagination}
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={rows.length}
@@ -204,7 +230,6 @@ function TTable() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      </TableFooter>
     </Grid>
   );
 }

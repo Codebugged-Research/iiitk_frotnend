@@ -13,21 +13,48 @@ import {
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
     borderRadius: 15,
-    width: "350%",
+    width: "50%",
     height: "500px",
+    borderCollapse: "collapse",
+    borderSpacing: 0,
     overFlow: "hidden",
     "&::-webkit-scrollbar": {
       width: "10px",
+      height: "10px",
     },
     "&::-webkit-scrollbar-thumb": {
       borderRadius: "5px",
       background: theme.palette.secondary.dark,
     },
+    [theme.breakpoints.up('xl')]: {
+      width:"350%",
+    },
+    [theme.breakpoints.down('xl')]: {
+      width:"280%",
+    },
+    [theme.breakpoints.down('lg')]: {
+      width:"200%",
+    },
+    [theme.breakpoints.down('md')]: {
+      width:"150%",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width:"85%",
+    },
+  },
+  pagination:{
+    [theme.breakpoints.down('md')]: {
+      width:"100%",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width:"50%",
+    },
+    width:"150%",
   },
   tableHeaderCell: {
-    top:0,
-    position:"sticky",
-    height:"50px",
+    top: 0,
+    position: "sticky",
+    height: "50px",
     fontWeight: "bold",
     backgroundColor: theme.palette.secondary.dark,
     color: theme.palette.getContrastText(theme.palette.secondary.dark),
@@ -151,22 +178,31 @@ function DTable() {
     setPage(0);
   };
 
-
   return (
-    <Grid>
-    <TableContainer component={Paper} className={classes.tableContainer}>
-      <table className={classes.table}>
-        <tr>
-          <th className={classes.tableHeaderCell} style={{width:"10%"}}>S.no</th>
-          <th className={classes.tableHeaderCell} style={{width:"30%"}}>Data Info</th>
-          <th className={classes.tableHeaderCell} style={{width:"25%"}}>File</th>
-          <th className={classes.tableHeaderCell} style={{width:"25%"}}>Date</th>
-          <th className={classes.tableHeaderCell} style={{width:"100%"}}>Status</th>
-        </tr>
+    <div>
+      <TableContainer component={Paper} className={classes.tableContainer}>
+        <table className={classes.table} style={{ width: "100%", overflowX: "auto" }}>
+          <tr>
+            <th className={classes.tableHeaderCell} style={{ width: "10%" }}>
+              S.no
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "30%" }}>
+              Data Info
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "25%" }}>
+              File
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "25%" }}>
+              Date
+            </th>
+            <th className={classes.tableHeaderCell} style={{ width: "100%" }}>
+              Status
+            </th>
+          </tr>
           {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
             <tr key={index}>
-              <td style={{paddingLeft:50}}>{index+1}</td>
-              <td style={{paddingLeft:50,paddingTop:12}}>
+              <td style={{ paddingLeft: 50 }}>{index + 1}</td>
+              <td style={{ paddingLeft: 50, paddingTop: 12 }}>
                 <Grid container>
                   <Grid item>
                     <Typography className={classes.name}>Place : {row.place}</Typography>
@@ -179,17 +215,17 @@ function DTable() {
                   </Grid>
                 </Grid>
               </td>
-              <td style={{paddingLeft:100}}>
+              <td style={{ paddingLeft: 100 }}>
                 <Typography color="textSecondary" variant="h6">
                   {row.file}
                 </Typography>
               </td>
-              <td style={{paddingLeft:80}}>
+              <td style={{ paddingLeft: 80 }}>
                 <Typography color="primary" variant="subtitle2">
                   {row.Date}
                 </Typography>
               </td>
-              <td style={{paddingLeft:50,paddingRight:50}}>
+              <td style={{ paddingLeft: 50, paddingRight: 50 }}>
                 <Typography
                   className={classes.status}
                   style={{
@@ -204,21 +240,19 @@ function DTable() {
               </td>
             </tr>
           ))}
-      </table>
-    </TableContainer>
-      <TableFooter>
-      <TablePagination
-        style={{width:"150%"}}
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-      </TableFooter>
-    </Grid>
+        </table>
+      </TableContainer>
+        <TablePagination
+        className={classes.pagination}
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+    </div>
   );
 }
 
