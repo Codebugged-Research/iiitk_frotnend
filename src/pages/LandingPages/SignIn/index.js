@@ -67,7 +67,7 @@ function SignInBasic() {
       />
       <MKBox px={1} width="100%" height="100vh" mx="auto" position="relative" zIndex={2}>
         <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
-          <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
+          <Grid item xs={10} sm={8} md={5} lg={4} xl={3}>
             <Card>
               <MKBox
                 variant="gradient"
@@ -76,7 +76,7 @@ function SignInBasic() {
                 coloredShadow="info"
                 mx={2}
                 mt={-3}
-                p={2}
+                p={{ lg: 1, xl: 2 }}
                 mb={1}
                 textAlign="center"
               >
@@ -95,7 +95,7 @@ function SignInBasic() {
                     <MKInput type="email" label="Email" fullWidth />
                   </MKBox>
                   {/* password */}
-                  <MKBox mb={2}>
+                  <MKBox>
                     <MKInput type="password" label="Password" fullWidth />
                   </MKBox>
                   {/* remember me */}
@@ -111,12 +111,12 @@ function SignInBasic() {
                       &nbsp;&nbsp;Remember me
                     </MKTypography>
                   </MKBox>
-                  <MKBox mt={4} mb={1}>
+                  <MKBox mt={2} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth>
                       Login
                     </MKButton>
                   </MKBox>
-                  <MKBox mt={3} mb={1} textAlign="center">
+                  <MKBox mt={1} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
                       Don&apos;t have an account?{" "}
                       <MKTypography

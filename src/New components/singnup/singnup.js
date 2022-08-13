@@ -16,13 +16,13 @@ import MKButton from "components/MKButton";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import SimpleFooter from "examples/Footers/SimpleFooter";
 
 // Material Kit 2 React page layout routes
 import routes from "routes";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import SimpleFooter from "examples/Footers/SimpleFooter";
 
 function SignUpBasic() {
   // for showing profile
@@ -41,7 +41,7 @@ function SignUpBasic() {
         left={0}
         zIndex={1}
         width="100%"
-        minHeight="100vh"
+        minHeight={{ lg: "115vh", md: "120vh", sm: "125vh", xs: "130vh", xl: "115vh" }}
         sx={{
           backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
             `${linearGradient(
@@ -53,9 +53,15 @@ function SignUpBasic() {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <MKBox px={1} width="100%" height="100vh" mx="auto" position="relative" zIndex={2}>
+      <MKBox
+        width="100%"
+        height={{ lg: "115vh", md: "120vh", sm: "125vh", xs: "130vh", xl: "115vh" }}
+        mx="auto"
+        position="relative"
+        zIndex={2}
+      >
         <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
-          <Grid item xl="auto">
+          <Grid item>
             <Card>
               <MKBox
                 variant="gradient"
@@ -64,7 +70,7 @@ function SignUpBasic() {
                 coloredShadow="info"
                 mx={2}
                 mt={-3}
-                p={2}
+                p={{ lg: -2, xl: 1 }}
                 mb={1}
                 textAlign="center"
               >
@@ -72,69 +78,85 @@ function SignUpBasic() {
                   Sign Up
                 </MKTypography>
               </MKBox>
-              <MKBox pt={4} pb={3} px={3}>
+              <MKBox pt={2} pb={0} px={3}>
                 <MKBox component="form" role="form">
                   {/* inputs for signup form */}
                   {/* first name */}
                   <Grid display="flex">
-                    <MKBox mb={2}>
-                      <MKInput type="text" label="First Name" sx={{ width: 200 }} />
+                    <MKBox mb={1}>
+                      <MKInput type="text" label="First Name" width={{ xl: 200, lg: 150 }} />
                     </MKBox>
                     {/* last name */}
-                    <MKBox mb={2}>
-                      <MKInput type="text" label="Last Name" sx={{ width: 200, ml: 3 }} />
+                    <MKBox mb={1}>
+                      <MKInput
+                        type="text"
+                        label="Last Name"
+                        sx={{ ml: 3 }}
+                        width={{ xl: 200, lg: 150 }}
+                      />
                     </MKBox>
                   </Grid>
                   {/* mail */}
                   <Grid>
-                    <MKBox mb={2}>
-                      <MKInput type="email" label="Email" fullWidth />
+                    <MKBox mb={1}>
+                      <MKInput type="email" label="Email" fullWidth width={{ lg: 300 }} />
                     </MKBox>
                   </Grid>
                   {/* password */}
                   <Grid display="flex">
-                    <MKBox mb={2}>
-                      <MKInput type="password" label="Password" sx={{ width: 200 }} />
+                    <MKBox mb={1}>
+                      <MKInput type="password" label="Password" width={{ xl: 200, lg: 150 }} />
                     </MKBox>
-                    <MKBox mb={2}>
+                    <MKBox mb={1}>
                       <MKInput
                         type="password"
                         label="Confirm Password"
-                        sx={{ width: 200, ml: 3 }}
+                        width={{ xl: 200, lg: 150 }}
+                        sx={{ ml: 3 }}
                       />
                     </MKBox>
                   </Grid>
                   {/* company,industry */}
                   <Grid display="flex">
-                    <MKBox mb={2}>
-                      <MKInput type="text" label="Company / Organization" sx={{ width: 200 }} />
+                    <MKBox mb={1}>
+                      <MKInput
+                        type="text"
+                        label="Company / Organization"
+                        width={{ xl: 200, lg: 150 }}
+                      />
                     </MKBox>
-                    <MKBox mb={2}>
-                      <MKInput type="text" label="Industry" sx={{ width: 200, ml: 3 }} />
+                    <MKBox mb={1}>
+                      <MKInput
+                        type="text"
+                        label="Industry"
+                        sx={{ ml: 3 }}
+                        width={{ xl: 200, lg: 150 }}
+                      />
                     </MKBox>
                   </Grid>
                   {/* country */}
                   <Grid>
-                    <MKBox mb={2}>
+                    <MKBox mb={1}>
                       <MKInput type="country" label="Country" fullWidth />
                     </MKBox>
                   </Grid>
                   {/* Phone */}
                   <Grid display="flex">
-                    <MKBox mb={2}>
+                    <MKBox mb={1}>
                       <MKInput
                         type="mobile"
                         label="Phone"
                         pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                        sx={{ width: 200 }}
+                        width={{ xl: 200, lg: 150 }}
                       />
                     </MKBox>
                     {/* Aadhar */}
-                    <MKBox mb={2}>
+                    <MKBox>
                       <MKInput
                         type="text"
                         label="Aadhar (Indian users Only)"
-                        sx={{ width: 200, ml: 3 }}
+                        width={{ xl: 200, lg: 150 }}
+                        sx={{ ml: 3 }}
                       />
                     </MKBox>
                   </Grid>
@@ -152,7 +174,7 @@ function SignUpBasic() {
                       <a href="#t&c">Terms and Conditions</a>
                     </MKTypography>
                   </MKBox>
-                  <MKBox mt={4} mb={1}>
+                  <MKBox mt={2}>
                     <MKButton
                       variant="gradient"
                       component={Link}
@@ -163,7 +185,7 @@ function SignUpBasic() {
                       Sign Up
                     </MKButton>
                   </MKBox>
-                  <MKBox mt={3} mb={1} textAlign="center">
+                  <MKBox mt={1} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
                       Already have an account?{" "}
                       <MKTypography
@@ -184,7 +206,7 @@ function SignUpBasic() {
           </Grid>
         </Grid>
       </MKBox>
-      <MKBox width="100%" position="absolute" zIndex={2} bottom="1.625rem">
+      <MKBox width="100%" position="absolute" zIndex={2} bottom="-4.625rem">
         <SimpleFooter light />
       </MKBox>
     </>
