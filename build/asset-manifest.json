@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/material-kit-react/static/js/main.106ca359.chunk.js",
-    "main.js.map": "/material-kit-react/static/js/main.106ca359.chunk.js.map",
+    "main.js": "/material-kit-react/static/js/main.6ed2ef34.chunk.js",
+    "main.js.map": "/material-kit-react/static/js/main.6ed2ef34.chunk.js.map",
     "runtime-main.js": "/material-kit-react/static/js/runtime-main.73ab262f.js",
     "runtime-main.js.map": "/material-kit-react/static/js/runtime-main.73ab262f.js.map",
-    "static/js/2.42c0eaf8.chunk.js": "/material-kit-react/static/js/2.42c0eaf8.chunk.js",
-    "static/js/2.42c0eaf8.chunk.js.map": "/material-kit-react/static/js/2.42c0eaf8.chunk.js.map",
+    "static/js/2.0f83e65b.chunk.js": "/material-kit-react/static/js/2.0f83e65b.chunk.js",
+    "static/js/2.0f83e65b.chunk.js.map": "/material-kit-react/static/js/2.0f83e65b.chunk.js.map",
     "index.html": "/material-kit-react/index.html",
-    "static/js/2.42c0eaf8.chunk.js.LICENSE.txt": "/material-kit-react/static/js/2.42c0eaf8.chunk.js.LICENSE.txt",
+    "static/js/2.0f83e65b.chunk.js.LICENSE.txt": "/material-kit-react/static/js/2.0f83e65b.chunk.js.LICENSE.txt",
     "static/media/bg-about-us.cf9a123e.jpg": "/material-kit-react/static/media/bg-about-us.cf9a123e.jpg",
     "static/media/bg-presentation.88963029.jpg": "/material-kit-react/static/media/bg-presentation.88963029.jpg",
     "static/media/bg-sign-in-basic.f327db1d.jpeg": "/material-kit-react/static/media/bg-sign-in-basic.f327db1d.jpeg",
@@ -31,7 +31,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.73ab262f.js",
-    "static/js/2.42c0eaf8.chunk.js",
-    "static/js/main.106ca359.chunk.js"
+    "static/js/2.0f83e65b.chunk.js",
+    "static/js/main.6ed2ef34.chunk.js"
   ]
 }
