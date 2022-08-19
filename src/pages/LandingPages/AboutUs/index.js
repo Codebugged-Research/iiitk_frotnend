@@ -28,10 +28,10 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // About Us page sections
-import Information from "pages/LandingPages/AboutUs/sections/Information";
+// import Information from "pages/LandingPages/AboutUs/sections/Information";
 import Team from "pages/LandingPages/AboutUs/sections/Team";
-import Featuring from "pages/LandingPages/AboutUs/sections/Featuring";
-import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
+// import Featuring from "pages/LandingPages/AboutUs/sections/Featuring";
+// import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
 
 // Routes
 import routes from "routes";
@@ -129,10 +129,26 @@ function AboutUs() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <Information />
-        <Team />
-        <Featuring />
-        <Newsletter />
+        <Grid mb={20}>
+          <MKBox component="section" py={10}>
+            <Container>
+              <Grid xs={12} lg={4} sx={{ mx: "auto", textAlign: "left" }}>
+                <MKTypography variant="h2">Mission</MKTypography>
+                {/* <MKTypography variant="h2" color="info" textGradient mb={2}>
+                &nbsp;&nbsp;&nbsp;Limulator
+              </MKTypography> */}
+                <MKTypography variant="body1" color="text" mb={2} mt={5}>
+                  <ul>
+                    <li>Sharing labelled data for free and commercially</li>
+                    <li>Letting people run Limulator and generate data </li>
+                    <li>Letting people test their DL models on data available on site</li>
+                  </ul>
+                </MKTypography>
+              </Grid>
+            </Container>
+          </MKBox>
+          <Team />
+        </Grid>
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
