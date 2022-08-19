@@ -28,16 +28,22 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
 function DefaultFooter({ content }) {
-  const { brand, socials, menus, copyright } = content;
+  const { brand, socials, menus } = content;
 
   return (
     <MKBox component="footer">
       <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={3} sx={{ ml: "auto", mb: 3 }}>
+        <Grid container spacing={3} mb={10}>
+          <Grid item xs={12} md={7} sx={{ ml: "auto", mb: 3 }}>
             <MKBox>
               <Link to={brand.route}>
-                <MKBox component="img" src={brand.image} alt={brand.name} maxWidth="2rem" mb={2} />
+                <MKBox
+                  component="img"
+                  src={brand.image}
+                  alt={brand.name}
+                  maxWidth="2.5rem"
+                  mb={2}
+                />
               </Link>
               <MKTypography variant="h6">{brand.name}</MKTypography>
             </MKBox>
@@ -60,7 +66,7 @@ function DefaultFooter({ content }) {
             </MKBox>
           </Grid>
           {menus.map(({ name: title, items }) => (
-            <Grid key={title} item xs={6} md={2} sx={{ mb: 3 }}>
+            <Grid key={title} item xs={8} md={2.5} sx={{ mb: 3 }}>
               <MKTypography
                 display="block"
                 variant="button"
@@ -101,9 +107,9 @@ function DefaultFooter({ content }) {
               </MKBox>
             </Grid>
           ))}
-          <Grid item xs={12} sx={{ textAlign: "center", my: 3 }}>
+          {/* <Grid item xs={12} sx={{ textAlign: "center", my: 3 }}>
             {copyright}
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </MKBox>
