@@ -21,22 +21,21 @@ import Card from "@mui/material/Card";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import MKSocialButton from "components/MKSocialButton";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
-import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
+// import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 
 // Presentation page sections
 import Counters from "pages/Presentation/sections/Counters";
 import Information from "pages/Presentation/sections/Information";
 
 import Testimonials from "pages/Presentation/sections/Testimonials";
-import Download from "pages/Presentation/sections/Download";
+// import Download from "pages/Presentation/sections/Download";
 // import SignInPage from "layouts/pages/authentication/sign-in";
 // Presentation page components
-import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
+// import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 
 // Routes
 import routes from "routes";
@@ -109,12 +108,35 @@ function Presentation() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
+        <MKBox component="section" py={10}>
+          <Container>
+            <Grid
+              container
+              item
+              xs={12}
+              lg={8.2}
+              justifyContent="center"
+              sx={{ mx: "auto", textAlign: "center" }}
+            >
+              <MKTypography variant="h2">About Limulator</MKTypography>
+              {/* <MKTypography variant="h2" color="info" textGradient mb={2}>
+                &nbsp;&nbsp;&nbsp;Limulator
+              </MKTypography> */}
+              <MKTypography variant="body1" color="text" mb={2} mt={5}>
+                Limulator aims at generating LiDAR data as per user specifications. The software
+                facilitates user to create terrain of his/her choice using available tools. User has
+                option for selection of either generic sensor or commercially available sensors and
+                can set their parameters accordingly. The simulator generates LiDAR data similar to
+                a real LiDAR sensor for further display and analysis. The readily available accurate
+                ground truth and the ability to produce LiDAR data with different specifications
+                make this software also suitable for algorithm testing and research.
+              </MKTypography>
+            </Grid>
+          </Container>
+        </MKBox>
         <Counters />
         <Information />
-        <Container sx={{ mt: 6 }}>
-          <BuiltByDevelopers />
-        </Container>
-        <Container>
+        {/* <Container>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={4}>
               <FilledInfoCard
@@ -157,58 +179,15 @@ function Presentation() {
               />
             </Grid>
           </Grid>
-        </Container>
+        </Container> */}
         <Testimonials />
-        <Download />
+        {/* <Download /> */}
         <MKBox pt={18} pb={6}>
           <Container>
-            <Grid container spacing={3}>
-              <Grid item xs={12} lg={5} ml="auto" sx={{ textAlign: { xs: "center", lg: "left" } }}>
-                <MKTypography variant="h4" fontWeight="bold" mb={0.5}>
-                  Thank you for your support!
-                </MKTypography>
-                <MKTypography variant="body1" color="text">
-                  We deliver the best web products
-                </MKTypography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                lg={5}
-                my={{ xs: 5, lg: "auto" }}
-                mr={{ xs: 0, lg: "auto" }}
-                sx={{ textAlign: { xs: "center", lg: "right" } }}
-              >
-                <MKSocialButton
-                  component="a"
-                  href="https://twitter.com/intent/tweet?text=Check%20Material%20Design%20System%20made%20by%20%40CreativeTim%20%23webdesign%20%23designsystem%20%23mui5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fmaterial-kit-react"
-                  target="_blank"
-                  color="twitter"
-                  sx={{ mr: 1 }}
-                >
-                  <i className="fab fa-twitter" />
-                  &nbsp;Tweet
-                </MKSocialButton>
-                <MKSocialButton
-                  component="a"
-                  href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-kit-react"
-                  target="_blank"
-                  color="facebook"
-                  sx={{ mr: 1 }}
-                >
-                  <i className="fab fa-facebook" />
-                  &nbsp;Share
-                </MKSocialButton>
-                <MKSocialButton
-                  component="a"
-                  href="https://www.pinterest.com/pin/create/button/?url=https://www.creative-tim.com/product/material-kit-react"
-                  target="_blank"
-                  color="pinterest"
-                >
-                  <i className="fab fa-pinterest" />
-                  &nbsp;Pin it
-                </MKSocialButton>
-              </Grid>
+            <Grid sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+              <MKTypography variant="h4" fontWeight="bold" mb={0.5}>
+                Thank you for your support!
+              </MKTypography>
             </Grid>
           </Container>
         </MKBox>

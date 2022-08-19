@@ -34,24 +34,24 @@ function Counters() {
               count={70}
               suffix="+"
               title="Customers"
-              description="From buttons, to inputs, navbars, alerts or cards, you are covered"
+              description="From clear to dusty environment you are covered"
             />
           </Grid>
           <Grid item xs={12} md={4} display="flex">
             <Divider orientation="vertical" sx={{ display: { xs: "none", md: "block" }, mx: 0 }} />
             <DefaultCounterCard
-              count={15}
+              count={5}
               suffix="+"
               title="Caputurable Terrains"
-              description="Mix the sections, change the colors and unleash your creativity"
+              description="urban ,semi-urban,forest and rural terrains"
             />
             <Divider orientation="vertical" sx={{ display: { xs: "none", md: "block" }, ml: 0 }} />
           </Grid>
           <Grid item xs={12} md={4}>
             <DefaultCounterCard
               count={4}
-              title="Pages"
-              description="Save 3-4 weeks of work when you use our pre-made pages for your website"
+              title="Sensors"
+              description="You can measure using ALS,MLS,TLS and ULS sensors"
             />
           </Grid>
         </Grid>
