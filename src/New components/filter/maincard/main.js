@@ -137,8 +137,8 @@ function Main({ checked, filterParams }) {
 
         <MKBox
           variant="gradient"
-          bgColor="info"
-          coloredShadow="info"
+          bgColor="secondary"
+          coloredShadow="dark"
           borderRadius="lg"
           pt="2%"
           pb="2%"

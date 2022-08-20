@@ -6,8 +6,11 @@ import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 /* eslint-disable */
 function Downloadcard({ name, btnName }) {
+  const [show,setShow] = React.useState(false);
 const [downloadInput, setDownloadInput] = React.useState(20);
 
   const inputHandler = (e) => {
@@ -33,8 +36,8 @@ const [downloadInput, setDownloadInput] = React.useState(20);
       >
         <MKBox
           variant="gradient"
-          bgColor="info"
-          coloredShadow="info"
+          bgColor="secondary"
+          coloredShadow="secondary"
           borderRadius="lg"
           p={2}
           mx="20%"
@@ -50,6 +53,18 @@ const [downloadInput, setDownloadInput] = React.useState(20);
                   <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormGroup>
                       {/*selection download*/}
+
+                      <MKButton
+                        variant="gradient"
+                        height="fit-content"
+                        width="fit-content"
+                        color="info"
+                        onClick={() => setShow(!show)}
+                        sx={{ mt: 2 }}
+                      >
+                        Download Top {downloadInput}% {show ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                      </MKButton>
+                      {show &&
                       <Slider
                         color="secondary"
                         defaultValue={20}
@@ -60,17 +75,7 @@ const [downloadInput, setDownloadInput] = React.useState(20);
                         min={10}
                         onChange={inputHandler}
                         max={100}
-                      />
-
-                      <MKButton
-                        variant="gradient"
-                        height="fit-content"
-                        width="fit-content"
-                        color="info"
-                        sx={{ mt: 2 }}
-                      >
-                        Download {downloadInput}%
-                      </MKButton>
+                      />}
                       {btnName.map((btnName, index) => {
                         return (
                           <MKButton

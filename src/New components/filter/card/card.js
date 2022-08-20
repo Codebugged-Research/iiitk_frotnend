@@ -71,6 +71,7 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
           <>
             <MKBox
               pl={7}
+              mt={2}
               sx={
                 searchBar
                   ? {
