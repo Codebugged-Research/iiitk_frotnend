@@ -36,11 +36,11 @@ const [downloadInput, setDownloadInput] = React.useState(20);
       >
         <MKBox
           variant="gradient"
-          bgColor="secondary"
-          coloredShadow="secondary"
-          borderRadius="lg"
+          bgColor="info"
+          coloredShadow="info"
           p={2}
           mx="20%"
+          pl={3}
         >
           <MKTypography variant="h5" color="white">
             {name}
@@ -60,7 +60,7 @@ const [downloadInput, setDownloadInput] = React.useState(20);
                         width="fit-content"
                         color="info"
                         onClick={() => setShow(!show)}
-                        sx={{ mt: 2 }}
+                        sx={{ mt: 2}}
                       >
                         Download Top {downloadInput}% {show ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                       </MKButton>
