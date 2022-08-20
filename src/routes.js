@@ -1,6 +1,6 @@
 // @mui material components
 import Icon from "@mui/material/Icon";
-import Search from "@mui/icons-material/Search";
+import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Profile from "New components/profile/profile";
 
@@ -33,7 +33,6 @@ import Profile from "New components/profile/profile";
 // import Toggles from "layouts/sections/elements/toggles";
 // import Typography from "layouts/sections/elements/typography";
 import Filter1 from "New components/filter/filter1";
-import AboutUs from "pages/LandingPages/AboutUs";
 import Presentation from "pages/Presentation";
 // import Presentation from "pages/Presentation";
 
@@ -43,12 +42,6 @@ const routes = [
     route: "/home",
     icon: <Icon>home</Icon>,
     component: <Presentation />,
-  },
-  {
-    name: "about us",
-    route: "/about",
-    icon: <Icon>dashboard</Icon>,
-    component: <AboutUs />,
   },
   /* 
   {
@@ -62,9 +55,9 @@ const routes = [
     component: "",
   },   */
   {
-    name: "search",
+    name: "data",
     route: "/filter/segmented",
-    icon: <Search />,
+    icon: <FolderOpenOutlinedIcon />,
     component: <Filter1 />,
   },
   {

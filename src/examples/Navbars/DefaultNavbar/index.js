@@ -583,7 +583,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
 
 // Setting default values for the props of DefaultNavbar
 DefaultNavbar.defaultProps = {
-  brand: <h2> Limulator</h2>,
+  brand: <h2> LidaVerse</h2>,
   transparent: false,
   light: false,
   action: false,

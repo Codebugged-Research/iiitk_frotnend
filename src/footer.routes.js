@@ -14,7 +14,7 @@ const date = new Date().getFullYear();
 
 export default {
   brand: {
-    name: "Limulator",
+    name: "LidaVerse",
     image: logoCT,
     route: "/",
   },

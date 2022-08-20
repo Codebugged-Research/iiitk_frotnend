@@ -42,6 +42,10 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/images/bg-presentation.jpg";
+import AboutUs from "pages/LandingPages/AboutUs";
+import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
+import Download from "./sections/Download";
+import BuiltByDevelopers from "./components/BuiltByDevelopers";
 
 function Presentation() {
   return (
@@ -82,7 +86,7 @@ function Presentation() {
                 },
               })}
             >
-              Limulator{" "}
+              LidaVerse{" "}
             </MKTypography>
             <MKTypography
               variant="body1"
@@ -118,12 +122,12 @@ function Presentation() {
               justifyContent="center"
               sx={{ mx: "auto", textAlign: "center" }}
             >
-              <MKTypography variant="h2">About Limulator</MKTypography>
+              <MKTypography variant="h2">About LidaVerse</MKTypography>
               {/* <MKTypography variant="h2" color="info" textGradient mb={2}>
                 &nbsp;&nbsp;&nbsp;Limulator
               </MKTypography> */}
               <MKTypography variant="body1" color="text" mb={2} mt={5}>
-                Limulator aims at generating LiDAR data as per user specifications. The software
+                LidaVerse aims at generating LiDAR data as per user specifications. The software
                 facilitates user to create terrain of his/her choice using available tools. User has
                 option for selection of either generic sensor or commercially available sensors and
                 can set their parameters accordingly. The simulator generates LiDAR data similar to
@@ -136,7 +140,10 @@ function Presentation() {
         </MKBox>
         <Counters />
         <Information />
-        {/* <Container>
+        <Container sx={{ mt: 6 }}>
+          <BuiltByDevelopers />
+        </Container>
+        <Container>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={4}>
               <FilledInfoCard
@@ -179,10 +186,11 @@ function Presentation() {
               />
             </Grid>
           </Grid>
-        </Container> */}
+        </Container>
         <Testimonials />
-        {/* <Download /> */}
-        <MKBox pt={18} pb={6}>
+        <Download />
+        <AboutUs />
+        <MKBox pb={10}>
           <Container>
             <Grid sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
               <MKTypography variant="h4" fontWeight="bold" mb={0.5}>
