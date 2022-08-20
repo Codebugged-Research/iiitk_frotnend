@@ -236,7 +236,7 @@ function Main({ checked, filterParams }) {
                     variant="gradient"
                     color="info"
                     onClick={() => {
-                      window.open("http://127.0.0.1:5501/threepcs.html", "_blank");
+                      window.open("http://127.0.0.1:5500/threepcs.html", "_blank");
                     }}
                   >
                     Visualize

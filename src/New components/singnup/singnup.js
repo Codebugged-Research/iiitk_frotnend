@@ -28,6 +28,42 @@ function SignUpBasic() {
   // for showing profile
   // const [profile, setProfile] = useState(false);
 
+  // handle text field change
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [country, setCountry] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Aadhar, setAadhar] = useState("");
+
+  // post request to server
+  const postSignupData = async (event) => {
+    event.preventDefault();
+    if (password === confirmPassword) {
+      const response = await fetch("http://65.2.69.9/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_nbame: lastName,
+          email,
+          password,
+          country,
+          phone: Phone,
+          aadhar: Aadhar,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } else {
+      alert("Password and Confirm Password should be same")
+    }
+  };
+
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
@@ -84,12 +120,15 @@ function SignUpBasic() {
                   {/* first name */}
                   <Grid display="flex">
                     <MKBox mb={1}>
-                      <MKInput type="text" label="First Name" width={{ xl: 200, lg: 150 }} />
+                      <MKInput type="text" label="First Name" width={{ xl: 200, lg: 150 }}
+                        onChange={(event) => setFirstName(event.target.value)}
+                      />
                     </MKBox>
                     {/* last name */}
                     <MKBox mb={1}>
                       <MKInput
                         type="text"
+                        onChange={(event) => setLastName(event.target.value)}
                         label="Last Name"
                         sx={{ ml: 3 }}
                         width={{ xl: 200, lg: 150 }}
@@ -99,25 +138,30 @@ function SignUpBasic() {
                   {/* mail */}
                   <Grid>
                     <MKBox mb={1}>
-                      <MKInput type="email" label="Email" fullWidth width={{ lg: 300 }} />
+                      <MKInput type="email" label="Email" fullWidth width={{ lg: 300 }} onChange={
+                        (event) => setEmail(event.target.value)
+                      } />
                     </MKBox>
                   </Grid>
                   {/* password */}
                   <Grid display="flex">
                     <MKBox mb={1}>
-                      <MKInput type="password" label="Password" width={{ xl: 200, lg: 150 }} />
+                      <MKInput type="password" label="Password" width={{ xl: 200, lg: 150 }}
+                        onChange={(event) => setPassword(event.target.value)}
+                      />
                     </MKBox>
                     <MKBox mb={1}>
                       <MKInput
                         type="password"
                         label="Confirm Password"
+                        onChange  ={(event) => setConfirmPassword(event.target.value)}
                         width={{ xl: 200, lg: 150 }}
                         sx={{ ml: 3 }}
                       />
                     </MKBox>
                   </Grid>
                   {/* company,industry */}
-                  <Grid display="flex">
+                  {/* <Grid display="flex">
                     <MKBox mb={1}>
                       <MKInput
                         type="text"
@@ -133,11 +177,13 @@ function SignUpBasic() {
                         width={{ xl: 200, lg: 150 }}
                       />
                     </MKBox>
-                  </Grid>
+                  </Grid> */}
                   {/* country */}
                   <Grid>
                     <MKBox mb={1}>
-                      <MKInput type="country" label="Country" fullWidth />
+                      <MKInput type="country" label="Country" fullWidth 
+                        onChange={(event) => setCountry(event.target.value)}
+                      />
                     </MKBox>
                   </Grid>
                   {/* Phone */}
@@ -146,6 +192,7 @@ function SignUpBasic() {
                       <MKInput
                         type="mobile"
                         label="Phone"
+                        onChange={(event) => setPhone(event.target.value)}
                         pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                         width={{ xl: 200, lg: 150 }}
                       />
@@ -154,6 +201,7 @@ function SignUpBasic() {
                     <MKBox>
                       <MKInput
                         type="text"
+                        onChange={(event) => setAadhar(event.target.value)}
                         label="Aadhar (Indian users Only)"
                         width={{ xl: 200, lg: 150 }}
                         sx={{ ml: 3 }}
@@ -181,6 +229,7 @@ function SignUpBasic() {
                       to="/presentation"
                       color="info"
                       fullWidth
+                      onClick={postSignupData}
                     >
                       Sign Up
                     </MKButton>
