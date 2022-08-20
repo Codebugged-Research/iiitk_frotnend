@@ -1,3 +1,4 @@
+/*eslint-disable */
 import { useState } from "react";
 
 // react-router-dom components
@@ -60,7 +61,7 @@ function SignUpBasic() {
       const data = await response.json();
       console.log(data);
     } else {
-      alert("Password and Confirm Password should be same")
+      alert("Password and Confirm Password should be same");
     }
   };
 
@@ -77,9 +78,18 @@ function SignUpBasic() {
         left={0}
         zIndex={1}
         width="100%"
-        minHeight={{ lg: "115vh", md: "120vh", sm: "125vh", xs: "130vh", xl: "115vh" }}
+        minHeight={{
+          lg: "115vh",
+          md: "120vh",
+          sm: "125vh",
+          xs: "130vh",
+          xl: "115vh",
+        }}
         sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
+          backgroundImage: ({
+            functions: { linearGradient, rgba },
+            palette: { gradients },
+          }) =>
             `${linearGradient(
               rgba(gradients.dark.main, 0.6),
               rgba(gradients.dark.state, 0.6)
@@ -91,12 +101,24 @@ function SignUpBasic() {
       />
       <MKBox
         width="100%"
-        height={{ lg: "115vh", md: "120vh", sm: "125vh", xs: "130vh", xl: "115vh" }}
+        height={{
+          lg: "115vh",
+          md: "120vh",
+          sm: "125vh",
+          xs: "130vh",
+          xl: "115vh",
+        }}
         mx="auto"
         position="relative"
         zIndex={2}
       >
-        <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
+        <Grid
+          container
+          spacing={1}
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+        >
           <Grid item>
             <Card>
               <MKBox
@@ -110,7 +132,13 @@ function SignUpBasic() {
                 mb={1}
                 textAlign="center"
               >
-                <MKTypography variant="h4" fontWeight="medium" id="signup" color="white" m={2}>
+                <MKTypography
+                  variant="h4"
+                  fontWeight="medium"
+                  id="signup"
+                  color="white"
+                  m={2}
+                >
                   Sign Up
                 </MKTypography>
               </MKBox>
@@ -120,7 +148,10 @@ function SignUpBasic() {
                   {/* first name */}
                   <Grid display="flex">
                     <MKBox mb={1}>
-                      <MKInput type="text" label="First Name" width={{ xl: 200, lg: 150 }}
+                      <MKInput
+                        type="text"
+                        label="First Name"
+                        width={{ xl: 200, lg: 150 }}
                         onChange={(event) => setFirstName(event.target.value)}
                       />
                     </MKBox>
@@ -138,15 +169,22 @@ function SignUpBasic() {
                   {/* mail */}
                   <Grid>
                     <MKBox mb={1}>
-                      <MKInput type="email" label="Email" fullWidth width={{ lg: 300 }} onChange={
-                        (event) => setEmail(event.target.value)
-                      } />
+                      <MKInput
+                        type="email"
+                        label="Email"
+                        fullWidth
+                        width={{ lg: 300 }}
+                        onChange={(event) => setEmail(event.target.value)}
+                      />
                     </MKBox>
                   </Grid>
                   {/* password */}
                   <Grid display="flex">
                     <MKBox mb={1}>
-                      <MKInput type="password" label="Password" width={{ xl: 200, lg: 150 }}
+                      <MKInput
+                        type="password"
+                        label="Password"
+                        width={{ xl: 200, lg: 150 }}
                         onChange={(event) => setPassword(event.target.value)}
                       />
                     </MKBox>
@@ -154,7 +192,9 @@ function SignUpBasic() {
                       <MKInput
                         type="password"
                         label="Confirm Password"
-                        onChange  ={(event) => setConfirmPassword(event.target.value)}
+                        onChange={(event) =>
+                          setConfirmPassword(event.target.value)
+                        }
                         width={{ xl: 200, lg: 150 }}
                         sx={{ ml: 3 }}
                       />
@@ -181,7 +221,10 @@ function SignUpBasic() {
                   {/* country */}
                   <Grid>
                     <MKBox mb={1}>
-                      <MKInput type="country" label="Country" fullWidth 
+                      <MKInput
+                        type="country"
+                        label="Country"
+                        fullWidth
                         onChange={(event) => setCountry(event.target.value)}
                       />
                     </MKBox>
@@ -210,7 +253,10 @@ function SignUpBasic() {
                   </Grid>
 
                   <MKBox display="flex" alignItems="center" ml={-1}>
-                    <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+                    <Switch
+                      checked={rememberMe}
+                      onChange={handleSetRememberMe}
+                    />
                     <MKTypography
                       variant="button"
                       fontWeight="regular"
@@ -218,8 +264,8 @@ function SignUpBasic() {
                       onClick={handleSetRememberMe}
                       sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
                     >
-                      &nbsp;&nbsp;<b style={{ color: "red" }}>* </b>I Agree to the{" "}
-                      <a href="#t&c">Terms and Conditions</a>
+                      &nbsp;&nbsp;<b style={{ color: "red" }}>* </b>I Agree to
+                      the <a href="#t&c">Terms and Conditions</a>
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={2}>

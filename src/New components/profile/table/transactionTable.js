@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   tableContainer: {
     borderRadius: 15,
     width: "50%",
-    height: "500px",
+    height: "fitContent",
     borderCollapse: "collapse",
     borderSpacing: 0,
     overFlow: "hidden",

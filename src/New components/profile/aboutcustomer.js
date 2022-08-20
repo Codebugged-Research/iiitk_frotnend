@@ -25,7 +25,7 @@ function AboutCustomer({ value }) {
       </MKTypography>
       <Container>
         <Grid container position="relative" alignItems="center">
-          <Grid display="flex" md={5} height={660}>
+          <Grid display="flex" md={5} height="fitContent">
             <MKBox>
               {/* tabs */}
               <TabContext value={value} orientation="vertical">
@@ -33,7 +33,7 @@ function AboutCustomer({ value }) {
                   sx={{
                     flexGrow: 1,
                     position: "relative",
-                    height: 324,
+                    height: "fitContent",
                     width: 400,
                   }}
                 >
