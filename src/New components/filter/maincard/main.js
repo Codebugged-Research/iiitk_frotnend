@@ -62,8 +62,8 @@ function Main({ checked, filterParams }) {
     axios
       .get(
         checked
-          ? `http://143.110.249.208:3000/items/pcd_instance?fields=*,io_files.directus_files_id`
-          : `http://143.110.249.208:3000/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*`
+          ? `https://admin.lidaverse.com/items/pcd_instance?fields=*,io_files.directus_files_id`
+          : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*`
       )
       .then((res) => {
         const resp = res.data.data;
@@ -193,9 +193,7 @@ function Main({ checked, filterParams }) {
               <h3>
                 {checked
                   ? detail.name
-                  : detail.pcd_instance_id.name.split("_").join(" ") +
-                    "\n" +
-                    detail.directus_files_id.title.split(" ").pop()}
+                  : detail.pcd_instance_id.name.split("_").join(" ")}
               </h3>
               <p>
                 <strong>Place:</strong> {checked ? detail.place : detail.pcd_instance_id.place}
