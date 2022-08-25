@@ -12,7 +12,7 @@ function Main({ checked, filterParams }) {
   const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
-  const [filterString, setFilterString] = React.useState("");
+  // const [filterString, setFilterString] = React.useState("");
   const handleChange = (e, index) => {
     e.preventDefault();
     const isChecked = e.target.checked;
@@ -26,57 +26,55 @@ function Main({ checked, filterParams }) {
     setCheckList(newCheckList);
   };
   const handlleFilterString = (filterParam) => {
-    var filter = "?filter=";
+    var filter = "";
     if (filterParam.env !== "all") {
-      filter = filter + "&environment=" + filterParam.env;
+      filter = filter + "&filter[environment][_eq]=" + filterParam.env;
     }
     if (filterParam.datatype !== "all") {
-      filter = filter + "&data_type=" + filterParam.datatype;
+      filter = filter + "&filter[data_type][_eq]=" + filterParam.datatype;
     }
     if (filterParam.pointrecord !== "all") {
-      filter = filter + "&point_record=" + filterParam.pointrecord;
+      filter = filter + "&filter[point_record][_eq]=" + filterParam.pointrecord;
     }
     if (filterParam.terrain !== "all") {
-      filter = filter + "&terrain=" + filterParam.terrain;
+      filter = filter + "&filter[terrain][_eq]=" + filterParam.terrain;
     }
     if (filterParam.sensor !== "all") {
-      filter = filter + "&sensor=" + filterParam.sensor;
+      filter = filter + "&filter[sensor][_eq]=" + filterParam.sensor;
     }
     if (filterParam.charge !== "all") {
-      filter = filter + "&charge=" + filterParam.charge;
+      filter = filter + "&filter[charge][_eq]=" + filterParam.charge;
     }
     if (filterParam.dataDensity !== "all") {
-      filter = filter + "&data_density=" + filterParam.dataDensity;
+      filter = filter + "&filter[data_density][_eq]=" + filterParam.dataDensity;
     }
     if (filterParam.accuracy !== "all") {
-      filter = filter + "&accuracy=" + filterParam.accuracy;
+      filter = filter + "&filter[accuracy][_eq]=" + filterParam.accuracy;
     }
-    setFilterString(filter);
+    // setFilterString(filter);
+    filterData(filter);
   };
   React.useEffect(() => {
     handlleFilterString(filterParams);
-    filterData();
   }, [checked, filterParams]);
 
-  const filterData = () => {
+  const filterData = (filter) => {
     axios
       .get(
         checked
-          ? `https://admin.lidaverse.com/items/pcd_instance?fields=*,io_files.directus_files_id`
-          : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*`
+          ? `https://admin.lidaverse.com/items/pcd_instance?fields=*,io_files.directus_files_id&filter[status][_eq]=published${filter}`
+          : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*&filter[status][_eq]=published`
       )
       .then((res) => {
-        const resp = res.data.data;
         var newResults = [];
         if (checked) {
           newResults.push(...res.data.data);
-          // alert(newResults.length + " Segmented files found");
         } else {
           res.data.data.forEach((item) => {
             newResults.push(...item.io_files);
           });
-          // alert(newResults.length + " IO files found");
         }
+        console.log("newResults");
         checkList.fill(false, 0, newResults.length);
         setResults(newResults);
       });
