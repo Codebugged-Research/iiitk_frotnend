@@ -92,7 +92,7 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
               }
             >
               <MKBox width="100%" component="form" method="post" autocomplete="off">
-                <Grid container ml={-4}>
+                <Grid container ml={-2}>
                   <Grid item>
                     <h5>
                       <FormControl component="fieldset" variant="standard">
