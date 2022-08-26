@@ -5,6 +5,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Profile from "New components/profile/profile";
 import Filter1 from "New components/filter/filter1";
 import Presentation from "pages/Presentation";
+import Pricing from "New components/pricing/pricing";
 
 const routes = [
   {
@@ -21,9 +22,9 @@ const routes = [
   },
   {
     name: "pricing",
-    route: "#",
+    route: "/pricing",
     icon: <CurrencyRupeeIcon />,
-    component: "",
+    component: <Pricing />,
   },
   {
     name: "Profile",
