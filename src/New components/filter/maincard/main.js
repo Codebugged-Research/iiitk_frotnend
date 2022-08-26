@@ -63,7 +63,7 @@ function Main({ checked, filterParams }) {
       .get(
         checked
           ? `https://admin.lidaverse.com/items/pcd_instance?fields=*,io_files.directus_files_id&filter[status][_eq]=published${filter}`
-          : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*&filter[status][_eq]=published`
+          : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*&filter[status][_eq]=published${filter}`
       )
       .then((res) => {
         var newResults = [];
