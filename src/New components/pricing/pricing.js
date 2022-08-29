@@ -59,22 +59,22 @@ function Pricing() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <MKTypography variant="h2" color="text">
+        <MKTypography variant="h2" color="text" sx={{display:"flex",justifyContent:"center",alignItem:"center"}}>
           Pricing
         </MKTypography>
         {/*card container*/}
         <Container
           sx={{
             display: "flex",
-            justifyContent: "center",
-            alignItemsL: "center",
+            justifyContent: "spaceAround",
+            flexFlow:"wrap",
           }}
         >
           <Card
             sx={{
-              width: "25%",
-              boxShadow: ({ boxShadows: { l } }) => l,
-              mr: 5,
+              boxShadow: ({ boxShadows: { xxl } }) => xxl,
+              m: 3,
+              flex:"1 1 150px",
             }}
           >
             <MKTypography variant="h5" color="text" sx={{ m: 3 }}>
@@ -103,29 +103,28 @@ function Pricing() {
               height="fit-content"
               width="fit-content"
               color="info"
-              sx={{ mt: 2,mb:4, ml: 10,mr:10 , position:"relative",right:25}}
+              sx={{mb:3, ml: 10,mr:10 , position:"relative",right:25}}
             >
               Get Started
             </MKButton>
           </Card>
           <Card
             sx={{
-              width: "25%",
-              backgroundColor:"primary",
-              boxShadow: ({ boxShadows: { l } }) => l,
-              mr: 5,
+              backgroundImage: `linear-gradient(to bottom left,#49a3f1, #1A73E8)`,
+              boxShadow: ({ boxShadows: { xxl } }) => xxl,
+              m: 3,
+              flex:"1 1 150px",
             }}
           >
-            <MKTypography variant="h5" color="text" sx={{ m: 3 }}>
+            <MKTypography variant="h5" sx={{ m: 3 , color:"#f0f2f5"}}>
               Professional
             </MKTypography>
-            <MKTypography variant="h2" color="dark" ml={3}>
+            <MKTypography variant="h2" sx={{color:""}} ml={3}>
             ₹5000
             </MKTypography>
             <MKTypography
               variant="h5"
-              color="text"
-              sx={{ marginLeft: "25%" }}
+              sx={{ marginLeft: "25%" , color:"#f8f9fa"}}
               mb={3}
               mt={3}
             >
@@ -141,17 +140,17 @@ function Pricing() {
               variant="gradient"
               height="fit-content"
               width="fit-content"
-              color="info"
-              sx={{ mt: 2,mb:4, ml: 10,mr:10 , position:"relative",right:25}}
+              color="light"
+              sx={{ ml: 10,mr:10 , position:"relative",right:25}}
             >
               Get Started
             </MKButton>
           </Card>
           <Card
             sx={{
-              width: "25%",
-              boxShadow: ({ boxShadows: { l } }) => l,
-              mr: 5,
+              boxShadow: ({ boxShadows: { xxl } }) => xxl,
+              m: 3,
+              flex:"1 1 150px",
             }}
           >
             <MKTypography variant="h5" color="text" sx={{ m: 3 }}>
@@ -180,7 +179,7 @@ function Pricing() {
               height="fit-content"
               width="fit-content"
               color="info"
-              sx={{ mt: 2,mb:4, ml: 10,mr:10 , position:"relative",right:25}}
+              sx={{ ml: 10,mr:10 , position:"relative",right:25}}
             >
               Get Started
             </MKButton>
