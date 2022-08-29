@@ -52,7 +52,7 @@ function Pricing() {
       />
       <Card
         sx={{
-          p: 2,
+          p: 2 ,
           mx: { xs: 2, lg: 3 },
           mt: "-20%",
           mb: 4,
@@ -141,7 +141,7 @@ function Pricing() {
               height="fit-content"
               width="fit-content"
               color="light"
-              sx={{ ml: 10,mr:10 , position:"relative",right:25}}
+              sx={{mb:3, ml: 10,mr:10 , position:"relative",right:25}}
             >
               Get Started
             </MKButton>
@@ -179,7 +179,7 @@ function Pricing() {
               height="fit-content"
               width="fit-content"
               color="info"
-              sx={{ ml: 10,mr:10 , position:"relative",right:25}}
+              sx={{mb:3, ml: 10,mr:10 , position:"relative",right:25}}
             >
               Get Started
             </MKButton>
