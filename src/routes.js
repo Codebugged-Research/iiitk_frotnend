@@ -1,5 +1,6 @@
 // @mui material components
 import Icon from "@mui/material/Icon";
+import HomeIcon from '@mui/icons-material/Home';
 import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Profile from "New components/profile/profile";
@@ -11,7 +12,7 @@ const routes = [
   {
     name: "Home",
     route: "/home",
-    icon: <Icon>Home</Icon>,
+    icon: <HomeIcon />,
     component: <Presentation />,
   },
   {
