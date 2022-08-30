@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -39,10 +39,33 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+import AuthService from "../../../services/authservice";
+
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await AuthService.login(email, password).then(
+        () => {
+          navigate("/home");
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -88,15 +111,13 @@ function SignInBasic() {
                 <MKBox component="form" role="form">
                   {/* email */}
                   <MKBox mb={2}>
-                    <MKInput type="text" label="User Name" fullWidth />
-                  </MKBox>
-                  {/* email */}
-                  <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth />
+                    <MKInput type="email" label="Email" fullWidth
+                      onChange={(e) => setEmail(e.target.value)} />
                   </MKBox>
                   {/* password */}
                   <MKBox>
-                    <MKInput type="password" label="Password" fullWidth />
+                    <MKInput type="password" label="Password" fullWidth
+                      onChange={(e) => setPassword(e.target.value)} />
                   </MKBox>
                   {/* remember me */}
                   <MKBox display="flex" alignItems="center" ml={-1}>
@@ -112,7 +133,7 @@ function SignInBasic() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={2} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
+                    <MKButton variant="gradient" color="info" fullWidth onClick={handleLogin}>
                       Login
                     </MKButton>
                   </MKBox>

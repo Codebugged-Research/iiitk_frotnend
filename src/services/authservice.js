@@ -1,38 +1,73 @@
 import axios from "axios";
-const API_URL = "https://admin.lidaverse.com/";
-class AuthService {
-    async login(username, password) {
-        const response = await axios
-            .post(API_URL + "auth/login", {
-                username,
-                password
-            });
-        if (response.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
-    }
-    async refreshToken() {
-        const response = await axios.post(API_URL + "auth/refresh", {
-            refresh_token: this.getCurrentUser().refresh_token
-        });
-        if (response.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
-    }
-    logout() {
-        localStorage.removeItem("user");
-    }
-    register(username, email, password) {
-        return axios.post(API_URL + "users", {
-            username,
+
+const API_URL = "https://admin.lidaverse.com";
+const signup = (email, password) => {
+    console.log(email, password);
+    return axios
+        .post(`${API_URL}/signup`, {
             email,
-            password
+            password,
+        })
+        .then((response) => {
+            if (response.data.accessToken) {
+                localStorage.setItem("auth", JSON.stringify(response.data));
+            }
+            return response.data;
         });
-    }
-    getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));;
-    }
+};
+
+const login = (email, password) => {
+    console.log(email, password);
+    return axios
+        .post(`${API_URL}/auth/login`, {
+            email,
+            password,
+        })
+        .then((response) => {
+            console.log("Login response", response);
+            if (response.data) {
+                response.data.logintime = new Date();
+                localStorage.setItem("auth", JSON.stringify(response.data));
+                axios.get(`${API_URL}/users?filter[email][_eq]=${email}`, { Authorization: `Bearer ${response.data.access_token}` }).then((response2) => {
+                    console.log("User response", response2);
+                    if (response2.data) {
+                        localStorage.setItem("user", JSON.stringify(response2.data));
+                    }
+                });
+            }
+            return response.data;
+        });
+};
+
+const refreshToken = () => {
+    axios.post(`${API_URL}/auth/refresh`, {
+        "refresh_token": JSON.parse(localStorage.getItem("auth")).refresh_token,
+    }).then((response) => {
+        console.log("Refresh response", response);
+        if (response.data) {
+            response.data.logintime = new Date();
+            localStorage.setItem("auth", JSON.stringify(response.data));
+            return response.data;
+        }
+        return false;
+    });
 }
-export default new AuthService();
+
+const logout = () => {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("user");
+};
+
+const getCurrentUser = () =>
+    JSON.parse(localStorage.getItem("user"));
+;
+
+const authService = {
+    signup,
+    login,
+    logout,
+    refreshToken,
+    getCurrentUser,
+};
+
+export default authService;
