@@ -4,7 +4,7 @@ const API_URL = "https://admin.lidaverse.com";
 const signup = (email, password) => {
     console.log(email, password);
     return axios
-        .post(`${API_URL}/signup`, {
+        .post(`${API_URL}/users`, {
             email,
             password,
         })
