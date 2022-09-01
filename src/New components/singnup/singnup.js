@@ -1,8 +1,6 @@
 /*eslint-disable */
 import { useState } from "react";
-
-// react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -39,11 +37,12 @@ function SignUpBasic() {
   const [Phone, setPhone] = useState("");
   const [Aadhar, setAadhar] = useState("");
 
+  const navigate = useNavigate();
   // post request to server
   const postSignupData = async (event) => {
     event.preventDefault();
     if (password === confirmPassword) {
-      const response = await fetch("http://65.2.69.9/users", {
+      const response = await fetch("https://admin.lidaverse.com/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,6 +59,8 @@ function SignUpBasic() {
       });
       const data = await response.json();
       console.log(data);
+      navigate("/home");
+      window.location.reload();
     } else {
       alert("Password and Confirm Password should be same");
     }

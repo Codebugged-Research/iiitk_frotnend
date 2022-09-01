@@ -1,13 +1,10 @@
 import axios from "axios";
 
 const API_URL = "https://admin.lidaverse.com";
-const signup = (email, password) => {
-    console.log(email, password);
+const signup = (data) => {
+    console.log(data);
     return axios
-        .post(`${API_URL}/users`, {
-            email,
-            password,
-        })
+        .post(`${API_URL}/users`,data)
         .then((response) => {
             if (response.data.accessToken) {
                 localStorage.setItem("auth", JSON.stringify(response.data));
