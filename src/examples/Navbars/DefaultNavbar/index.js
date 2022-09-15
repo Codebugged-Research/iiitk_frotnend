@@ -407,7 +407,6 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                 );
               });
           }
-
           return template;
         })
       : null
@@ -471,7 +470,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
         <MKBox display="flex" justifyContent="space-between" alignItems="center">
           <MKBox
             component={Link}
-            to="/"
+            to="/home"
             lineHeight={1}
             py={transparent ? 1.5 : 0.75}
             pl={relative || transparent ? 0 : { xs: 0, lg: 1 }}
@@ -503,11 +502,12 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     color={action.color ? action.color : "info"}
                     size="small"
                   >
-                    {action.label1}
+                    Logout
                   </MKButton>{" "}
-                  <MKButton
+                  {/* SIGNUP */}
+                  {/* { <MKButton
                     component={Link}
-                    to={action.route2}
+                    to={action.route1}
                     variant={
                       action.color === "white" || action.color === "default"
                         ? "contained"
@@ -516,8 +516,8 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     color={action.color ? action.color : "info"}
                     size="small"
                   >
-                    {action.label2}
-                  </MKButton>
+                    Download Data
+                  </MKButton> } */}
                 </>
               ) : (
                 <>
@@ -536,9 +536,9 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                   >
                     {action.label1}
                   </MKButton>{" "}
-                  <MKButton
+                  { <MKButton
                     component="a"
-                    href={action.route2}
+                    href={action.route1}
                     target="_blank"
                     rel="noreferrer"
                     variant={
@@ -549,8 +549,8 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     color={action.color ? action.color : "info"}
                     size="small"
                   >
-                    {action.label2}
-                  </MKButton>
+                    Download Data
+                  </MKButton> }
                 </>
               ))}
           </MKBox>

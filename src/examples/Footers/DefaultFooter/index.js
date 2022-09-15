@@ -2,14 +2,10 @@
 =========================================================
 * Material Kit 2 React - v2.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/material-kit-react
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
@@ -26,6 +22,8 @@ import Grid from "@mui/material/Grid";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
+import MKInput from "components/MKInput";
+import MKButton from "components/MKButton";
 
 function DefaultFooter({ content }) {
   const { brand, socials, menus } = content;
@@ -33,8 +31,8 @@ function DefaultFooter({ content }) {
   return (
     <MKBox component="footer">
       <Container>
-        <Grid container spacing={3} mb={10}>
-          <Grid item xs={12} md={7} sx={{ ml: "auto", mb: 3 }}>
+        <Grid container spacing={1} mb={10}>
+          <Grid item xs={12} md={1}  sx={{ ml: "auto", mb: 1 }}>
             <MKBox>
               <Link to={brand.route}>
                 <MKBox
@@ -42,12 +40,15 @@ function DefaultFooter({ content }) {
                   src={brand.image}
                   alt={brand.name}
                   maxWidth="2.5rem"
-                  mb={2}
                 />
               </Link>
-              <MKTypography variant="h6">{brand.name}</MKTypography>
             </MKBox>
-            <MKBox display="flex" alignItems="center" mt={3}>
+          </Grid>
+          <Grid item xs={12} md={2} mb={1} >
+              <MKTypography variant="h5">{brand.name}</MKTypography>
+          </Grid>
+          <Grid item xs={12} md={3.5} mb={1} alignItems="center">
+            <MKBox ml={0}>
               {socials.map(({ icon, link }, key) => (
                 <MKTypography
                   key={link}
@@ -64,9 +65,17 @@ function DefaultFooter({ content }) {
                 </MKTypography>
               ))}
             </MKBox>
-          </Grid>
+            </Grid>
+            <Grid item xs={10} md={3.5} >
+                <MKInput type="email" label="Email..." fullWidth />
+              </Grid>
+            <Grid item xs={12} md={2}  >
+               <MKButton variant="gradient" color="info" sx={{ height: "20%" , mb:2}}>
+                Subscribe
+               </MKButton>
+             </Grid>
           {menus.map(({ name: title, items }) => (
-            <Grid key={title} item xs={8} md={2.5} sx={{ mb: 3 }}>
+            <Grid key={title} item xs={12} md={5} sx={{ mt: 2 }}>
               <MKTypography
                 display="block"
                 variant="button"

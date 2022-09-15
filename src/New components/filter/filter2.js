@@ -1,9 +1,9 @@
 // io files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
-import { Grid, Switch, FormControlLabel, FormGroup } from "@mui/material";
+import { Grid, Tabs, Tab, Box } from "@mui/material";
 import routes from "routes";
-import MKBox from "components/MKBox";
+// import MKBox from "components/MKBox";
 import { useNavigate } from "react-router-dom";
 import Cards from "./card/card";
 import Main from "./maincard/main";
@@ -33,12 +33,10 @@ function Filter2() {
     dataDensity,
     accuracy,
   ]);
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    navigate("/filter/segmented");
+  const handleChange = (e) => {
+    e.preventDefault();
+    navigate("/filter/segmented")
   };
-
   return (
     <>
       <DefaultNavbar
@@ -47,7 +45,7 @@ function Filter2() {
           type: "internal",
           route1: "/signin",
           route2: "/signup",
-          label1: "Login",
+          label1: "Logout",
           label2: "Sign Up",
           color: "info",
         }}
@@ -56,7 +54,7 @@ function Filter2() {
 
       <Grid container spacing={0}>
         <Grid
-          mt={20}
+          mt={17}
           xs={2.2}
           sx={{
             height: " 800px",
@@ -72,28 +70,18 @@ function Filter2() {
             },
           }}
         >
-          <MKBox
-            variant="gradient"
-            bgColor="info"
-            coloredShadow="info"
-            borderRadius="lg"
+          <Box
             p={1}
             pt={0.5}
             pb={0.5}
             mx={2.6}
             mt={2}
           >
-            <FormGroup>
-              <FormControlLabel
-                control={<Switch color="white" checked={checked} onChange={handleChange} />}
-                label={checked ? "Segmented files only" : "IO files only"}
-                sx={{
-                  position: "relative",
-                  bgColor: "white",
-                }}
-              />
-            </FormGroup>
-          </MKBox>
+             <Tabs  value="two" onChange={handleChange}>
+               <Tab value="one" label="Segemented files" wrapped/>
+               <Tab value="two" label="IO files" wrapped/>
+             </Tabs>
+          </Box>
           <Grid
             sx={{
               height: " 700px",

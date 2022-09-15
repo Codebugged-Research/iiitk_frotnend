@@ -4,24 +4,31 @@ import * as React from "react";
 import MKButton from "components/MKButton";
 import axios from "axios";
 import TimeAgo from "timeago-react";
-import { Checkbox, FormControlLabel, Pagination, Typography, Grid } from "@mui/material";
+import { Checkbox, FormControlLabel, Pagination,Typography , Grid } from "@mui/material";
 
 /*eslint-disable */
-
+ let newCheckList = []
 function Main({ checked, filterParams }) {
   const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
+  const [checkBoxValue , setCheckBoxValue] = React.useState(false)
   // const [filterString, setFilterString] = React.useState("");
   const handleChange = (e, index) => {
     e.preventDefault();
+    setCheckBoxValue(true)
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
     } else {
       setCheckedBoxes(checkedBoxes - 1);
     }
-    const newCheckList = [...checkList];
+    for(let i=0;i<index;i++)
+    {
+      if(newCheckList[i] === undefined){
+      newCheckList[i] = false;}
+    }
+    newCheckList = [...checkList];
     newCheckList[index] = !newCheckList[index];
     setCheckList(newCheckList);
   };
@@ -85,6 +92,7 @@ function Main({ checked, filterParams }) {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
   return (
     <div>
       <MKBox
@@ -92,7 +100,7 @@ function Main({ checked, filterParams }) {
         borderRadius="xl"
         shadow="lg"
         sx={{
-          height: " 800px",
+          height: " 600px",
           width: "350%",
           display: "block",
           position: "relative",
@@ -103,59 +111,56 @@ function Main({ checked, filterParams }) {
             zIndex: 2,
           },
           "&::-webkit-scrollbar-thumb": {
-            borderRadius: "30px",
+            borderRadius: "20px",
             background: "#4D8CC9",
           },
         }}
         mb={10}
       >
-        {/*placeholder box */}
-        <MKBox
+         {/*placeholder box */}
+         {/*filter name box */}
+         <MKBox
           variant="gradient"
           bgColor="none"
-          maxWidth="400px"
-          width="38%"
+          display="flex"
+          height="75px"
           top={0}
           zIndex={1}
-          pl={6}
-          py={1}
-          pr={15}
-          ml="70%"
           borderRadius="lg"
           position="sticky"
         >
-          <Typography variant="h5" fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}>
-            Results &nbsp; &nbsp;: &nbsp;{results.length}
-            <br />
-            Selected &nbsp;: &nbsp; {checkedBoxes}
-          </Typography>
-        </MKBox>
-
-        {/*filter name box */}
-
-        <MKBox
-          variant="gradient"
-          bgColor="info"
-          coloredShadow="info"
-          pt="2%"
-          pb="2%"
-          pl="5%"
-          ml="34%"
-          mr="39%"
-          zIndex={3}
-          top={0}
-          mt={{ xl: -16, lg: -20, md: -25, sm: -30 }}
-          position="sticky"
-        >
+         <MKBox
+         variant="gradient"
+         bgColor="info"
+         coloredShadow="info"
+         alignItems="center"
+         pt={2}
+         pl={1}
+         pr={1}
+         ml="40%"
+         >
           <MKTypography
             variant="h3"
+            bgColor="blue"
             color="white"
             fontSize={{ xl: "1.5rem", lg: "1.2rem", md: "1rem", sm: "1rem" }}
           >
             <p>Filter Results</p>
           </MKTypography>
+          </MKBox>
+          <MKBox
+           pt={1}
+           pl={1.5}
+           ml="20%"
+          >
+          <Typography variant="h5" fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}>
+            Results &nbsp; &nbsp;: &nbsp;{results.length}
+            <br />
+            Selected &nbsp;: &nbsp; {checkedBoxes}
+          </Typography>
+          </MKBox>
         </MKBox>
-
+        
         {/*main card elements box */}
         <MKBox marginTop={10}>
           {results.slice(page * 10 - 10, page * 10).map((detail, index) => (
@@ -171,6 +176,60 @@ function Main({ checked, filterParams }) {
               mb={3}
               fontSize={{ xl: "1rem", lg: "0.8rem" }}
             >
+            <Grid display="flex">
+             <Grid item md={10} container spacing={2} >
+                <Grid item md={12}mb={3}>
+                <h3>
+                  {checked
+                    ? detail.name
+                    : detail.pcd_instance_id.name.split("_").join(" ")}
+                </h3>
+              </Grid>
+              <Grid item ml={1.5}>
+                <p >
+                  <strong >Place : </strong> {checked ? detail.place : detail.pcd_instance_id.place}
+                </p>
+              </Grid>
+              <Grid item  ml={1.5}>
+                <p>
+                  <strong>Sensor : </strong>
+                  {checked
+                    ? detail.sensor.toUpperCase()
+                    : detail.pcd_instance_id.sensor.toUpperCase()}
+                </p>
+              </Grid>
+              <Grid item ml={1.5}>  
+                <p>
+                  <strong> Environment : </strong>
+                  {checked ? detail.environment : detail.pcd_instance_id.environment}
+                </p>
+              </Grid>
+              <Grid item  ml={1.5}>
+                <p>  
+                  <strong>Terrain : </strong>
+                  {checked ? detail.terrain : detail.pcd_instance_id.terrain}
+                </p>
+              </Grid>
+                {checked ? (
+                  <Grid item  ml={1.5}>
+                  <p>
+                    <strong>IO FIles : </strong>
+                    {detail.io_files.length}
+                  </p>
+                </Grid>
+                ) : (
+                  <></>
+                )}
+                <Grid item  ml={1.5} >
+                <p>
+                  <strong>Uploaded : </strong>
+                  <TimeAgo
+                    datetime={checked ? detail.date_created : detail.pcd_instance_id.date_created}
+                  />
+                </p>
+              </Grid>
+            </Grid>
+            <Grid md={3}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -180,73 +239,34 @@ function Main({ checked, filterParams }) {
                       width: "1rem",
                       height: "1rem",
                     }}
-                    className="ckb"
-                    checked={checkList[index]}
-                    onChange={(e) => handleChange(e, index)}
+                      className="ckb"
+                      checked={(checkBoxValue ? checkList[(((page-1)*10)+index)]:false)}
+                      onChange={(e) => handleChange(e, (((page-1)*10)+index))}
                   />
-                }
-                label=""
-                sx={{ position: "relative", left: "95%" }}
+                  }
+                  label=""
+                  sx={{ position: "relative", left: "85%" ,top:"2%"}}
               />
-              <h3>
-                {checked
-                  ? detail.name
-                  : detail.pcd_instance_id.name.split("_").join(" ")}
-              </h3>
-              <p>
-                <strong>Place:</strong> {checked ? detail.place : detail.pcd_instance_id.place}
-              </p>
-              <p>
-                <strong>Sensor:</strong>{" "}
-                {checked
-                  ? detail.sensor.toUpperCase()
-                  : detail.pcd_instance_id.sensor.toUpperCase()}{" "}
-                <strong>Environment:</strong>{" "}
-                {checked ? detail.environment : detail.pcd_instance_id.environment}{" "}
-                <strong>Terrain:</strong>{" "}
-                {checked ? detail.terrain : detail.pcd_instance_id.terrain}
-              </p>
-              {checked ? (
-                <p>
-                  <strong>IO FIles:</strong>
-                  {detail.io_files.length}
-                </p>
-              ) : (
-                <></>
-              )}
-              <p>
-                <strong>Uploaded:</strong>{" "}
-                <TimeAgo
-                  datetime={checked ? detail.date_created : detail.pcd_instance_id.date_created}
-                />
-              </p>
-              <br></br>
-              <Grid
-                display="flex"
-                flexDirection={{ xs: "row", lg: "row" }}
-                justifyContent="space-around"
-              >
-                <Grid>
                   <MKButton
                     variant="gradient"
                     color="info"
                     onClick={() => {
-                      window.open("http://127.0.0.1:5500/threepcs.html", "_blank");
+                    window.open("http://127.0.0.1:5500/threepcs.html", "_blank");
                     }}
+                    sx={{mt:5}}
                   >
                     Visualize
-                  </MKButton>
-                </Grid>
-                {/*<MKButton
-                variant="gradient"
-                color="info"
-                onClick={() => {
-                  window.open("#", "_blank");
-                }}
-                >
-                Details
-              </MKButton>*/}
-                <Grid sx={{ marginLeft: "60%" }}>
+                    </MKButton>
+                  {/*<MKButton
+                  variant="gradient"
+                  color="info"
+                  onClick={() => {
+                    window.open("#", "_blank");
+                  }}
+                  >
+                  Details
+                </MKButton>*/}
+                  {/* <Grid sx={{ mt: "20%" }}> */}
                   <MKButton
                     variant="gradient"
                     height="fit-content"
@@ -255,12 +275,14 @@ function Main({ checked, filterParams }) {
                     onClick={() => {
                       window.open("#", "_blank");
                     }}
+                    sx={{mt:3}}
                   >
                     Download
                   </MKButton>
-                </Grid>
+                  {/* </Grid> */}
               </Grid>
-            </MKBox>
+            </Grid>
+          </MKBox>
           ))}
         </MKBox>
         <MKBox

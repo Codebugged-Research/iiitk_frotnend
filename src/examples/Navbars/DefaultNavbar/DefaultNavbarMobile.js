@@ -24,7 +24,7 @@ import PropTypes from "prop-types";
 // @mui material components
 import Collapse from "@mui/material/Collapse";
 import MuiLink from "@mui/material/Link";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+// import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import LoginIcon from "@mui/icons-material/Login";
 
 // Material Kit 2 React components
@@ -179,9 +179,9 @@ function DefaultNavbarMobile({ routes, open }) {
             },
           })}
         >
-          <ExitToAppIcon />
-          &nbsp; signup
-        </MKTypography>
+          {/* <ExitToAppIcon />
+          &nbsp; signup  */}
+        </MKTypography> 
         <MKTypography
           key={0}
           component={MuiLink}

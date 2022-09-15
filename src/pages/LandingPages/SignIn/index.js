@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useState } from "react";
 
 // react-router-dom components
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -28,6 +28,7 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
+
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -47,18 +48,22 @@ function SignInBasic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [valueError, setValueError] = useState("")
+  const [valueSuccess, setValueSuccess] = useState("")
 
-  const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await AuthService.login(email, password).then(
         () => {
-          navigate("/home");
+          setValueSuccess("true")
+          navigate("/filter/segmented");
           window.location.reload();
         },
         (error) => {
+          setValueError("true")
           console.log(error);
         }
       );
@@ -111,12 +116,12 @@ function SignInBasic() {
                 <MKBox component="form" role="form">
                   {/* email */}
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth
+                    <MKInput type="email" label="Email" fullWidth error={valueError} success={valueSuccess}
                       onChange={(e) => setEmail(e.target.value)} />
                   </MKBox>
                   {/* password */}
                   <MKBox>
-                    <MKInput type="password" label="Password" fullWidth
+                    <MKInput type="password" label="Password" fullWidth error={valueError} success={valueSuccess}
                       onChange={(e) => setPassword(e.target.value)} />
                   </MKBox>
                   {/* remember me */}
@@ -164,5 +169,6 @@ function SignInBasic() {
     </>
   );
 }
+
 
 export default SignInBasic;

@@ -1,8 +1,8 @@
 // segmented files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
-import { Grid, Switch, FormControlLabel, FormGroup } from "@mui/material";
-import MKBox from "components/MKBox";
+import { Grid,Tabs, Tab ,Box } from "@mui/material";
+// import MKBox from "components/MKBox";
 import routes from "routes";
 import { useNavigate } from "react-router-dom";
 import Cards from "./card/card";
@@ -33,9 +33,9 @@ function Filter1() {
     accuracy,
   ]);
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    navigate("/filter/io");
+  const handleChange = (e) => {
+    e.preventDefault();
+    navigate("/filter/io")
   };
   return (
     <>
@@ -44,16 +44,14 @@ function Filter1() {
         action={{
           type: "internal",
           route1: "/signin",
-          route2: "/signup",
-          label1: "Login",
-          label2: "Sign Up",
+          label1: "Logout",
           color: "info",
         }}
         sticky
       />
       <Grid container spacing={0}>
         <Grid
-          mt={20}
+          mt={17}
           xs={2.2}
           sx={{
             height: " 800px",
@@ -69,25 +67,18 @@ function Filter1() {
             },
           }}
         >
-          <MKBox
-            variant="gradient"
-            bgColor="info"
-            coloredShadow="info"
-            borderRadius="lg"
+          <Box
             p={0}
             pt={0.5}
             pb={0.5}
             mx={2}
             mt={2}
           >
-            <FormGroup>
-              <FormControlLabel
-                control={<Switch checked={checked} onChange={handleChange} />}
-                label={checked ? "Segmented files only" : "IO files only"}
-                sx={{ position: "relative", bgColor: "info" }}
-              />
-            </FormGroup>
-          </MKBox>
+          <Tabs value="one" onChange={handleChange} >
+            <Tab value="one" label="Segemented files" wrapped/>
+            <Tab value="two" label="IO files" wrapped/>
+          </Tabs>
+          </Box>
           <Grid
             sx={{
               height: " 700px",

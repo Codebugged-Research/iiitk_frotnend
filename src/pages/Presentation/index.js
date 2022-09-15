@@ -36,6 +36,7 @@ import Testimonials from "pages/Presentation/sections/Testimonials";
 // import SignInPage from "layouts/pages/authentication/sign-in";
 // Presentation page components
 // import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
+//  import SignInBasic from "pages/LandingPages/SignIn";
 
 // Routes
 import routes from "routes";
@@ -48,12 +49,14 @@ import Download from "./sections/Download";
 import BuiltByDevelopers from "./components/BuiltByDevelopers";
 
 function Presentation() {
+
+
   return (
     <>
       <DefaultNavbar
         routes={routes}
         action={{
-          type: "internal",
+          type:  "external",
           route1: "/signin",
           route2: "/signup",
           label1: "Login",
