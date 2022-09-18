@@ -2,27 +2,25 @@ import axios from "axios";
 
 const API_URL = "https://admin.lidaverse.com";
 
-const login = (email, password) => {
+const login = async (email, password) => {
     console.log(email, password);
-    return axios
+    const response = await axios
         .post(`${API_URL}/auth/login`, {
             email,
-            password,
-        })
-        .then((response) => {
-            console.log("Login response", response);
-            if (response.data) {
-                response.data.logintime = new Date();
-                localStorage.setItem("auth", JSON.stringify(response.data));
-                axios.get(`${API_URL}/users?filter[email][_eq]=${email}`, { Authorization: `Bearer ${response.data.access_token}` }).then((response2) => {
-                    console.log("User response", response2);
-                    if (response2.data) {
-                        localStorage.setItem("user", JSON.stringify(response2.data));
-                    }
-                });
-            }
-            return response.data;
+            password
         });
+    console.log("Login response", response);
+    if (response.data) {
+        response.data.logintime = new Date();
+        localStorage.setItem("auth", JSON.stringify(response.data));
+        axios.get(`${API_URL}/users?filter[email][_eq]=${email}`, { Authorization: `Bearer ${response.data.access_token}` }).then((response2) => {
+            console.log("User response", response2);
+            if (response2.data) {
+                localStorage.setItem("user", JSON.stringify(response2.data));
+            }
+        });
+    }
+    return response.data;
 };
 
 const refreshToken = () => {
@@ -42,6 +40,8 @@ const refreshToken = () => {
 const logout = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("user");
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
 };
 
 const getCurrentUser = () =>

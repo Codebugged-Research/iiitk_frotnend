@@ -43,6 +43,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
+
 function DefaultNavbar({ brand, routes, transparent, light, action, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
   const [dropdownEl, setDropdownEl] = useState("");
@@ -448,6 +449,16 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
     </Popper>
   );
 
+  const [labels , setLabels] = useState (localStorage.getItem("email")  ? "Logout": "Login")
+  
+
+  const logout = () => {
+      // console.log("supererss")  
+      localStorage.removeItem("email") 
+      setLabels ("Login")
+};
+  
+
   return (
     <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
       <MKBox
@@ -487,10 +498,10 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
           >
             {renderNavbarItems}
           </MKBox>
-          <MKBox ml={{ xs: "auto", lg: 0 }} display={mobileView ? "none" : "bblock"}>
+          <MKBox ml={{ xs: "auto", lg: 0 }} display={mobileView ? "none" : "block"} >
             {action &&
               (action.type === "internal" ? (
-                <>
+                <MKBox >
                   <MKButton
                     component={Link}
                     to={action.route1}
@@ -501,13 +512,14 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     }
                     color={action.color ? action.color : "info"}
                     size="small"
+                    onClick = {labels === "Logout" ? logout : null}
                   >
-                    Logout
+                    {labels}
                   </MKButton>{" "}
                   {/* SIGNUP */}
-                  {/* { <MKButton
+                  {/* <MKButton
                     component={Link}
-                    to={action.route1}
+                    to={action.route2}
                     variant={
                       action.color === "white" || action.color === "default"
                         ? "contained"
@@ -516,11 +528,11 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     color={action.color ? action.color : "info"}
                     size="small"
                   >
-                    Download Data
-                  </MKButton> } */}
-                </>
+                    {action.label2}
+                  </MKButton> */}
+                </MKBox>
               ) : (
-                <>
+                <MKBox >
                   <MKButton
                     component="a"
                     href={action.route1}
@@ -533,12 +545,13 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     }
                     color={action.color ? action.color : "info"}
                     size="small"
+                    onClick = {labels === "Logout" ? logout : null}
                   >
-                    {action.label1}
+                    {labels}
                   </MKButton>{" "}
                   { <MKButton
                     component="a"
-                    href={action.route1}
+                    href={action.route2}
                     target="_blank"
                     rel="noreferrer"
                     variant={
@@ -549,9 +562,9 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                     color={action.color ? action.color : "info"}
                     size="small"
                   >
-                    Download Data
+                    {action.label2}
                   </MKButton> }
-                </>
+                </MKBox>
               ))}
           </MKBox>
           <MKBox

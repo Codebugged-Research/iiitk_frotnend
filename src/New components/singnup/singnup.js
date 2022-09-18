@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
+// import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
+// import Button from "@mui/material/Button"
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -15,6 +16,7 @@ import MKButton from "components/MKButton";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+import ScrollDialog from "pages/LandingPages/SignIn/dialog";
 
 // Material Kit 2 React page layout routes
 import routes from "routes";
@@ -66,9 +68,9 @@ function SignUpBasic() {
     }
   };
 
-  const [rememberMe, setRememberMe] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  // const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   return (
     <>
@@ -254,20 +256,8 @@ function SignUpBasic() {
                   </Grid>
 
                   <MKBox display="flex" alignItems="center" ml={-1}>
-                    <Switch
-                      checked={rememberMe}
-                      onChange={handleSetRememberMe}
-                    />
-                    <MKTypography
-                      variant="button"
-                      fontWeight="regular"
-                      color="text"
-                      onClick={handleSetRememberMe}
-                      sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-                    >
-                      &nbsp;&nbsp;<b style={{ color: "red" }}>* </b>I Agree to
-                      the <a href="#t&c">Terms and Conditions</a>
-                    </MKTypography>
+                    {/* {Terms and conditions} */}
+                    <ScrollDialog />
                   </MKBox>
                   <MKBox mt={2}>
                     <MKButton

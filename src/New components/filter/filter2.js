@@ -44,9 +44,9 @@ function Filter2() {
         action={{
           type: "internal",
           route1: "/signin",
-          route2: "/signup",
-          label1: "Logout",
-          label2: "Sign Up",
+          // route2: "/signup",
+          label1: "logout",
+          // label2: "Sign Up",
           color: "info",
         }}
         sticky

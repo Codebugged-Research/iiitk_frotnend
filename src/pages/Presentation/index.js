@@ -13,6 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
+// import { useState } from "react";
+
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -30,13 +32,13 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Presentation page sections
 import Counters from "pages/Presentation/sections/Counters";
 import Information from "pages/Presentation/sections/Information";
-
 import Testimonials from "pages/Presentation/sections/Testimonials";
+// import authService from "services/authservice";
 // import Download from "pages/Presentation/sections/Download";
 // import SignInPage from "layouts/pages/authentication/sign-in";
 // Presentation page components
 // import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
-//  import SignInBasic from "pages/LandingPages/SignIn";
+// import SignInBasic from "pages/LandingPages/SignIn";
 
 // Routes
 import routes from "routes";
@@ -58,9 +60,9 @@ function Presentation() {
         action={{
           type:  "external",
           route1: "/signin",
-          route2: "/signup",
+          route2: "/signin",
           label1: "Login",
-          label2: "Sign Up",
+          label2: "Data Download",
           color: "info",
         }}
         sticky
