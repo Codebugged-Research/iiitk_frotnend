@@ -8,13 +8,19 @@ import ContactsIcon from '@mui/icons-material/Contacts';
 // import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 // import Profile from "New components/profile/profile";
 // import Filter1 from "New components/filter/filter1";
-import AboutUs from "pages/LandingPages/AboutUs";
+// import AboutUs from "pages/LandingPages/AboutUs";
  import Presentation from "pages/Presentation";
- import FormSimple from 'layouts/sections/input-areas/forms/components/FormSimple';
+//  import FormSimple from 'layouts/sections/input-areas/forms/components/FormSimple';
 // import Pricing from "New components/pricing/pricing";
 // import SignInBasic from "pages/LandingPages/SignIn";
 
 const routes = [
+  {
+    // name: "Home",
+    route: "/",
+    // icon: <HomeIcon />,
+    component: <Presentation />,
+  },
   {
     // name: "Home",
     route: "/home",
@@ -23,22 +29,24 @@ const routes = [
   },
   {
     name: "About Us",
-    route: "/home",
+    route: "#about",
     icon: <InfoIcon />,
-    component: <AboutUs />,
+    component: <Presentation />,
   },
   {
     name: "Services",
-    route: "/home",
+    route: "#services",
     icon: <MiscellaneousServicesIcon />,
     component: <Presentation />,
   },
   {
     name: "contact Us",
-    route: "/home",
+    route: "#contactus",
     icon: <ContactsIcon />,
-    component: <FormSimple />,
+    component: <Presentation />,
   },
+];
+   // const routes = [
   // {
   //   name: "data",
   //   route: "/siginin",
@@ -74,6 +82,6 @@ const routes = [
   //     },
   //   ],
   // },
-];
+// ];
 
 export default routes;

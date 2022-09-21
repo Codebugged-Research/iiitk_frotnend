@@ -450,7 +450,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
   );
 
   const [labels , setLabels] = useState (localStorage.getItem("email")  ? "Logout": "Login")
-  
+
 
   const logout = () => {
       // console.log("supererss")  
@@ -551,7 +551,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                   </MKButton>{" "}
                   { <MKButton
                     component="a"
-                    href={action.route2}
+                    href={labels === "Logout" ? "/filter/segmented":"/signin"}
                     target="_blank"
                     rel="noreferrer"
                     variant={

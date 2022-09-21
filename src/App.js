@@ -33,6 +33,8 @@ import SignInPage from "layouts/pages/authentication/sign-in";
 import SignUpBasic from "New components/singnup/singnup";
 import AboutUs from "pages/LandingPages/AboutUs";
 import Profile from "New components/profile/profile";
+import Presentation from "pages/Presentation";
+// import Presentation from "pages/Presentation";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -67,6 +69,7 @@ export default function App() {
         <Route path="/signup" element={<SignUpBasic />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/profile" component={<Profile />} />
+        <Route path="/home" component={<Presentation />}exact="true"/>
         <Route path="*" component={<Navigate to="/home" />} />
       </Routes>
     </ThemeProvider>

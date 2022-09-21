@@ -100,7 +100,7 @@ function Main({ checked, filterParams }) {
         borderRadius="xl"
         shadow="lg"
         sx={{
-          height: " 600px",
+          height: "630px",
           width: "350%",
           display: "block",
           position: "relative",
