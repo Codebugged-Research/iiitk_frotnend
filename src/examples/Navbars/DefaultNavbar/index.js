@@ -139,7 +139,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                       px={0.5}
                       mt={index !== 0 ? 2 : 0}
                     >
-                      {col.name}
+                        {col.name}
                     </MKTypography>
                     {col.collapse.map((item) => (
                       <MKTypography
@@ -168,7 +168,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                           },
                         })}
                       >
-                        {item.name}
+                         {item.name}
                       </MKTypography>
                     ))}
                   </Fragment>
@@ -451,16 +451,14 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
 
   const [labels , setLabels] = useState (localStorage.getItem("email")  ? "Logout": "Login")
 
-
   const logout = () => {
-      // console.log("supererss")  
       localStorage.removeItem("email") 
       setLabels ("Login")
 };
   
 
   return (
-    <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
+    <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null} width= "100%" >
       <MKBox
         py={1}
         px={{ xs: 4, sm: transparent ? 2 : 3, lg: transparent ? 0 : 2 }}

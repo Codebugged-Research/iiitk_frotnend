@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
+// import {  ScrollLink } from "react-scroll";
 
 // @mui material components
 import Collapse from "@mui/material/Collapse";
@@ -52,6 +53,7 @@ function DefaultNavbarDropdown({
 
   return (
     <>
+    {(name === "About Us" || name === "Services" || name === "Contact Us") || (localStorage.getItem("email")) ?
       <MKBox
         {...rest}
         mx={1}
@@ -64,36 +66,40 @@ function DefaultNavbarDropdown({
         {...(route && routeComponent)}
         {...(href && linkComponent)}
       >
-        <MKTypography
-          variant="body1"
-          lineHeight={1}
-          color="inherit"
-          sx={{ alignSelf: "center", "& *": { verticalAlign: "middle" } }}
-        >
-          {icon}
-        </MKTypography>
-        <MKTypography
-          variant="button"
-          fontWeight="regular"
-          textTransform="capitalize"
-          color={light ? "white" : "dark"}
-          sx={{ fontWeight: "100%", ml: 1, mr: 0.25 }}
-        >
-          {name}
-        </MKTypography>
-        <MKTypography variant="body1" color={light ? "white" : "dark"} ml="auto">
-          <Icon sx={{ fontWeight: "normal", verticalAlign: "middle" }}>
-            {collapse && "keyboard_arrow_down"}
-          </Icon>
-        </MKTypography>
+        {/* <ScrollLink activeClass="active" smooth spy to="services" underline="none"color="dark"> */}
+          <MKTypography
+            variant="body1"
+            lineHeight={1}
+            color="inherit"
+            sx={{ alignSelf: "center", "& *": { verticalAlign: "middle" } }}
+          >
+            {icon}
+          </MKTypography>
+          <MKTypography
+            variant="button"
+            fontWeight="regular"
+            textTransform="capitalize"
+            color={light ? "white" : "dark"}
+            sx={{ fontWeight: "100%", ml: 1, mr: 0.25 }}
+          >
+            {name}
+          </MKTypography>
+          <MKTypography variant="body1" color={light ? "white" : "dark"} ml="auto">
+            <Icon sx={{ fontWeight: "normal", verticalAlign: "middle" }}>
+              {collapse && "keyboard_arrow_down"}
+            </Icon>
+          </MKTypography>
+        {/* </ScrollLink> */}
       </MKBox>
+          :" "
+      }  
       {children && (
         <Collapse in={Boolean(collapseStatus)} timeout={400} unmountOnExit>
           {children}
         </Collapse>
       )}
     </>
-  );
+    )
 }
 
 // Setting default values for the props of DefaultNavbarDropdown

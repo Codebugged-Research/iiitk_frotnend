@@ -27,7 +27,7 @@ import Team from "pages/LandingPages/AboutUs/sections/Team";
 
 // Images
 import Featuring from "./sections/Featuring";
-import Newsletter from "./sections/Newsletter";
+// import Newsletter from "./sections/Newsletter";
 
 function AboutUs() {
   return (
@@ -52,7 +52,7 @@ function AboutUs() {
         </MKBox>
         <Team />
         <Featuring />
-        <Newsletter />
+        {/* <Newsletter /> */}
       </Grid>
     </>
   );

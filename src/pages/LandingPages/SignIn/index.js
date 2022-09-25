@@ -60,7 +60,6 @@ function SignInBasic() {
         () => {
           setValueSuccess("true")
           localStorage.setItem("email",email)
-          localStorage.setItem("password",password)
           navigate("/filter/segmented");
           window.location.reload();
         },

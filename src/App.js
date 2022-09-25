@@ -71,6 +71,7 @@ export default function App() {
         <Route path="/profile" component={<Profile />} />
         <Route path="/home" component={<Presentation />}exact="true"/>
         <Route path="*" component={<Navigate to="/home" />} />
+        {/* <Route path="https://lidaverse.com/" component={<Navigate to="/home" />} /> */}
       </Routes>
     </ThemeProvider>
   );

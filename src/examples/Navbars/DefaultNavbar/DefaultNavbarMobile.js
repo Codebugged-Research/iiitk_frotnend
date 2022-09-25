@@ -93,8 +93,9 @@ function DefaultNavbarMobile({ routes, open }) {
                             color: dark.main,
                           },
                         })}
-                      >
+                      ><Link activeClass="active" smooth spy to="about">
                         {el.name}
+                        </Link>
                       </MKTypography>
                     ))}
                   </>
@@ -149,6 +150,14 @@ function DefaultNavbarMobile({ routes, open }) {
       </DefaultNavbarDropdown>
     )
   );
+  const [labels , setLabels] = useState (localStorage.getItem("email")  ? "Logout": "Login")
+
+
+  const logout = () => {
+      // console.log("supererss")  
+      localStorage.removeItem("email") 
+      setLabels ("Login")
+  }
 
   return (
     <Collapse in={Boolean(open)} timeout="auto" unmountOnExit>
@@ -191,6 +200,7 @@ function DefaultNavbarMobile({ routes, open }) {
           minWidth="11.25rem"
           display="block"
           variant="button"
+          onClick = {labels === "Logout" ? logout : null}
           color="text"
           textTransform="capitalize"
           fontWeight="regular"
@@ -208,7 +218,7 @@ function DefaultNavbarMobile({ routes, open }) {
           })}
         >
           <LoginIcon />
-          &nbsp; Login
+          &nbsp; {labels}
         </MKTypography>
       </MKBox>
     </Collapse>
@@ -220,5 +230,4 @@ DefaultNavbarMobile.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
   open: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
 };
-
 export default DefaultNavbarMobile;

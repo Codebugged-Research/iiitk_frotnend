@@ -175,7 +175,7 @@ function Filter2() {
         </Grid>
         <Grid mt={20} ml="44%">
           <Downloadcard
-            name="Download"
+            name="Download Options"
             btnName={["Download selected", "Download All", "Download in this page"]}
           />
         </Grid>
