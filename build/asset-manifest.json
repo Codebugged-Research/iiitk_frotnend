@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.296a8f34.chunk.js",
-    "main.js.map": "/static/js/main.296a8f34.chunk.js.map",
+    "main.js": "/static/js/main.bd8f2c46.chunk.js",
+    "main.js.map": "/static/js/main.bd8f2c46.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.de5ef7b5.js",
     "runtime-main.js.map": "/static/js/runtime-main.de5ef7b5.js.map",
-    "static/js/2.b009894d.chunk.js": "/static/js/2.b009894d.chunk.js",
-    "static/js/2.b009894d.chunk.js.map": "/static/js/2.b009894d.chunk.js.map",
+    "static/js/2.8ab837cb.chunk.js": "/static/js/2.8ab837cb.chunk.js",
+    "static/js/2.8ab837cb.chunk.js.map": "/static/js/2.8ab837cb.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.b009894d.chunk.js.LICENSE.txt": "/static/js/2.b009894d.chunk.js.LICENSE.txt",
+    "static/js/2.8ab837cb.chunk.js.LICENSE.txt": "/static/js/2.8ab837cb.chunk.js.LICENSE.txt",
     "static/media/bg-about-us.cf9a123e.jpg": "/static/media/bg-about-us.cf9a123e.jpg",
     "static/media/bg-presentation.88963029.jpg": "/static/media/bg-presentation.88963029.jpg",
     "static/media/bg-sign-in-basic.f327db1d.jpeg": "/static/media/bg-sign-in-basic.f327db1d.jpeg",
@@ -24,7 +24,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.de5ef7b5.js",
-    "static/js/2.b009894d.chunk.js",
-    "static/js/main.296a8f34.chunk.js"
+    "static/js/2.8ab837cb.chunk.js",
+    "static/js/main.bd8f2c46.chunk.js"
   ]
 }
