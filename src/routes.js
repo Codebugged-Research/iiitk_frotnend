@@ -54,35 +54,35 @@ const routes = [
   //   icon: <FolderOpenOutlinedIcon />,
   //   component: <SignInBasic />,
   // },
-  {
-    name: "pricing",
-    route: "/pricing",
-    icon: <CurrencyRupeeIcon />,
-    component: <Pricing />,
-  },
-  {
-    name: "Profile",
-    description: "User Profile",
-    dropdown: true,
-    icon: <Icon>person</Icon>,
-    collapse: [
-      {
-        name: "User Details",
-        route: "/profile/user",
-        component: <Profile value="0" />,
-      },
-      {
-        name: "Transaction Details",
-        route: "/profile/transaction",
-        component: <Profile value="1" />,
-      },
-      {
-        name: "Download Details",
-        route: "/profile/download",
-        component: <Profile value="2" />,
-      },
-    ],
-  },
+  // {
+  //   name: "pricing",
+  //   route: "/pricing",
+  //   icon: <CurrencyRupeeIcon />,
+  //   component: <Pricing />,
+  // },
+  // {
+  //   name: "Profile",
+  //   description: "User Profile",
+  //   dropdown: true,
+  //   icon: <Icon>person</Icon>,
+  //   collapse: [
+  //     {
+  //       name: "User Details",
+  //       route: "/profile/user",
+  //       component: <Profile value="0" />,
+  //     },
+  //     {
+  //       name: "Transaction Details",
+  //       route: "/profile/transaction",
+  //       component: <Profile value="1" />,
+  //     },
+  //     {
+  //       name: "Download Details",
+  //       route: "/profile/download",
+  //       component: <Profile value="2" />,
+  //     },
+  //   ],
+  // },
 ];
 
 export default routes;

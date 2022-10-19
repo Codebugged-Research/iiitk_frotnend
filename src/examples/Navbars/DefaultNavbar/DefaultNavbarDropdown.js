@@ -53,7 +53,7 @@ function DefaultNavbarDropdown({
 
   return (
     <>
-    {(name === "About Us" || name === "Services" || name === "Contact Us") || (localStorage.getItem("email")) ?
+    {/* {(name === "About Us" || name === "Services" || name === "Contact Us") || (localStorage.getItem("email")) ? */}
       <MKBox
         {...rest}
         mx={1}
@@ -91,8 +91,8 @@ function DefaultNavbarDropdown({
           </MKTypography>
         {/* </ScrollLink> */}
       </MKBox>
-          :" "
-      }  
+      {/* //     :" "
+      // }   */}
       {children && (
         <Collapse in={Boolean(collapseStatus)} timeout={400} unmountOnExit>
           {children}
