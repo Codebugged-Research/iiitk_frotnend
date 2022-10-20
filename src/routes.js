@@ -1,17 +1,13 @@
 // @mui material components
-import Icon from "@mui/material/Icon";
 // import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import ContactsIcon from '@mui/icons-material/Contacts';
 // import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import Profile from "New components/profile/profile";
 // import Filter1 from "New components/filter/filter1";
 // import AboutUs from "pages/LandingPages/AboutUs";
  import Presentation from "pages/Presentation";
 //  import FormSimple from 'layouts/sections/input-areas/forms/components/FormSimple';
-import Pricing from "New components/pricing/pricing";
 // import Aboutpage from "pages/Presentation/componentpage/Aboutpage";
 // import SignInBasic from "pages/LandingPages/SignIn";
 
