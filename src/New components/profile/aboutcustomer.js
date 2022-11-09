@@ -12,16 +12,17 @@ import MKTypography from "components/MKTypography";
 import UserDetails from "./userdetails/userdetails";
 import DownloadInfo from "./userdetails/downloadInfo";
 import Transition from "./userdetails/transition";
+import authService from "services/authservice";
 
 
 function AboutCustomer({ value }) {
 
   /* user name */
-  const username = "UserName";
+  const userName = authService.getCurrentUser().first_name;
   return (
     <MKBox component="section" pt={5} my={8} >
       <MKTypography variant="h4" color="text" sx={{ ml: "10%", mt: -10, mb: 4 }}>
-        Welcome {username}
+        Welcome {userName}
       </MKTypography>
       <Container>
         <Grid container position="relative" alignItems="center">

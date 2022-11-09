@@ -1,15 +1,10 @@
 // @mui material components
-// import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
-import ContactsIcon from '@mui/icons-material/Contacts';
-// import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
-// import Filter1 from "New components/filter/filter1";
-// import AboutUs from "pages/LandingPages/AboutUs";
- import Presentation from "pages/Presentation";
-//  import FormSimple from 'layouts/sections/input-areas/forms/components/FormSimple';
-// import Aboutpage from "pages/Presentation/componentpage/Aboutpage";
-// import SignInBasic from "pages/LandingPages/SignIn";
+import Profile from "New components/profile/profile";
+import InfoIcon from "@mui/icons-material/Info";
+import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import Presentation from "pages/Presentation";
+import { Person } from "@mui/icons-material";
 
 const routes = [
   {
@@ -42,43 +37,31 @@ const routes = [
     icon: <ContactsIcon />,
     // component: <Presentation />,
   },
-
-   // const routes = [
-  // {
-  //   name: "data",
-  //   route: "/siginin",
-  //   icon: <FolderOpenOutlinedIcon />,
-  //   component: <SignInBasic />,
-  // },
-  // {
-  //   name: "pricing",
-  //   route: "/pricing",
-  //   icon: <CurrencyRupeeIcon />,
-  //   component: <Pricing />,
-  // },
-  // {
-  //   name: "Profile",
-  //   description: "User Profile",
-  //   dropdown: true,
-  //   icon: <Icon>person</Icon>,
-  //   collapse: [
-  //     {
-  //       name: "User Details",
-  //       route: "/profile/user",
-  //       component: <Profile value="0" />,
-  //     },
-  //     {
-  //       name: "Transaction Details",
-  //       route: "/profile/transaction",
-  //       component: <Profile value="1" />,
-  //     },
-  //     {
-  //       name: "Download Details",
-  //       route: "/profile/download",
-  //       component: <Profile value="2" />,
-  //     },
-  //   ],
-  // },
+  localStorage.getItem("email")
+    ? {
+        name: "Profile",
+        description: "User Profile",
+        dropdown: true,
+        icon: <Person />,
+        collapse: [
+          {
+            name: "User Details",
+            route: "/profile/user",
+            component: <Profile value="0" />,
+          },
+          {
+            name: "Transaction Details",
+            route: "/profile/transaction",
+            component: <Profile value="1" />,
+          },
+          {
+            name: "Download Details",
+            route: "/profile/download",
+            component: <Profile value="2" />,
+          },
+        ],
+      }
+    : {},
 ];
 
 export default routes;
