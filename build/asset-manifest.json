@@ -1,30 +1,21 @@
 {
   "files": {
-    "main.js": "/static/js/main.dfb10b4b.chunk.js",
-    "main.js.map": "/static/js/main.dfb10b4b.chunk.js.map",
+    "main.js": "/static/js/main.5749012c.chunk.js",
+    "main.js.map": "/static/js/main.5749012c.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.de5ef7b5.js",
     "runtime-main.js.map": "/static/js/runtime-main.de5ef7b5.js.map",
-    "static/js/2.1654592d.chunk.js": "/static/js/2.1654592d.chunk.js",
-    "static/js/2.1654592d.chunk.js.map": "/static/js/2.1654592d.chunk.js.map",
+    "static/js/2.dc216ab5.chunk.js": "/static/js/2.dc216ab5.chunk.js",
+    "static/js/2.dc216ab5.chunk.js.map": "/static/js/2.dc216ab5.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.1654592d.chunk.js.LICENSE.txt": "/static/js/2.1654592d.chunk.js.LICENSE.txt",
+    "static/js/2.dc216ab5.chunk.js.LICENSE.txt": "/static/js/2.dc216ab5.chunk.js.LICENSE.txt",
     "static/media/bg-about-us.cf9a123e.jpg": "/static/media/bg-about-us.cf9a123e.jpg",
     "static/media/bg-presentation.88963029.jpg": "/static/media/bg-presentation.88963029.jpg",
     "static/media/bg-sign-in-basic.f327db1d.jpeg": "/static/media/bg-sign-in-basic.f327db1d.jpeg",
-    "static/media/logo-coinbase.87e91c7f.svg": "/static/media/logo-coinbase.87e91c7f.svg",
-    "static/media/logo-nasa.c5d11f88.svg": "/static/media/logo-nasa.c5d11f88.svg",
-    "static/media/logo-netflix.432ed6b5.svg": "/static/media/logo-netflix.432ed6b5.svg",
-    "static/media/logo-pinterest.84470903.svg": "/static/media/logo-pinterest.84470903.svg",
-    "static/media/logo-spotify.7e255dc6.svg": "/static/media/logo-spotify.7e255dc6.svg",
-    "static/media/logo-vodafone.b3e8486c.svg": "/static/media/logo-vodafone.b3e8486c.svg",
-    "static/media/macbook.e0a8c5d5.png": "/static/media/macbook.e0a8c5d5.png",
-    "static/media/rotating-card-bg-back.183088de.jpeg": "/static/media/rotating-card-bg-back.183088de.jpeg",
-    "static/media/rotating-card-bg-front.bdcdfadc.jpeg": "/static/media/rotating-card-bg-front.bdcdfadc.jpeg",
-    "static/media/waves-white.7e7579c6.svg": "/static/media/waves-white.7e7579c6.svg"
+    "static/media/macbook.e0a8c5d5.png": "/static/media/macbook.e0a8c5d5.png"
   },
   "entrypoints": [
     "static/js/runtime-main.de5ef7b5.js",
-    "static/js/2.1654592d.chunk.js",
-    "static/js/main.dfb10b4b.chunk.js"
+    "static/js/2.dc216ab5.chunk.js",
+    "static/js/main.5749012c.chunk.js"
   ]
 }
