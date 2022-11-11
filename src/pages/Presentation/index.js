@@ -49,7 +49,6 @@ import AboutUs from "pages/LandingPages/AboutUs";
 // import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
 import Aboutpage from "./componentpage/Aboutpage";
-import Download from "./sections/Download";
 // import BuiltByDevelopers from "./components/BuiltByDevelopers";
 
 
@@ -124,7 +123,6 @@ function Presentation() {
          <Aboutpage/>
         </section>
         <section id="services">
-        <Download />
         <AboutUs />
         </section>
         <section id="contactus">

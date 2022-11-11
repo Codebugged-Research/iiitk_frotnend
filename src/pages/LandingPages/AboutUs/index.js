@@ -26,7 +26,7 @@ import MKTypography from "components/MKTypography";
 import Team from "pages/LandingPages/AboutUs/sections/Team";
 
 // Images
-import Featuring from "./sections/Featuring";
+// import Featuring from "./sections/Featuring";
 // import Newsletter from "./sections/Newsletter";
 
 function AboutUs() {
@@ -51,8 +51,6 @@ function AboutUs() {
           </Container>
         </MKBox>
         <Team />
-        <Featuring />
-        {/* <Newsletter /> */}
       </Grid>
     </>
   );
