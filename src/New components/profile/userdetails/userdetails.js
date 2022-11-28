@@ -59,33 +59,43 @@ function UserDetails() {
   const [enable, setEnable] = useState(true);
   // for enable inputs
   const handeleChangeEdit = () => {
+    console.log("handeleChangeEdit");
     setEnable(false);
   };
   // for disable inputs
-  const handeleChangeUpdate = async () => {
+  const handeleChangeUpdate = async (e) => {
+    e.preventDefault();
+    console.log(
+      "handeleChangeUpdate",
+      JSON.parse(localStorage.getItem("auth")).data.access_token
+    );
     await axios
       .patch(
         `https://admin.lidaverse.com/users/${user.id}`,
         {
-          "first_name": firstName,
-          "last_name": lastName,
-          "email": email,
-          "phone": phone,
-          "country": country,
-          "phone": phone,
-          "industry": industry,
-          "company": company,
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          phone: phone,
+          aadhar: aadhar,
+          country: country,
+          phone: phone,
+          industry: industry,
+          company: company,
         },
         {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("auth")).access_token
-          }`,
+          headers: {
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${
+              JSON.parse(localStorage.getItem("auth")).data.access_token
+            }`,
+          },
         }
       )
       .then((response2) => {
         console.log("User response", response2);
         if (response2.data) {
-          localStorage.setItem("user", JSON.stringify(response2.data.data[0]));
+          localStorage.setItem("user", JSON.stringify(response2.data.data));
         }
         setEnable(true);
       });
@@ -94,7 +104,7 @@ function UserDetails() {
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(user.password);
+  const [password, setPassword] = useState("");
   const [phone, setPhone] = useState(user.phone);
   const [industry, setIndustry] = useState(user.industry);
   const [country, setCountry] = useState(user.country);
@@ -105,7 +115,7 @@ function UserDetails() {
     <MKBox>
       <Container maxWidth="sm">
         <MKTypography variant="h4" color="text" pb={2}>
-          User Details {user.first_name}
+          User Details For {user.first_name}
         </MKTypography>
         {/* first name */}
         <Grid
@@ -120,6 +130,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
               defaultValue={firstName}
               variant="filled"
               sx={{ width: 400 }}
@@ -130,6 +141,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
               defaultValue={lastName}
               variant="filled"
               sx={{ width: 400, ml: 5 }}
@@ -142,6 +154,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="email"
+              onChange={(e) => setEmail(e.target.value)}
               defaultValue={email}
               variant="filled"
               type="email"
@@ -166,6 +179,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="company / orgainization"
+              onChange={(e) => setCompany(e.target.value)}
               defaultValue={company}
               type="text"
               variant="filled"
@@ -177,6 +191,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="industry"
+              onChange={(e) => setIndustry(e.target.value)}
               defaultValue={industry}
               type="text"
               variant="filled"
@@ -190,6 +205,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="country"
+              onChange={(e) => setCountry(e.target.value)}
               defaultValue={country}
               type="text"
               variant="filled"
@@ -201,6 +217,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="phone"
+              onChange={(e) => setPhone(e.target.value)}
               defaultValue={phone}
               type="tel"
               variant="filled"
@@ -214,6 +231,7 @@ function UserDetails() {
               disabled={enable}
               id="filled-disabled"
               label="aadhar"
+              onChange={(e) => setAadhar(e.target.value)}
               defaultValue={aadhar}
               type="text"
               variant="filled"
