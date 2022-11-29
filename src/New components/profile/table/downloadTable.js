@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function async DTable() {
+function DTable() {
   const rows = [
     {
       place: "delhi",
@@ -178,8 +178,6 @@ function async DTable() {
   };
 
   const downloads = [];
-
-  await axios
 
   return (
     <div>
