@@ -164,7 +164,7 @@ function Main({ checked, filterParams }) {
     }
     if (downloadList.length > 0) {
       axios
-        .post("http://15.206.79.128:3001/", {
+        .post("http://13.232.29.144:3001/", {
           "bucket": "lidaverse",
           "destination_key": "zips/test.zip",
           "files": downloadList
