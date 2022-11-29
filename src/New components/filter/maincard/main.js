@@ -4,36 +4,42 @@ import * as React from "react";
 import MKButton from "components/MKButton";
 import TimeAgo from "timeago-react";
 import axios from "axios";
-import { Checkbox, FormControlLabel, Pagination, Typography, Grid } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  Pagination,
+  Typography,
+  Grid,
+} from "@mui/material";
 
 /*eslint-disable */
-let newCheckList = []
+let newCheckList = [];
 
 function loadScript(src) {
   return new Promise((resolve) => {
-    const script = document.createElement('script')
-    script.src = src
+    const script = document.createElement("script");
+    script.src = src;
     script.onload = () => {
-      resolve(true)
-    }
+      resolve(true);
+    };
     script.onerror = () => {
-      resolve(false)
-    }
-    document.body.appendChild(script)
-  })
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
 }
 
-const __DEV__ = document.domain === 'localhost'
+const __DEV__ = document.domain === "localhost";
 
 function Main({ checked, filterParams }) {
   const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
-  const [checkBoxValue, setCheckBoxValue] = React.useState(false)
+  const [checkBoxValue, setCheckBoxValue] = React.useState(false);
   // const [filterString, setFilterString] = React.useState("");
   const handleChange = (e, index) => {
     e.preventDefault();
-    setCheckBoxValue(true)
+    setCheckBoxValue(true);
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
@@ -111,75 +117,94 @@ function Main({ checked, filterParams }) {
   };
 
   async function displayRazorpay() {
-    const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
 
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?')
-      return
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
     }
 
-    const data = await fetch('http://localhost:5000/razorpay', { method: 'POST' }).then((t) =>
-      t.json()
-    )
+    const data = await fetch("http://localhost:5000/razorpay", {
+      method: "POST",
+    }).then((t) => t.json());
 
-    console.log(data)
+    console.log(data);
 
     const options = {
-      key: __DEV__ ? 'rzp_test_5OSb5dOnVnJR1m' : 'PRODUCTION_KEY',
+      key: __DEV__ ? "rzp_test_5OSb5dOnVnJR1m" : "PRODUCTION_KEY",
       currency: data.currency,
       amount: data.amount.toString(),
       order_id: data.id,
-      name: 'Donation',
-      description: 'Thank you',
-      image: 'my image',
+      name: "Donation",
+      description: "Thank you",
+      image: "my image",
       handler: function (response) {
-        alert(response.razorpay_payment_id)
-        alert(response.razorpay_order_id)
-        alert(response.razorpay_signature)
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
       },
       prefill: {
-        name: 'Shanmugaasaran D',
-        email: 'charan@codebugged.com',
-        phone_number: '9899999999'
-      }
-    }
-    const paymentObject = new window.Razorpay(options)
-    paymentObject.open()
+        name: "Shanmugaasaran D",
+        email: "charan@codebugged.com",
+        phone_number: "9899999999",
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
   }
 
   const downloadAll = () => {
     var downloadList = [];
     for (let i = 0; i < results.length; i++) {
       if (results[i]) {
-        console.log(`https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`);
-        downloadList.push(
-          {
-            "uri": `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
-            "filename": `${results[i].segmented_file.filename_download}`,
-            "type": "url"
-          }
+        console.log(
+          `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
         );
+        downloadList.push({
+          uri: `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
+          filename: `${results[i].segmented_file.filename_download}`,
+          type: "url",
+        });
         console.log(results[i]);
       }
     }
     if (downloadList.length > 0) {
       axios
         .post("http://13.232.29.144:3001/", {
-          "bucket": "lidaverse",
-          "destination_key": "zips/test.zip",
-          "files": downloadList
-        }
-        )
+          bucket: "lidaverse",
+          destination_key: "zips/test.zip",
+          files: downloadList,
+        })
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
+            axios
+              .post("https://admin.lidaverse.com/items/downloads", {
+                status: "available",
+                link_url:
+                  "https://lidaverse.s3.ap-south-1.amazonaws.com/zips/test.zip",
+                data_type: "io",
+                io_list: [
+                  {
+                    pcd_instance_id: "9cd1e94c-4172-443f-a2f4-3b05428478fd",
+                  },
+                  {
+                    pcd_instance_id: "ad74577b-8062-4cfe-9632-8ab5f6f6987e",
+                  },
+                ],
+              })
+              .then((res) => {
+                console.log(res);
+              });
             window.open(res.data.final_destination);
           } else {
             alert("Something went wrong");
           }
         });
     }
-  }
+  };
 
   return (
     <div>
@@ -236,11 +261,7 @@ function Main({ checked, filterParams }) {
               <p>Filter Results</p>
             </MKTypography>
           </MKBox>
-          <MKBox
-            pt={1}
-            pl={1.5}
-            ml="20%"
-          >
+          <MKBox pt={1} pl={1.5} ml="20%">
             <MKButton
               variant="gradient"
               height="fit-content"
@@ -251,7 +272,10 @@ function Main({ checked, filterParams }) {
             >
               Download Test
             </MKButton>
-            <Typography variant="h5" fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}>
+            <Typography
+              variant="h5"
+              fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}
+            >
               Results &nbsp; &nbsp;: &nbsp;{results.length}
               <br />
               Selected &nbsp;: &nbsp; {checkedBoxes}
@@ -275,7 +299,7 @@ function Main({ checked, filterParams }) {
               fontSize={{ xl: "1rem", lg: "0.8rem" }}
             >
               <Grid display="flex">
-                <Grid item md={10} container spacing={2} >
+                <Grid item md={10} container spacing={2}>
                   <Grid item md={12} mb={3}>
                     <h3>
                       {checked
@@ -284,8 +308,9 @@ function Main({ checked, filterParams }) {
                     </h3>
                   </Grid>
                   <Grid item ml={1.5}>
-                    <p >
-                      <strong >Place : </strong> {checked ? detail.place : detail.pcd_instance_id.place}
+                    <p>
+                      <strong>Place : </strong>{" "}
+                      {checked ? detail.place : detail.pcd_instance_id.place}
                     </p>
                   </Grid>
                   <Grid item ml={1.5}>
@@ -299,13 +324,17 @@ function Main({ checked, filterParams }) {
                   <Grid item ml={1.5}>
                     <p>
                       <strong> Environment : </strong>
-                      {checked ? detail.environment : detail.pcd_instance_id.environment}
+                      {checked
+                        ? detail.environment
+                        : detail.pcd_instance_id.environment}
                     </p>
                   </Grid>
                   <Grid item ml={1.5}>
                     <p>
                       <strong>Terrain : </strong>
-                      {checked ? detail.terrain : detail.pcd_instance_id.terrain}
+                      {checked
+                        ? detail.terrain
+                        : detail.pcd_instance_id.terrain}
                     </p>
                   </Grid>
                   {checked ? (
@@ -318,11 +347,15 @@ function Main({ checked, filterParams }) {
                   ) : (
                     <></>
                   )}
-                  <Grid item ml={1.5} >
+                  <Grid item ml={1.5}>
                     <p>
                       <strong>Uploaded : </strong>
                       <TimeAgo
-                        datetime={checked ? detail.date_created : detail.pcd_instance_id.date_created}
+                        datetime={
+                          checked
+                            ? detail.date_created
+                            : detail.pcd_instance_id.date_created
+                        }
                       />
                     </p>
                   </Grid>
@@ -338,8 +371,14 @@ function Main({ checked, filterParams }) {
                           height: "1rem",
                         }}
                         className="ckb"
-                        checked={(checkBoxValue ? checkList[(((page - 1) * 10) + index)] : false)}
-                        onChange={(e) => handleChange(e, (((page - 1) * 10) + index))}
+                        checked={
+                          checkBoxValue
+                            ? checkList[(page - 1) * 10 + index]
+                            : false
+                        }
+                        onChange={(e) =>
+                          handleChange(e, (page - 1) * 10 + index)
+                        }
                       />
                     }
                     label=""
@@ -349,7 +388,10 @@ function Main({ checked, filterParams }) {
                     variant="gradient"
                     color="info"
                     onClick={() => {
-                      window.open("http://127.0.0.1:5500/threepcs.html", "_blank");
+                      window.open(
+                        "http://127.0.0.1:5500/threepcs.html",
+                        "_blank"
+                      );
                     }}
                     sx={{ mt: 5 }}
                   >

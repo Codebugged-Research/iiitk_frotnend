@@ -2,7 +2,7 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import { TableContainer, Paper, Grid, Typography, TablePagination } from "@mui/material";
-
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
     borderRadius: 15,
@@ -60,96 +60,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TTable() {
-  const rows = [
-    {
-      place: "delhi",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "2000",
-      Date: "13/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "mumbai",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "2300",
-      Date: "14/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "chennai",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "200",
-      Date: "15/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "coimbatore",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "3000",
-      Date: "3/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "chandigar",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "3000",
-      Date: "17/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "delhi",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "3000",
-      Date: "11/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "bangalore",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "4344",
-      Date: "13/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "mangalore",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "3999",
-      Date: "17/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "goa",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "1000",
-      Date: "13/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "chatiskar",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "2000",
-      Date: "14/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-    {
-      place: "manali",
-      sensor: "mls",
-      terrain: "semiurban",
-      amount: "5000",
-      Date: "16/08/2022",
-      account: "ICICXXXXXX1234",
-    },
-  ];
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -162,6 +72,22 @@ function TTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const [transaction , setTransaction] = React.useState([]);
+
+  let downloadData = [];
+  // fetch data from api
+  axios
+    .get(
+      "https://admin.lidaverse.com/items/payments"
+    )
+    .then((res) => {
+      const data = res.data;
+      data.data.forEach((item) => {
+        downloadData.push(item);
+      });
+      setTransaction(downloadData);
+    });
 
   return (
     <Grid>
@@ -184,30 +110,30 @@ function TTable() {
               Paid
             </th>
           </tr>
-          {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+          {transaction.map((row, index) => (
             <tr key={index}>
               <td style={{ paddingLeft: 50 }}>{index + 1}</td>
               <td style={{ paddingLeft: 50, paddingTop: 12 }}>
                 <Grid container>
                   <Grid item>
-                    <Typography className={classes.name}>Place : {row.place}</Typography>
-                    <Typography color="textSecondary" variant="body2">
+                    <Typography className={classes.name}>Download : {row.download}</Typography>
+                    {/* <Typography color="textSecondary" variant="body2">
                       Sensor : {row.sensor}
                     </Typography>
                     <Typography color="textSecondary" variant="body2">
                       Terrain : {row.terrain}
-                    </Typography>
+                    </Typography> */}
                   </Grid>
                 </Grid>
               </td>
               <td style={{ paddingLeft: 70 }}>
                 <Typography color="textSecondary" variant="h6">
-                  {row.account}
+                  {row.transaction_id}
                 </Typography>
               </td>
               <td style={{ paddingLeft: 80 }}>
                 <Typography color="primary" variant="subtitle2">
-                  {row.Date}
+                  {row.date_created}
                 </Typography>
               </td>
               <td style={{ paddingLeft: 50, paddingRight: 50 }}>
@@ -219,7 +145,7 @@ function TTable() {
           ))}
         </table>
       </TableContainer>
-      <TablePagination
+      {/* <TablePagination
         className={classes.pagination}
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
@@ -228,7 +154,7 @@ function TTable() {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      /> */}
     </Grid>
   );
 }
