@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start --max_old_space_size=512",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "react-scripts --openssl-legacy-provider build --max_old_space_size=512",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts --openssl-legacy-provider eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
