@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DTable() {
+function async DTable() {
   const rows = [
     {
       place: "delhi",
@@ -176,6 +176,10 @@ function DTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const downloads = [];
+
+  await axios
 
   return (
     <div>
