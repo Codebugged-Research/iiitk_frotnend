@@ -4,7 +4,7 @@
       "name": "lidarverse",
       "script": "npx",
       "interpreter": "none",
-      "args": "serve -s build -T"
+      "args": "serve -s build"
     }
   ]
 }
