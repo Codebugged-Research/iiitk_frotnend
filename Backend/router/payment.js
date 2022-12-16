@@ -32,7 +32,7 @@ router.post('/verification', (req, res) => {
 	const secret = '12345678'
 
 	console.log(req.body)
-
+ 
 	const crypto = require('crypto')
 
 	const shasum = crypto.createHmac('sha256', secret)

@@ -11,7 +11,6 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 /* eslint-disable */
 function Downloadcard({ data ,data1 , data2 , amount}) {
   const [show,setShow] = React.useState(false);
-  const [showamount,setShowamount] = React.useState(false);
 
   const [downloadInput, setDownloadInput] = React.useState(20);
 
@@ -45,7 +44,6 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
           pl={3}
         >
           <MKTypography variant="h5" color="white">
-            {/* {name} */}
             Download Options
           </MKTypography>
         </MKBox>

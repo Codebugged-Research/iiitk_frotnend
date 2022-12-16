@@ -35,20 +35,25 @@ const __DEV__ = document.domain === "localhost";
 function Main({ checked, filterParams }) {
   const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
+  const [downloadLinkList, setDownloadLinkList] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
   const [charge, setCharge] = React.useState(0);
   const [checkBoxValue, setCheckBoxValue] = React.useState(false);
   // const [filterString, setFilterString] = React.useState("");
-  const handleChange = (e, index) => {
+  const handleChange = (e, index, link) => {
     e.preventDefault();
     setCheckBoxValue(true);
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
       setCharge(charge+(0.05*20))
+      setDownloadLinkList([...downloadLinkList, link]);
     } else {
       setCheckedBoxes(checkedBoxes - 1);
       setCharge(charge-(0.05*20))
+      setDownloadLinkList(
+        downloadLinkList.filter((item) => item !== link)
+      );
 
     }
     for (let i = 0; i < index; i++) {
@@ -165,7 +170,8 @@ function Main({ checked, filterParams }) {
   
 
   const downloadAll = () => {
-    let downloadList = [];
+    // check this
+    let downloadList = downloadLinkList;
     for (let i = 0; i < results.length; i++) {
       checkList[i] = true;
       if (results[i]) {
@@ -324,15 +330,7 @@ const downloadInpage = () => {
           }
         });
     }
-  };
-
-  axios.post("http://localhost:5000/data", {
-    "amount":charge
-  }).then((res) => {
-    console.log(res);
-  });
-        
-      
+  };      
 
   return (
     <div>
@@ -506,7 +504,9 @@ const downloadInpage = () => {
                               : false
                           }
                           onChange={(e) =>
-                            handleChange(e, (page - 1) * 10 + index)
+                            handleChange(e, (page - 1) * 10 + index,checked
+                            ? "https://admin.lidaverse.com/assets/" + detail.segmented_file
+                            : "https://admin.lidaverse.com/assets/" + detail.directus_files_id)
                           }                        
                         />
                       }
