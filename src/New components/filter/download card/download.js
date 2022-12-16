@@ -1,4 +1,4 @@
-import { Grid, Slider, Typography } from "@mui/material";
+import { Grid, Slider } from "@mui/material";
 import MKButton from "components/MKButton";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
@@ -56,7 +56,7 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
                   <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormGroup>
                       {/*selection download*/}
-
+                      Total Payable amount: Rs {amount}
                       <MKButton
                         variant="gradient"
                         height="fit-content"
@@ -113,18 +113,6 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
                           >
                             Download in this page
                           </MKButton>
-                          <MKButton
-                            variant="gradient"
-                            height="fit-content"
-                            width="fit-content"
-                            color="info"
-                            onClick={() => setShowamount(!showamount)}
-                            sx={{ mt: 2 }}
-                          >
-                            Total amount {showamount ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                          </MKButton>
-                          {showamount &&
-                              <Typography variant="body"  mt ={1}align="center"> {amount} </Typography>}
                     </FormGroup>
                   </FormControl>
                 </h5>

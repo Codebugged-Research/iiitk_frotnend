@@ -5,7 +5,7 @@ const cors = require('cors')
 
 app.use(cors())
 // app.use(bodyParser.json())
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/logo.svg', require('./router/payment'))
@@ -87,7 +87,7 @@ app.listen(5000, () => {
 //        if (err) {
 //         return res.status(500).json({
 //            message: "Something Went Wrong",
-//          }); 
+//          });
 //        }
 //         console.log("Status:", response.statusCode);
 //         console.log("Headers:", JSON.stringify(response.headers));

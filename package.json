@@ -23,9 +23,9 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/icons-material": "^5.2.0",
     "@mui/lab": "^5.0.0-alpha.90",
-    "@mui/material": "5.2.0",
-    "@mui/styled-engine": "5.2.0",
-    "@mui/styles": "^5.9.3",
+    "@mui/material": "5.11.0",
+    "@mui/styled-engine": "5.11.0",
+    "@mui/styles": "^5.11.0",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
@@ -47,8 +47,8 @@
     "web-vitals": "1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start --openssl-legacy-provider",
-    "build": "react-scripts --openssl-legacy-provider build --max_old_space_size=4096",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "react-scripts --openssl-legacy-provider",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts --openssl-legacy-provider eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"

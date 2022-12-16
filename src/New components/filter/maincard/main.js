@@ -141,7 +141,7 @@ function Main({ checked, filterParams }) {
     console.log(data);
 
     const options = {
-      key: __DEV__ ? "rzp_test_5OSb5dOnVnJR1m" : "PRODUCTION_KEY",
+      key: "rzp_test_5OSb5dOnVnJR1m",
       currency: data.currency,
       amount: data.amount.toString(),
       order_id: data.id,
