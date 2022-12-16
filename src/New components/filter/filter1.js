@@ -5,9 +5,11 @@ import { Grid,Tabs, Tab ,Box } from "@mui/material";
 // import MKBox from "components/MKBox";
 import routes from "routes";
 import { useNavigate } from "react-router-dom";
+// import axios from "axios";
 import Cards from "./card/card";
 import Main from "./maincard/main";
-import Downloadcard from "./download card/download";
+// import Downloadcard from "./download card/download";
+
 
 function Filter1() {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ function Filter1() {
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
 
+  console.log(charge)
   React.useEffect(() => {}, [
     checked,
     env,
@@ -37,6 +40,11 @@ function Filter1() {
     e.preventDefault();
     navigate("/filter/io")
   };
+
+  // const downloadall = (data) =>{
+  //   () => downloadAll()
+  // }
+  
   return (
     <>
       <DefaultNavbar
@@ -143,7 +151,7 @@ function Filter1() {
             />
           </Grid>
         </Grid>
-        <Grid mt={20} xs={2} ml="2%">
+        <Grid mt={20} xs={9}  ml="2%">
           <Main
             checked={checked}
             filterParams={{
@@ -158,12 +166,13 @@ function Filter1() {
             }}
           />
         </Grid>
-        <Grid mt={20} ml="44%">
+        {/* <Grid mt={20} ml="44%">
           <Downloadcard
-            name="Download Options"
-            btnName={["Download selected", "Download All", "Download in this page"]}
+            // name="Download Options"
+            // btnName={["Download selected", "Download All", "Download in this page","Total amount"]}
+            // onclick = {downloadAll}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

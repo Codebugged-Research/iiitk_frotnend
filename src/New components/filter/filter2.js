@@ -7,7 +7,7 @@ import routes from "routes";
 import { useNavigate } from "react-router-dom";
 import Cards from "./card/card";
 import Main from "./maincard/main";
-import Downloadcard from "./download card/download";
+// import Downloadcard from "./download card/download";
 
 function Filter2() {
   const navigate = useNavigate();
@@ -158,7 +158,7 @@ function Filter2() {
             />
           </Grid>
         </Grid>
-        <Grid mt={20} xs={2} ml="2%">
+        <Grid mt={20} xs={9} ml="2%">
           <Main
             checked={checked}
             filterParams={{
@@ -173,12 +173,12 @@ function Filter2() {
             }}
           />
         </Grid>
-        <Grid mt={20} ml="44%">
+        {/* <Grid mt={20} ml="44%">
           <Downloadcard
-            name="Download Options"
-            btnName={["Download selected", "Download All", "Download in this page"]}
+            // name="Download Options"
+            // btnName={["Download selected", "Download All", "Download in this page","Total amount"]}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

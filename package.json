@@ -47,7 +47,7 @@
     "web-vitals": "1.0.1"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start --max_old_space_size=4096",
+    "start": "react-scripts start --openssl-legacy-provider",
     "build": "react-scripts --openssl-legacy-provider build --max_old_space_size=4096",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts --openssl-legacy-provider eject",

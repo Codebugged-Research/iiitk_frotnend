@@ -11,6 +11,7 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
+import Downloadcard from "../download card/download"
 
 /*eslint-disable */
 let newCheckList = [];
@@ -35,6 +36,7 @@ function Main({ checked, filterParams }) {
   const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
+  const [charge, setCharge] = React.useState(0);
   const [checkBoxValue, setCheckBoxValue] = React.useState(false);
   // const [filterString, setFilterString] = React.useState("");
   const handleChange = (e, index) => {
@@ -43,8 +45,11 @@ function Main({ checked, filterParams }) {
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
+      setCharge(charge+(0.05*20))
     } else {
       setCheckedBoxes(checkedBoxes - 1);
+      setCharge(charge-(0.05*20))
+
     }
     for (let i = 0; i < index; i++) {
       if (newCheckList[i] === undefined) {
@@ -96,7 +101,7 @@ function Main({ checked, filterParams }) {
           : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*&filter[status][_eq]=published${filter}`
       )
       .then((res) => {
-        var newResults = [];
+        let newResults = [];
         if (checked) {
           newResults.push(...res.data.data);
         } else {
@@ -109,6 +114,9 @@ function Main({ checked, filterParams }) {
         setResults(newResults);
       });
   };
+  // console.log(results);
+  // console.log(checkList);
+
   // for pagination
   const [page, setPage] = React.useState(1);
 
@@ -154,10 +162,12 @@ function Main({ checked, filterParams }) {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
+  
 
   const downloadAll = () => {
-    var downloadList = [];
+    let downloadList = [];
     for (let i = 0; i < results.length; i++) {
+      checkList[i] = true;
       if (results[i]) {
         console.log(
           `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
@@ -206,244 +216,374 @@ function Main({ checked, filterParams }) {
     }
   };
 
+  const downloadSelected = () => {
+    let downloadList = [];
+    if(checkList.length === 0){
+      alert("Please select card")
+    }
+    for (let i = 0; i < checkList.length; i++) {
+      if(checkList[i]){
+        console.log("yes")
+        if (results[i]) {
+          console.log(
+            `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
+          );
+          downloadList.push({
+            uri: `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
+            filename: `${results[i].segmented_file.filename_download}`,
+            type: "url",
+          });
+          console.log(results[i]);
+        }
+      }
+    }
+    if (downloadList.length > 0) {
+      axios
+        .post("http://13.232.29.144:3001/", {
+          bucket: "lidaverse",
+          destination_key: "zips/test.zip",
+          files: downloadList,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            axios
+              .post("https://admin.lidaverse.com/items/downloads", {
+                status: "available",
+                link_url:
+                  "https://lidaverse.s3.ap-south-1.amazonaws.com/zips/test.zip",
+                data_type: "io",
+                io_list: [
+                  {
+                    pcd_instance_id: "9cd1e94c-4172-443f-a2f4-3b05428478fd",
+                  },
+                  {
+                    pcd_instance_id: "ad74577b-8062-4cfe-9632-8ab5f6f6987e",
+                  },
+                ],
+              })
+              .then((res) => {
+                console.log(res);
+              });
+            window.open(res.data.final_destination);
+          } else {
+            alert("Something went wrong");
+          }
+        });
+    }
+  };
+
+const downloadInpage = () => {
+    let downloadList = [];
+    for (let i = 0; i < (results.length < 10 ? results.length : 10) ; i++) {
+      if(results[i]){
+        if (results[i]) {
+          console.log(
+            `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
+          );
+          downloadList.push({
+            uri: `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
+            filename: `${results[i].segmented_file.filename_download}`,
+            type: "url",
+          });
+          console.log(results[i]);
+        }
+      }
+    }
+    if (downloadList.length > 0) {
+      axios
+        .post("http://13.232.29.144:3001/", {
+          bucket: "lidaverse",
+          destination_key: "zips/test.zip",
+          files: downloadList,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            axios
+              .post("https://admin.lidaverse.com/items/downloads", {
+                status: "available",
+                link_url:
+                  "https://lidaverse.s3.ap-south-1.amazonaws.com/zips/test.zip",
+                data_type: "io",
+                io_list: [
+                  {
+                    pcd_instance_id: "9cd1e94c-4172-443f-a2f4-3b05428478fd",
+                  },
+                  {
+                    pcd_instance_id: "ad74577b-8062-4cfe-9632-8ab5f6f6987e",
+                  },
+                ],
+              })
+              .then((res) => {
+                console.log(res);
+              });
+            window.open(res.data.final_destination);
+          } else {
+            alert("Something went wrong");
+          }
+        });
+    }
+  };
+
+  axios.post("http://localhost:5000/data", {
+    "amount":charge
+  }).then((res) => {
+    console.log(res);
+  });
+        
+      
+
   return (
     <div>
-      <MKBox
-        bgColor="white"
-        borderRadius="xl"
-        shadow="lg"
-        sx={{
-          height: "630px",
-          width: "350%",
-          display: "block",
-          position: "relative",
-          overflow: "auto",
-          "&::-webkit-scrollbar": {
-            width: "6px",
-            height: "0px",
-            zIndex: 2,
-          },
-          "&::-webkit-scrollbar-thumb": {
-            borderRadius: "20px",
-            background: "#4D8CC9",
-          },
-        }}
-        mb={10}
-      >
-        {/*placeholder box */}
-        {/*filter name box */}
+      <MKBox display="flex">
         <MKBox
-          variant="gradient"
-          bgColor="none"
-          display="flex"
-          height="75px"
-          top={0}
-          zIndex={1}
-          borderRadius="lg"
-          position="sticky"
+          bgColor="white"
+          borderRadius="xl"
+          shadow="lg"
+          sx={{
+            height: "630px",
+            width: "105%",
+            display: "block",
+            position: "relative",
+            overflow: "auto",
+            "&::-webkit-scrollbar": {
+              width: "6px",
+              height: "0px",
+              zIndex: 2,
+            },
+            "&::-webkit-scrollbar-thumb": {
+              borderRadius: "20px",
+              background: "#4D8CC9",
+            },
+          }}
+          mb={10}
         >
+          {/*placeholder box */}
+          {/*filter name box */}
           <MKBox
             variant="gradient"
-            bgColor="info"
-            coloredShadow="info"
-            alignItems="center"
-            pt={2}
-            pl={1}
-            pr={1}
-            ml="40%"
+            bgColor="none"
+            display="flex"
+            height="75px"
+            top={0}
+            zIndex={1}
+            borderRadius="lg"
+            position="sticky"
           >
-            <MKTypography
-              variant="h3"
-              bgColor="blue"
-              color="white"
-              fontSize={{ xl: "1.5rem", lg: "1.2rem", md: "1rem", sm: "1rem" }}
-            >
-              <p>Filter Results</p>
-            </MKTypography>
-          </MKBox>
-          <MKBox pt={1} pl={1.5} ml="20%">
-            <MKButton
-              variant="gradient"
-              height="fit-content"
-              width="fit-content"
-              color="info"
-              onClick={() => downloadAll()}
-              sx={{ mt: 2 }}
-            >
-              Download Test
-            </MKButton>
-            <Typography
-              variant="h5"
-              fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}
-            >
-              Results &nbsp; &nbsp;: &nbsp;{results.length}
-              <br />
-              Selected &nbsp;: &nbsp; {checkedBoxes}
-            </Typography>
-          </MKBox>
-        </MKBox>
-
-        {/*main card elements box */}
-        <MKBox marginTop={10}>
-          {results.slice(page * 10 - 10, page * 10).map((detail, index) => (
             <MKBox
-              key={index.toString()}
               variant="gradient"
-              bgColor="grey"
+              bgColor="info"
               coloredShadow="info"
-              borderRadius="lg"
-              p={2}
-              mx={10}
-              mt={3}
-              mb={3}
-              fontSize={{ xl: "1rem", lg: "0.8rem" }}
+              alignItems="center"
+              pt={2}
+              pl={1}
+              pr={1}
+              ml="40%"
             >
-              <Grid display="flex">
-                <Grid item md={10} container spacing={2}>
-                  <Grid item md={12} mb={3}>
-                    <h3>
-                      {checked
-                        ? detail.name
-                        : detail.pcd_instance_id.name.split("_").join(" ")}
-                    </h3>
-                  </Grid>
-                  <Grid item ml={1.5}>
-                    <p>
-                      <strong>Place : </strong>{" "}
-                      {checked ? detail.place : detail.pcd_instance_id.place}
-                    </p>
-                  </Grid>
-                  <Grid item ml={1.5}>
-                    <p>
-                      <strong>Sensor : </strong>
-                      {checked
-                        ? detail.sensor.toUpperCase()
-                        : detail.pcd_instance_id.sensor.toUpperCase()}
-                    </p>
-                  </Grid>
-                  <Grid item ml={1.5}>
-                    <p>
-                      <strong> Environment : </strong>
-                      {checked
-                        ? detail.environment
-                        : detail.pcd_instance_id.environment}
-                    </p>
-                  </Grid>
-                  <Grid item ml={1.5}>
-                    <p>
-                      <strong>Terrain : </strong>
-                      {checked
-                        ? detail.terrain
-                        : detail.pcd_instance_id.terrain}
-                    </p>
-                  </Grid>
-                  {checked ? (
+              <MKTypography
+                variant="h3"
+                bgColor="blue"
+                color="white"
+                fontSize={{ xl: "1.5rem", lg: "1.2rem", md: "1rem", sm: "1rem" }}
+              >
+                <p>Filter Results</p>
+              </MKTypography>
+            </MKBox>
+            <MKBox pt={1} pl={1.5} ml="20%">
+              {/* <MKButton
+                variant="gradient"
+                height="fit-content"
+                width="fit-content"
+                color="info"
+                onClick={() => downloadAll()}
+                sx={{ mt: 2 }}
+              >
+                Download Test
+              </MKButton> */}
+              <Typography
+                variant="h5"
+                fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}
+              >
+                Results &nbsp; &nbsp;: &nbsp;{results.length}
+                <br />
+                Selected &nbsp;: &nbsp; {checkedBoxes}
+              </Typography>
+            </MKBox>
+          </MKBox>
+
+          {/*main card elements box */}
+          <MKBox marginTop={10}>
+            {results.slice(page * 10 - 10, page * 10).map((detail, index) => (
+              <MKBox
+                key={index.toString()}
+                variant="gradient"
+                bgColor="grey"
+                coloredShadow="info"
+                borderRadius="lg"
+                p={2}
+                mx={10}
+                mt={3}
+                mb={3}
+                fontSize={{ xl: "1rem", lg: "0.8rem" }}
+              >
+                <Grid display="flex">
+                  <Grid item md={10} container spacing={2}>
+                    <Grid item md={12} mb={3}>
+                      <h3>
+                        {checked
+                          ? detail.name
+                          : detail.pcd_instance_id.name.split("_").join(" ")}
+                      </h3>
+                    </Grid>
                     <Grid item ml={1.5}>
                       <p>
-                        <strong>IO FIles : </strong>
-                        {detail.io_files.length}
+                        <strong>Place : </strong>{" "}
+                        {checked ? detail.place : detail.pcd_instance_id.place}
                       </p>
                     </Grid>
-                  ) : (
-                    <></>
-                  )}
-                  <Grid item ml={1.5}>
-                    <p>
-                      <strong>Uploaded : </strong>
-                      <TimeAgo
-                        datetime={
-                          checked
-                            ? detail.date_created
-                            : detail.pcd_instance_id.date_created
-                        }
-                      />
-                    </p>
+                    <Grid item ml={1.5}>
+                      <p>
+                        <strong>Sensor : </strong>
+                        {checked
+                          ? detail.sensor.toUpperCase()
+                          : detail.pcd_instance_id.sensor.toUpperCase()}
+                      </p>
+                    </Grid>
+                    <Grid item ml={1.5}>
+                      <p>
+                        <strong> Environment : </strong>
+                        {checked
+                          ? detail.environment
+                          : detail.pcd_instance_id.environment}
+                      </p>
+                    </Grid>
+                    <Grid item ml={1.5}>
+                      <p>
+                        <strong>Terrain : </strong>
+                        {checked
+                          ? detail.terrain
+                          : detail.pcd_instance_id.terrain}
+                      </p>
+                    </Grid>
+                    {checked ? (
+                      <Grid item ml={1.5}>
+                        <p>
+                          <strong>IO FIles : </strong>
+                          {detail.io_files.length}
+                        </p>
+                      </Grid>
+                    ) : (
+                      <></>
+                    )}
+                    <Grid item ml={1.5}>
+                      <p>
+                        <strong>Uploaded : </strong>
+                        <TimeAgo
+                          datetime={
+                            checked
+                              ? detail.date_created
+                              : detail.pcd_instance_id.date_created
+                          }
+                        />
+                      </p>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid md={3}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        sx={{
-                          border: "2px solid #92aed4",
-                          borderRadius: "0.35rem",
-                          width: "1rem",
-                          height: "1rem",
-                        }}
-                        className="ckb"
-                        checked={
-                          checkBoxValue
-                            ? checkList[(page - 1) * 10 + index]
-                            : false
-                        }
-                        onChange={(e) =>
-                          handleChange(e, (page - 1) * 10 + index)
-                        }
-                      />
-                    }
-                    label=""
-                    sx={{ position: "relative", left: "85%", top: "2%" }}
-                  />
-                  <MKButton
+                  <Grid md={3}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{
+                            border: "2px solid #92aed4",
+                            borderRadius: "0.35rem",
+                            width: "1rem",
+                            height: "1rem",
+                          }}
+                          className="ckb"
+                          checked={
+                            checkBoxValue
+                              ? checkList[(page - 1) * 10 + index]
+                              : false
+                          }
+                          onChange={(e) =>
+                            handleChange(e, (page - 1) * 10 + index)
+                          }                        
+                        />
+                      }
+                      label=""
+                      sx={{ position: "relative", left: "85%", top: "2%" }}
+                    />
+                    <MKButton
+                      variant="gradient"
+                      color="info"
+                      onClick={() => {
+                        window.open(
+                          "http://127.0.0.1:5500/threepcs.html",
+                          "_blank"
+                        );
+                      }}
+                      sx={{ mt: 5 }}
+                    >
+                      Visualize
+                    </MKButton>
+                    {/*<MKButton
                     variant="gradient"
                     color="info"
                     onClick={() => {
-                      window.open(
-                        "http://127.0.0.1:5500/threepcs.html",
-                        "_blank"
-                      );
+                      window.open("#", "_blank");
                     }}
-                    sx={{ mt: 5 }}
-                  >
-                    Visualize
-                  </MKButton>
-                  {/*<MKButton
-                  variant="gradient"
-                  color="info"
-                  onClick={() => {
-                    window.open("#", "_blank");
-                  }}
-                  >
-                  Details
-                </MKButton>*/}
-                  {/* <Grid sx={{ mt: "20%" }}> */}
-                  <MKButton
-                    variant="gradient"
-                    height="fit-content"
-                    width="fit-content"
-                    color="info"
-                    onClick={
-                      //   () => {
-                      //   window.open("", "_blank");
-                      // }
-                      displayRazorpay
-                    }
-                    sx={{ mt: 3 }}
-                  >
-                    Download
-                  </MKButton>
-                  {/* </Grid> */}
+                    >
+                    Details
+                  </MKButton>*/}
+                    {/* <Grid sx={{ mt: "20%" }}> */}
+                    <MKButton
+                      variant="gradient"
+                      height="fit-content"
+                      width="fit-content"
+                      color="info"
+                      onClick={
+                        //   () => {
+                        //   window.open("", "_blank");
+                        // }
+                        displayRazorpay
+                      }
+                      sx={{ mt: 3 }}
+                    >
+                      Download
+                    </MKButton>
+                    {/* </Grid> */}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </MKBox>
-          ))}
-        </MKBox>
-        <MKBox
-          width="100%"
-          display="flex"
-          flexDirection={{ xs: "column", lg: "column" }}
-          justifyContent="space-between"
-          alignItems="center"
-          pb={5}
-          pt={5}
-        >
-          <Pagination
+              </MKBox>
+            ))}
+          </MKBox>
+          <MKBox
             width="100%"
-            position="absolute"
-            count={results.length < 10 ? 1 : Math.ceil(results.length / 10)}
-            page={page}
-            onChange={handleChangePage}
-            color="info"
+            display="flex"
+            flexDirection={{ xs: "column", lg: "column" }}
+            justifyContent="space-between"
+            alignItems="center"
+            pb={5}
+            pt={5}
+          >
+            <Pagination
+              width="100%"
+              position="absolute"
+              count={results.length < 10 ? 1 : Math.ceil(results.length / 10)}
+              page={page}
+              onChange={handleChangePage}
+              color="info"
+            />
+          </MKBox>
+        </MKBox>
+        <MKBox ml="3%" width="31%">
+          <Downloadcard
+            // name="Download Options"
+            // btnName={["Download selected", "Download All", "Download in this page","Total amount"]}
+            data = {() => downloadAll()}
+            data1 ={() => downloadSelected()}
+            data2 ={() => downloadInpage()}
+            amount = {charge}
           />
         </MKBox>
       </MKBox>

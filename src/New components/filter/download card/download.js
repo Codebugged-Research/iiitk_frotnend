@@ -1,17 +1,19 @@
-import { Grid, Slider } from "@mui/material";
+import { Grid, Slider, Typography } from "@mui/material";
 import MKButton from "components/MKButton";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import * as React from "react";
 import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-
+import FormGroup from "@mui/material/FormGroup"; 
+// import axios from "axios";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 /* eslint-disable */
-function Downloadcard({ name, btnName }) {
+function Downloadcard({ data ,data1 , data2 , amount}) {
   const [show,setShow] = React.useState(false);
-const [downloadInput, setDownloadInput] = React.useState(20);
+  const [showamount,setShowamount] = React.useState(false);
+
+  const [downloadInput, setDownloadInput] = React.useState(20);
 
   const inputHandler = (e) => {
     const downloadNumber = e.target.value.toString();
@@ -43,7 +45,8 @@ const [downloadInput, setDownloadInput] = React.useState(20);
           pl={3}
         >
           <MKTypography variant="h5" color="white">
-            {name}
+            {/* {name} */}
+            Download Options
           </MKTypography>
         </MKBox>
         <MKBox>
@@ -76,19 +79,52 @@ const [downloadInput, setDownloadInput] = React.useState(20);
                         onChange={inputHandler}
                         max={100}
                       />}
-                      {btnName.map((btnName, index) => {
-                        return (
+                      {/* {btnName.map((btnName, index) => { */}
+                         {/* return ( */}
                           <MKButton
                             variant="gradient"
                             height="fit-content"
                             width="fit-content"
                             color="info"
                             sx={{ mt: 2 }}
+                            onClick = {data1}
                           >
-                            {btnName}
+                            Download selected
                           </MKButton>
-                        );
-                      })}
+                         {/* ); */}
+                      {/* })} */}
+                          <MKButton
+                            variant="gradient"
+                            height="fit-content"
+                            width="fit-content"
+                            color="info"
+                            sx={{ mt: 2 }}
+                            onClick = {data}
+                          >
+                            Download All
+                          </MKButton>
+                          <MKButton
+                            variant="gradient"
+                            height="fit-content"
+                            width="fit-content"
+                            color="info"
+                            sx={{ mt: 2 }}
+                            onClick = {data2}
+                          >
+                            Download in this page
+                          </MKButton>
+                          <MKButton
+                            variant="gradient"
+                            height="fit-content"
+                            width="fit-content"
+                            color="info"
+                            onClick={() => setShowamount(!showamount)}
+                            sx={{ mt: 2 }}
+                          >
+                            Total amount {showamount ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                          </MKButton>
+                          {showamount &&
+                              <Typography variant="body"  mt ={1}align="center"> {amount} </Typography>}
                     </FormGroup>
                   </FormControl>
                 </h5>
