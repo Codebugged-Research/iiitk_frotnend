@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://admin.lidaverse.com";
+const API_URL = "https://cms.lidaverse.com";
 
 const login = async (email, password) => {
   console.log(email, password);

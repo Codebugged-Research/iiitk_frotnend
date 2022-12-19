@@ -4,6 +4,7 @@ import * as React from "react";
 import MKButton from "components/MKButton";
 import TimeAgo from "timeago-react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Checkbox,
   FormControlLabel,
@@ -40,21 +41,18 @@ function Main({ checked, filterParams }) {
   const [charge, setCharge] = React.useState(0);
   const [checkBoxValue, setCheckBoxValue] = React.useState(false);
   // const [filterString, setFilterString] = React.useState("");
+
+  const navigate = useNavigate();
   const handleChange = (e, index, link) => {
     e.preventDefault();
     setCheckBoxValue(true);
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
-      setCharge(charge+(0.05*20))
-      setDownloadLinkList([...downloadLinkList, link]);
+      setCharge(charge + (0.05 * 20))
     } else {
       setCheckedBoxes(checkedBoxes - 1);
-      setCharge(charge-(0.05*20))
-      setDownloadLinkList(
-        downloadLinkList.filter((item) => item !== link)
-      );
-
+      setCharge(charge - (0.05 * 20))
     }
     for (let i = 0; i < index; i++) {
       if (newCheckList[i] === undefined) {
@@ -102,8 +100,8 @@ function Main({ checked, filterParams }) {
     axios
       .get(
         checked
-          ? `https://admin.lidaverse.com/items/pcd_instance?fields=*,io_files.directus_files_id,segmented_file.*&filter[status][_eq]=published${filter}`
-          : `https://admin.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*&filter[status][_eq]=published${filter}`
+          ? `https://cms.lidaverse.com/items/pcd_instance?fields=*,io_files.directus_files_id,segmented_file.*&filter[status][_eq]=published${filter}`
+          : `https://cms.lidaverse.com/items/pcd_instance?fields=io_files.directus_files_id.*,io_files.pcd_instance_id.*&filter[status][_eq]=published${filter}`
       )
       .then((res) => {
         let newResults = [];
@@ -114,13 +112,11 @@ function Main({ checked, filterParams }) {
             newResults.push(...item.io_files);
           });
         }
-        console.log("newResults");
+        console.log("newResults: ", newResults);
         checkList.fill(false, 0, newResults.length);
         setResults(newResults);
       });
   };
-  // console.log(results);
-  // console.log(checkList);
 
   // for pagination
   const [page, setPage] = React.useState(1);
@@ -129,7 +125,7 @@ function Main({ checked, filterParams }) {
     setPage(newPage);
   };
 
-  async function displayRazorpay() {
+  async function displayRazorpay(amount, pid, oid, downloadfilelist) {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -139,198 +135,119 @@ function Main({ checked, filterParams }) {
       return;
     }
 
-    const data = await fetch("http://localhost:5000/razorpay", {
+    const data = await fetch("https://cms.lidaverse.com/razorpay/order/create", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: amount === 0 ? charge : amount,
+      }),
     }).then((t) => t.json());
 
-    console.log(data);
-
     const options = {
-      key: "rzp_test_5OSb5dOnVnJR1m",
+      key: "rzp_test_U8AAmUy9CGfkfh",
       currency: data.currency,
       amount: data.amount.toString(),
       order_id: data.id,
-      name: "Donation",
+      name: "Lidar Data Payment",
       description: "Thank you",
       image: "my image",
-      handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
-      },
-      prefill: {
-        name: "Shanmugaasaran D",
-        email: "charan@codebugged.com",
-        phone_number: "9899999999",
+      handler: async function (response) {
+        await createDownloadRecord(amount, response.razorpay_payment_id, response.razorpay_order_id, downloadfilelist)
       },
     };
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
-  
 
-  const downloadAll = () => {
+  const createDownloadRecord = async (amount, pid, oid, downloadfilelist) => {
+    var response = await fetch("https://cms.lidaverse.com/items/data_download", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        destination_url: "zip/" + Date.now().toString() + ".zip",
+        total_price: amount === 0 ? charge : amount,
+        download_file_list: downloadfilelist,
+        filter_type: checked ? "segmented" : "io",
+        payment_id: pid,
+        order_id: oid
+      }),
+    })
+    console.log(response.status);
+    var res = await response.json();
+    console.log(res);
+    if (response.status === 200) {
+      navigate("/home");
+    }
+  }
+
+
+  const downloadAll = async () => {
     // check this
-    let downloadList = downloadLinkList;
+    let downloadList = [];
+    let c = 0;
     for (let i = 0; i < results.length; i++) {
       checkList[i] = true;
       if (results[i]) {
-        console.log(
-          `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
-        );
         downloadList.push({
-          uri: `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
-          filename: `${results[i].segmented_file.filename_download}`,
+          url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
+          filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
           type: "url",
         });
-        console.log(results[i]);
+        c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
       }
     }
+    setCharge(c);
+    setCheckList(...checkList);
     if (downloadList.length > 0) {
-      axios
-        .post("http://13.232.29.144:3001/", {
-          bucket: "lidaverse",
-          destination_key: "zips/test.zip",
-          files: downloadList,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            axios
-              .post("https://admin.lidaverse.com/items/downloads", {
-                status: "available",
-                link_url:
-                  "https://lidaverse.s3.ap-south-1.amazonaws.com/zips/test.zip",
-                data_type: "io",
-                io_list: [
-                  {
-                    pcd_instance_id: "9cd1e94c-4172-443f-a2f4-3b05428478fd",
-                  },
-                  {
-                    pcd_instance_id: "ad74577b-8062-4cfe-9632-8ab5f6f6987e",
-                  },
-                ],
-              })
-              .then((res) => {
-                console.log(res);
-              });
-            window.open(res.data.final_destination);
-          } else {
-            alert("Something went wrong");
-          }
-        });
+      if (c > 0) {
+        await displayRazorpay(c, "paid", "paid", downloadList)
+      } else {
+        await createDownloadRecord(c, "free", "free", downloadList)
+      }
+    } else {
+      alert("No files in filter!")
     }
   };
 
   const downloadSelected = () => {
     let downloadList = [];
-    if(checkList.length === 0){
+    if (checkList.length === 0) {
       alert("Please select card")
     }
     for (let i = 0; i < checkList.length; i++) {
-      if(checkList[i]){
+      if (checkList[i]) {
         console.log("yes")
         if (results[i]) {
-          console.log(
-            `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
-          );
           downloadList.push({
-            uri: `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
-            filename: `${results[i].segmented_file.filename_download}`,
+            url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
+            filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
             type: "url",
           });
-          console.log(results[i]);
         }
       }
     }
     if (downloadList.length > 0) {
-      axios
-        .post("http://13.232.29.144:3001/", {
-          bucket: "lidaverse",
-          destination_key: "zips/test.zip",
-          files: downloadList,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            axios
-              .post("https://admin.lidaverse.com/items/downloads", {
-                status: "available",
-                link_url:
-                  "https://lidaverse.s3.ap-south-1.amazonaws.com/zips/test.zip",
-                data_type: "io",
-                io_list: [
-                  {
-                    pcd_instance_id: "9cd1e94c-4172-443f-a2f4-3b05428478fd",
-                  },
-                  {
-                    pcd_instance_id: "ad74577b-8062-4cfe-9632-8ab5f6f6987e",
-                  },
-                ],
-              })
-              .then((res) => {
-                console.log(res);
-              });
-            window.open(res.data.final_destination);
-          } else {
-            alert("Something went wrong");
-          }
-        });
     }
   };
 
-const downloadInpage = () => {
+  const downloadInpage = () => {
     let downloadList = [];
-    for (let i = 0; i < (results.length < 10 ? results.length : 10) ; i++) {
-      if(results[i]){
-        if (results[i]) {
-          console.log(
-            `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}`
-          );
-          downloadList.push({
-            uri: `https://admin.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`,
-            filename: `${results[i].segmented_file.filename_download}`,
-            type: "url",
-          });
-          console.log(results[i]);
-        }
-      }
+    for (let i = 0; i < (results.length < 10 ? results.length : 10); i++) {
+      checkList[i] = true
+      downloadList.push({
+        url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
+        filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
+        type: "url",
+      });
     }
+    setCheckList(...checkList);
     if (downloadList.length > 0) {
-      axios
-        .post("http://13.232.29.144:3001/", {
-          bucket: "lidaverse",
-          destination_key: "zips/test.zip",
-          files: downloadList,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            axios
-              .post("https://admin.lidaverse.com/items/downloads", {
-                status: "available",
-                link_url:
-                  "https://lidaverse.s3.ap-south-1.amazonaws.com/zips/test.zip",
-                data_type: "io",
-                io_list: [
-                  {
-                    pcd_instance_id: "9cd1e94c-4172-443f-a2f4-3b05428478fd",
-                  },
-                  {
-                    pcd_instance_id: "ad74577b-8062-4cfe-9632-8ab5f6f6987e",
-                  },
-                ],
-              })
-              .then((res) => {
-                console.log(res);
-              });
-            window.open(res.data.final_destination);
-          } else {
-            alert("Something went wrong");
-          }
-        });
     }
-  };      
+  };
 
   return (
     <div>
@@ -431,7 +348,7 @@ const downloadInpage = () => {
                       <h3>
                         {checked
                           ? detail.name
-                          : detail.pcd_instance_id.name.split("_").join(" ")}
+                          : detail.directus_files_id.title + ` from (${detail.pcd_instance_id.name})`}
                       </h3>
                     </Grid>
                     <Grid item ml={1.5}>
@@ -504,10 +421,10 @@ const downloadInpage = () => {
                               : false
                           }
                           onChange={(e) =>
-                            handleChange(e, (page - 1) * 10 + index,checked
-                            ? "https://admin.lidaverse.com/assets/" + detail.segmented_file
-                            : "https://admin.lidaverse.com/assets/" + detail.directus_files_id)
-                          }                        
+                            handleChange(e, (page - 1) * 10 + index, checked
+                              ? "https://cms.lidaverse.com/assets/" + detail.segmented_file
+                              : "https://cms.lidaverse.com/assets/" + detail.directus_files_id)
+                          }
                         />
                       }
                       label=""
@@ -541,11 +458,16 @@ const downloadInpage = () => {
                       height="fit-content"
                       width="fit-content"
                       color="info"
-                      onClick={
-                        //   () => {
-                        //   window.open("", "_blank");
-                        // }
-                        displayRazorpay
+                      onClick={async () => {
+                        var d = [
+                          {
+                            "url": checked ? `https://cms.lidaverse.com/assets/${detail.segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${detail.directus_files_id.id}.pcd`,
+                            "filename": checked ? `${detail.segmented_file.filename_download}` : `${detail.directus_files_id.filename_download}`,
+                            "type": "url"
+                          }
+                        ]
+                        await displayRazorpay(1, "paid", "paid", d);
+                      }
                       }
                       sx={{ mt: 3 }}
                     >
@@ -580,10 +502,12 @@ const downloadInpage = () => {
           <Downloadcard
             // name="Download Options"
             // btnName={["Download selected", "Download All", "Download in this page","Total amount"]}
-            data = {() => downloadAll()}
-            data1 ={() => downloadSelected()}
-            data2 ={() => downloadInpage()}
-            amount = {charge}
+            data={async () => {
+              await downloadAll()
+            }}
+            data1={() => downloadSelected()}
+            data2={() => downloadInpage()}
+            amount={charge}
           />
         </MKBox>
       </MKBox>

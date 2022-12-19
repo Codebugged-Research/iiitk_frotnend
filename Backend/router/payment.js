@@ -70,7 +70,7 @@ router.post('/razorpay', async (req, res) => {
 			id: response.id,
 			currency: response.currency,
 			amount: response.amount
-		})
+		}) 
 	} catch (error) {
 		console.log(error)
 	}

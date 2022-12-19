@@ -23,9 +23,9 @@ function Profile({ value }) {
         action={{
           type: "external",
           route1: "/signin",
-          route2: "/signup",
+          route2: "/filter/segmented",
           label1: "Login",
-          label2: "Sign up",
+          label2: "Data Download",
           color: "info",
         }}
         transparent

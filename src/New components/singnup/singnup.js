@@ -44,7 +44,7 @@ function SignUpBasic() {
   const postSignupData = async (event) => {
     event.preventDefault();
     if (password === confirmPassword) {
-      const response = await fetch("https://admin.lidaverse.com/users", {
+      const response = await fetch("https://cms.lidaverse.com/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

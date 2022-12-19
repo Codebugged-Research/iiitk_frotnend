@@ -50,11 +50,6 @@ const routes = [
             component: <Profile value="0" />,
           },
           {
-            name: "Transaction Details",
-            route: "/profile/transaction",
-            component: <Profile value="1" />,
-          },
-          {
             name: "Download Details",
             route: "/profile/download",
             component: <Profile value="2" />,

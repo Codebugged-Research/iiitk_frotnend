@@ -79,7 +79,7 @@ function TTable() {
   // fetch data from api
   axios
     .get(
-      "https://admin.lidaverse.com/items/payments"
+      "https://cms.lidaverse.com/items/payments"
     )
     .then((res) => {
       const data = res.data;

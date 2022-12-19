@@ -94,7 +94,7 @@ function DTable() {
   // fetch data from api
   axios
     .get(
-      "https://admin.lidaverse.com/items/downloads?fields=*,io_list.pcd_instance_id.*"
+      "https://cms.lidaverse.com/items/data_download"
     )
     .then((res) => {
       const data = res.data;
@@ -115,10 +115,10 @@ function DTable() {
               S.no
             </th>
             <th className={classes.tableHeaderCell} style={{ width: "30%" }}>
-              Data Info
+              Downlaod Info
             </th>
             <th className={classes.tableHeaderCell} style={{ width: "25%" }}>
-              File
+              Payment Id
             </th>
             <th className={classes.tableHeaderCell} style={{ width: "25%" }}>
               Date
@@ -134,20 +134,21 @@ function DTable() {
                 <Grid container>
                   <Grid item>
                     <Typography className={classes.name}>
-                      Place : {row.io_list[0].pcd_instance_id.place}
+                      No of files : {row.download_file_list.length}
                     </Typography>
                     <Typography color="textSecondary" variant="body2">
-                      Sensor : {row.io_list[0].pcd_instance_id.sensor}
+                      Total price : {"Rs " +row.total_price + ".00"}
                     </Typography>
+                    {/*
                     <Typography color="textSecondary" variant="body2">
                       Terrain : {row.io_list[0].pcd_instance_id.terrain}
-                    </Typography>
+                    </Typography> */}
                   </Grid>
                 </Grid>
                 </td>
-              <td style={{ paddingLeft: 100 }}>
+              <td style={{ paddingLeft: 40 }}>
                 <Typography color="textSecondary" variant="h6">
-                  {row.data_type}
+                  {row.payment_id  }
                 </Typography>
               </td>
               <td style={{ paddingLeft: 80 }}>

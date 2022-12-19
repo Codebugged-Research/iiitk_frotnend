@@ -71,7 +71,7 @@ function UserDetails() {
     );
     await axios
       .patch(
-        `https://admin.lidaverse.com/users/${user.id}`,
+        `https://cms.lidaverse.com/users/${user.id}`,
         {
           first_name: firstName,
           last_name: lastName,

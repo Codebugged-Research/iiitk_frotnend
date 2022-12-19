@@ -21,9 +21,9 @@ function AboutCustomer({ value }) {
   const userName = authService.getCurrentUser().first_name;
   return (
     <MKBox component="section" pt={5} my={8} >
-      <MKTypography variant="h4" color="text" sx={{ ml: "10%", mt: -10, mb: 4 }}>
+      {/* <MKTypography variant="h4" color="text" sx={{ ml: "10%", mt: -10, mb: 4 }}>
         Welcome {userName}
-      </MKTypography>
+      </MKTypography> */}
       <Container>
         <Grid container position="relative" alignItems="center">
           <Grid display="flex" md={5} height="fitContent">
