@@ -1,4 +1,4 @@
-import { Grid, Slider } from "@mui/material";
+import { Grid } from "@mui/material";
 import MKButton from "components/MKButton";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
@@ -6,11 +6,11 @@ import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup"; 
 // import axios from "axios";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+// import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+// import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 /* eslint-disable */
 function Downloadcard({ data ,data1 , data2 , amount}) {
-  const [show,setShow] = React.useState(false);
+  // const [show,setShow] = React.useState(false);
 
   const [downloadInput, setDownloadInput] = React.useState(20);
 
@@ -55,7 +55,7 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
                     <FormGroup>
                       {/*selection download*/}
                       Total Payable amount: Rs {amount}
-                      <MKButton
+                      {/* <MKButton
                         variant="gradient"
                         height="fit-content"
                         width="fit-content"
@@ -64,8 +64,8 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
                         sx={{ mt: 2}}
                       >
                         Download Top {downloadInput}% {show ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                      </MKButton>
-                      {show &&
+                      </MKButton> */}
+                      {/* {show &&
                       <Slider
                         color="secondary"
                         defaultValue={20}
@@ -76,7 +76,7 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
                         min={10}
                         onChange={inputHandler}
                         max={100}
-                      />}
+                      />} */}
                       {/* {btnName.map((btnName, index) => { */}
                          {/* return ( */}
                           <MKButton

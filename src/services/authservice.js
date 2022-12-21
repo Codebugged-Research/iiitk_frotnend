@@ -9,6 +9,7 @@ const login = async (email, password) => {
     password,
   });
   console.log("Login response", response);
+
   if (response.data) {
     response.data.logintime = new Date();
     localStorage.setItem("auth", JSON.stringify(response.data));

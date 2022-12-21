@@ -49,14 +49,12 @@ function Main({ checked, filterParams }) {
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
-      setCharge(charge + (0.05 * 20))
     } else {
       setCheckedBoxes(checkedBoxes - 1);
-      setCharge(charge - (0.05 * 20))
     }
     for (let i = 0; i < index; i++) {
       if (newCheckList[i] === undefined) {
-        newCheckList[i] = false;
+        newCheckList[i] = 0;
       }
     }
     newCheckList = [...checkList];
@@ -160,6 +158,8 @@ function Main({ checked, filterParams }) {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
+ 
+  const user = JSON.parse(localStorage.getItem("auth"));
 
   const createDownloadRecord = async (amount, pid, oid, downloadfilelist) => {
     var response = await fetch("https://cms.lidaverse.com/items/data_download", {
@@ -175,6 +175,7 @@ function Main({ checked, filterParams }) {
         payment_id: pid,
         order_id: oid
       }),
+        Authorization: 'Bearer ' + user.access_token ,
     })
     console.log(response.status);
     var res = await response.json();
@@ -213,13 +214,14 @@ function Main({ checked, filterParams }) {
     }
   };
 
-  const downloadSelected = () => {
+  const downloadSelected = async () => {
     let downloadList = [];
+    let c = 0;
     if (checkList.length === 0) {
       alert("Please select card")
     }
     for (let i = 0; i < checkList.length; i++) {
-      if (checkList[i]) {
+      // if (checkList[i]) {
         console.log("yes")
         if (results[i]) {
           downloadList.push({
@@ -227,15 +229,24 @@ function Main({ checked, filterParams }) {
             filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
             type: "url",
           });
+          c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
         }
-      }
+      // }
     }
     if (downloadList.length > 0) {
+      if (c > 0) {
+        await displayRazorpay(c, "paid", "paid", downloadList)
+      } else {
+        await createDownloadRecord(c, "free", "free", downloadList)
+      }
+    } else {
+      alert("No files in filter!")
     }
   };
 
-  const downloadInpage = () => {
+  const downloadInpage = async () => {
     let downloadList = [];
+    let c = 0;
     for (let i = 0; i < (results.length < 10 ? results.length : 10); i++) {
       checkList[i] = true
       downloadList.push({
@@ -243,9 +254,19 @@ function Main({ checked, filterParams }) {
         filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
         type: "url",
       });
+      c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
+
     }
+    setCharge(c);
     setCheckList(...checkList);
     if (downloadList.length > 0) {
+      if (c > 0) {
+        await displayRazorpay(c, "paid", "paid", downloadList)
+      } else {
+        await createDownloadRecord(c, "free", "free", downloadList)
+      }
+    } else {
+      alert("No files in filter!")
     }
   };
 
