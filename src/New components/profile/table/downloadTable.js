@@ -88,13 +88,19 @@ function DTable() {
     setPage(0);
   };
 
-  const [downloads , setDownloads] = React.useState([]);
+  const [downloads, setDownloads] = React.useState([]);
 
   let downloadData = [];
   // fetch data from api
   axios
     .get(
       "https://cms.lidaverse.com/items/data_download"
+      , {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("auth")).data.access_token
+            }`,
+        }
+      }
     )
     .then((res) => {
       const data = res.data;
@@ -137,7 +143,7 @@ function DTable() {
                       No of files : {row.download_file_list.length}
                     </Typography>
                     <Typography color="textSecondary" variant="body2">
-                      Total price : {"Rs " +row.total_price + ".00"}
+                      Total price : {"Rs " + row.total_price + ".00"}
                     </Typography>
                     {/*
                     <Typography color="textSecondary" variant="body2">
@@ -145,10 +151,10 @@ function DTable() {
                     </Typography> */}
                   </Grid>
                 </Grid>
-                </td>
+              </td>
               <td style={{ paddingLeft: 40 }}>
                 <Typography color="textSecondary" variant="h6">
-                  {row.payment_id  }
+                  {row.payment_id}
                 </Typography>
               </td>
               <td style={{ paddingLeft: 80 }}>

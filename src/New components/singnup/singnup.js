@@ -55,6 +55,7 @@ function SignUpBasic() {
           email,
           password,
           country,
+          role: "00dfcf17-49aa-4e36-8b65-ce747728b204",
           phone: Phone,
           aadhar: Aadhar,
         }),

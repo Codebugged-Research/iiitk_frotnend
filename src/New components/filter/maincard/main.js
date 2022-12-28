@@ -158,14 +158,16 @@ function Main({ checked, filterParams }) {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
- 
+
   const user = JSON.parse(localStorage.getItem("auth"));
 
   const createDownloadRecord = async (amount, pid, oid, downloadfilelist) => {
+    console.log("Bearer " + JSON.parse(localStorage.getItem("auth")).data.access_token);
     var response = await fetch("https://cms.lidaverse.com/items/data_download", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + JSON.parse(localStorage.getItem("auth")).data.access_token,
       },
       body: JSON.stringify({
         destination_url: "zip/" + Date.now().toString() + ".zip",
@@ -175,7 +177,7 @@ function Main({ checked, filterParams }) {
         payment_id: pid,
         order_id: oid
       }),
-        Authorization: 'Bearer ' + user.access_token ,
+      Authorization: 'Bearer ' + user.access_token,
     })
     console.log(response.status);
     var res = await response.json();
@@ -222,15 +224,15 @@ function Main({ checked, filterParams }) {
     }
     for (let i = 0; i < checkList.length; i++) {
       // if (checkList[i]) {
-        console.log("yes")
-        if (results[i]) {
-          downloadList.push({
-            url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
-            filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
-            type: "url",
-          });
-          c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
-        }
+      console.log("yes")
+      if (results[i]) {
+        downloadList.push({
+          url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
+          filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
+          type: "url",
+        });
+        c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
+      }
       // }
     }
     if (downloadList.length > 0) {

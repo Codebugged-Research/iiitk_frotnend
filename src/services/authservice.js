@@ -55,7 +55,7 @@ const getCurrentUser =  async () => {
   await axios
     .get(`${API_URL}/users?filter[email][_eq]=${email}`, {
       Authorization: `Bearer ${
-        JSON.parse(localStorage.getItem("auth")).access_token
+        JSON.parse(localStorage.getItem("auth")).data.access_token
       }`,
     })
     .then((response2) => {
