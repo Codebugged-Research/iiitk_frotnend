@@ -22,8 +22,7 @@ function Filter1() {
   const [charge, setCharge] = React.useState("all");
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
-
-  console.log(charge)
+  
   React.useEffect(() => {}, [
     checked,
     env,

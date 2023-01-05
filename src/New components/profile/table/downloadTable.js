@@ -92,24 +92,27 @@ function DTable() {
   const [downloads, setDownloads] = React.useState([]);
 
   let downloadData = [];
-  // fetch data from api
-  axios
-    .get(
-      "https://cms.lidaverse.com/items/data_download"
-      , {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("auth")).data.access_token
-            }`,
+  // fetch data from api before rendering
+  React.useEffect(() => {
+    axios
+      .get(
+        "https://cms.lidaverse.com/items/data_download"
+        , {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("auth")).data.access_token
+              }`,
+          }
         }
-      }
-    )
-    .then((res) => {
-      const data = res.data;
-      data.data.forEach((item) => {
-        downloadData.push(item);
+      )
+      .then((res) => {
+        const data = res.data;
+        data.data.forEach((item) => {
+          downloadData.push(item);
+        });
+        setDownloads(downloadData);
       });
-      setDownloads(downloadData);
-    });
+  }, []);
+
   return (
     <div>
       <TableContainer component={Paper} className={classes.tableContainer}>
@@ -182,21 +185,21 @@ function DTable() {
                     }
                     if (row.status === "deleted") {
                       // upadte status to processing
-
                       await axios
                         .patch(
                           "https://cms.lidaverse.com/items/data_download/" + row.id
                           , {
                             status: "pending",
-                          },{
-                            headers: {
-                              Authorization: `Bearer ${JSON.parse(localStorage.getItem("auth")).data.access_token
-                                }`,
-                            }
+                          }, {
+                          headers: {
+                            Authorization: `Bearer ${JSON.parse(localStorage.getItem("auth")).data.access_token
+                              }`,
                           }
+                        }
                         )
                         .then((res) => {
                           const data = res.data;
+                          console.log(data);
                           // refresh the page
                           window.location.reload();
                         });
@@ -204,7 +207,7 @@ function DTable() {
                   }}
                   variant="gradient"
                   color="primary"
-                  disabled={row.status !== "available"}
+                  disabled={row.status !== "available" && row.status !== "deleted"}
                 >
                   {row.status === "available" ? "Download" : row.status === "deleted" ? "Redownload" : "Processing"}
                 </MKButton>

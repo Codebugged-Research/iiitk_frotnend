@@ -457,10 +457,10 @@ function Main({ checked, filterParams }) {
                       variant="gradient"
                       color="info"
                       onClick={() => {
-                        window.open(
-                          "http://127.0.0.1:5500/threepcs.html",
-                          "_blank"
-                        );
+                        let u = `https://cms.lidaverse.com/visualize?fileid=${checked
+                          ? detail.segmented_file.id : detail.directus_files_id.id}`;
+                        console.log(u);
+                        window.open(u, "_blank");
                       }}
                       sx={{ mt: 5 }}
                     >
