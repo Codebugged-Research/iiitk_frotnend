@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import { useState } from "react";
-
+import axios from "axios";
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
 
@@ -51,7 +51,7 @@ function SignInBasic() {
   const [valueError, setValueError] = useState("")
   const [valueSuccess, setValueSuccess] = useState("")
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ function SignInBasic() {
       await AuthService.login(email, password).then(
         () => {
           setValueSuccess("true")
-          localStorage.setItem("email",email)
+          localStorage.setItem("email", email)
           navigate("/filter/segmented");
           window.location.reload();
         },
@@ -156,6 +156,32 @@ function SignInBasic() {
                       >
                         Sign up
                       </MKTypography>
+                    </MKTypography>
+                  </MKBox>
+                  <MKBox
+                    variant="gradient"
+                    bgColor="info"
+                    borderRadius="lg"
+                    coloredShadow="info"
+                    mb={1}
+                    onClick={async () => {
+                      if (email === "") {
+                        alert("Please enter your email address");
+                      } else {
+                        await axios.post("https://cms.lidaverse.com/auth/password/request", { email })
+                          .then((response) => {
+                            console.log(response);
+                            alert("Please check your email to reset your password");
+                          }
+                          ).catch((error) => {
+                            alert(error);
+                          });
+                      }
+                    }}
+                    textAlign="center"
+                  >
+                    <MKTypography variant="button" fontWeight="medium" color="white" m={2}>
+                      Forget password?
                     </MKTypography>
                   </MKBox>
                 </MKBox>
