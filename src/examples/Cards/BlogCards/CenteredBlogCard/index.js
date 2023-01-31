@@ -70,7 +70,7 @@ function CenteredBlogCard({ image, title, description, action }) {
           <MKButton
             component={MuiLink}
             href={action.route}
-            target="_blank"
+            target="_self"
             rel="noreferrer"
             variant="gradient"
             size="small"

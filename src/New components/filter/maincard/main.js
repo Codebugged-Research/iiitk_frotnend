@@ -272,6 +272,35 @@ function Main({ checked, filterParams }) {
     }
   };
 
+  const genTerrain = (terrain) => {
+    switch(terrain) {
+      case "urban":
+        return "Urban";
+      case "semiurban":
+        return "Semi-Urban";
+      case "rural":
+        return "Rural";
+      case "forest":
+        return "Forest";
+      default:
+        return terrain;
+    }
+  }
+  const genEnv = (env) => {
+    switch(env) {
+      case "clear":
+        return "Clear";
+      case "rainy":
+        return "Rainy";
+      case "foggy":
+        return "Foggy";
+      case "dusty":
+        return "Dusty";
+      default:
+        return env;
+    }
+  }
+
   return (
     <div>
       <MKBox display="flex">
@@ -329,19 +358,9 @@ function Main({ checked, filterParams }) {
               </MKTypography>
             </MKBox>
             <MKBox pt={1} pl={1.5} ml="20%">
-              {/* <MKButton
-                variant="gradient"
-                height="fit-content"
-                width="fit-content"
-                color="info"
-                onClick={() => downloadAll()}
-                sx={{ mt: 2 }}
-              >
-                Download Test
-              </MKButton> */}
-              <Typography
-                variant="h5"
-                fontSize={{ xl: "1.2rem", lg: "0.8rem", md: "0.5rem" }}
+              <Typography 
+                variant="h6"
+                fontSize={{ xl: "1.0rem", lg: "0.6rem", md: "0.4rem" }}
               >
                 Results &nbsp; &nbsp;: &nbsp;{results.length}
                 <br />
@@ -392,19 +411,19 @@ function Main({ checked, filterParams }) {
                       <p>
                         <strong> Environment : </strong>
                         {checked
-                          ? detail.environment
-                          : detail.pcd_instance_id.environment}
+                          ? genEnv(detail.environment)
+                          : genEnv(detail.pcd_instance_id.environment)}
                       </p>
                     </Grid>
                     <Grid item ml={1.5}>
                       <p>
                         <strong>Terrain : </strong>
                         {checked
-                          ? detail.terrain
-                          : detail.pcd_instance_id.terrain}
+                          ? genTerrain(detail.terrain)
+                          : genTerrain(detail.pcd_instance_id.terrain)}
                       </p>
                     </Grid>
-                    {checked ? (
+                    {/* {checked ? (
                       <Grid item ml={1.5}>
                         <p>
                           <strong>IO FIles : </strong>
@@ -413,7 +432,7 @@ function Main({ checked, filterParams }) {
                       </Grid>
                     ) : (
                       <></>
-                    )}
+                    )} */}
                     <Grid item ml={1.5}>
                       <p>
                         <strong>Uploaded : </strong>
@@ -460,7 +479,7 @@ function Main({ checked, filterParams }) {
                         let u = `https://cms.lidaverse.com/visualize?fileid=${checked
                           ? detail.segmented_file.id : detail.directus_files_id.id}`;
                         console.log(u);
-                        window.open(u, "_blank");
+                        window.open(u, "_self");
                       }}
                       sx={{ mt: 5 }}
                     >

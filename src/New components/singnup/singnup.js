@@ -37,7 +37,7 @@ function SignUpBasic() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country, setCountry] = useState("");
   const [Phone, setPhone] = useState("");
-  const [Aadhar, setAadhar] = useState("");
+  // const [Aadhar, setAadhar] = useState("");
 
   const navigate = useNavigate();
   // post request to server
@@ -57,7 +57,7 @@ function SignUpBasic() {
           country,
           role: "00dfcf17-49aa-4e36-8b65-ce747728b204",
           phone: Phone,
-          aadhar: Aadhar,
+          // aadhar: Aadhar,
         }),
       });
       const data = await response.json();
@@ -245,7 +245,7 @@ function SignUpBasic() {
                       />
                     </MKBox>
                     {/* Aadhar */}
-                    <MKBox>
+                    {/* <MKBox>
                       <MKInput
                         type="text"
                         onChange={(event) => setAadhar(event.target.value)}
@@ -253,7 +253,7 @@ function SignUpBasic() {
                         width={{ xl: 200, lg: 150 }}
                         sx={{ ml: 3 }}
                       />
-                    </MKBox>
+                    </MKBox> */}
                   </Grid>
 
                   <MKBox display="flex" alignItems="center" ml={-1}>

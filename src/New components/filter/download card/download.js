@@ -54,7 +54,7 @@ function Downloadcard({ data ,data1 , data2 , amount}) {
                   <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormGroup>
                       {/*selection download*/}
-                      Total Payable amount: Rs {amount}
+                      Total Payable amount: Rs {amount} {amount.toFixed(2)}
                       {/* <MKButton
                         variant="gradient"
                         height="fit-content"

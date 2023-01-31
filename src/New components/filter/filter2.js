@@ -22,7 +22,7 @@ function Filter2() {
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
 
-  React.useEffect(() => {}, [
+  React.useEffect(() => { }, [
     checked,
     env,
     datatype,
@@ -77,10 +77,10 @@ function Filter2() {
             mx={2.6}
             mt={2}
           >
-             <Tabs  value="two" onChange={handleChange}>
-               <Tab value="one" label="Segemented files" wrapped/>
-               <Tab value="two" label="IO files" wrapped/>
-             </Tabs>
+            <Tabs value="two" onChange={handleChange}>
+              <Tab value="one" label="Segemented files" wrapped />
+              <Tab value="two" label="IO files" wrapped />
+            </Tabs>
           </Box>
           <Grid
             sx={{
@@ -98,33 +98,16 @@ function Filter2() {
             }}
           >
             <Cards
-              searchBar="true"
-              placeholder="Search labels"
-              name="  Labels"
-              // this option names should be in small letter
-              options={["all", "a", "b", "c", "s", "f", "label 1", "label 2"]}
-              // this option names should be in small letter
-              selected={labels}
-              sx={{ height: "10px", display: "block", overflowY: "scroll" }}
-              onChange={setLabels}
-            />
-            <Cards
-              name="  Environment"
-              options={["clear", "rainy", "foggy", "dusty", "all"]}
-              selected={env}
-              onChange={setEnv}
-            />
-            <Cards
-              name="  Datatype"
+              name="  Data Source"
               options={["field", "simulated", "all"]}
               selected={datatype}
               onChange={setDatatype}
             />
             <Cards
-              name="  Point Record"
-              options={["xyz", "xyzl", "xyzrgb", "xyzlrgb", "all"]}
-              selected={pointrecord}
-              onChange={setPointrecord}
+              name="  Sensor"
+              options={["als", "mls", "tls", "uls", "all"]}
+              selected={sensor}
+              onChange={setSensor}
             />
             <Cards
               name="  Terrain"
@@ -133,16 +116,25 @@ function Filter2() {
               onChange={setTerrain}
             />
             <Cards
-              name="  Sensor types"
-              options={["als", "mls", "tls", "uls", "all"]}
-              selected={sensor}
-              onChange={setSensor}
+              name="  Environment"
+              options={["clear", "rainy", "foggy", "dusty", "all"]}
+              selected={env}
+              onChange={setEnv}
             />
             <Cards
-              name="  Charge"
-              options={["Free", "Paid", "all"]}
-              selected={charge}
-              onChange={setCharge}
+              searchBar="true"
+              placeholder="Search labels"
+              name="  Instance Type"
+              options={["all", "a", "b", "c", "s", "f", "label 1", "label 2"]}
+              selected={labels}
+              sx={{ height: "10px", display: "block", overflowY: "scroll" }}
+              onChange={setLabels}
+            />
+            <Cards
+              name="  Point Record"
+              options={["xyz", "xyzl", "xyzrgb", "xyzlrgb", "all"]}
+              selected={pointrecord}
+              onChange={setPointrecord}
             />
             <Cards
               name="  Accuracy"
@@ -155,6 +147,12 @@ function Filter2() {
               options={["<1", "1-5", "5-10", "10-15", "15-25", "25-50", "above50", "all"]}
               selected={dataDensity}
               onChange={setDataDensity}
+            />
+            <Cards
+              name="  Payment"
+              options={["Free", "Paid", "all"]}
+              selected={charge}
+              onChange={setCharge}
             />
           </Grid>
         </Grid>

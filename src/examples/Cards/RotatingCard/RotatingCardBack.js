@@ -65,7 +65,7 @@ function RotatingCard({ color, image, title, description, action }) {
               <MKButton
                 component={MuiLink}
                 href={action.route}
-                target="_blank"
+                target="_self"
                 rel="noreferrer"
                 color="white"
                 size="small"

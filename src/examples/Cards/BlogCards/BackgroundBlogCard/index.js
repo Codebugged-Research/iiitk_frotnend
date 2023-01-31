@@ -87,7 +87,7 @@ function BackgroundBlogCard({ image, title, description, action }) {
             <MKTypography
               component={MuiLink}
               href={action.route}
-              target="_blank"
+              target="_self"
               rel="noreferrer"
               variant="body2"
               fontWeight="regular"

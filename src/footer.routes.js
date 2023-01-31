@@ -41,13 +41,12 @@ export default {
       name: "company",
       items: [
         { name: "about us", href: "/about" },
-        { name: "freebies", href: "#" },
-        { name: "premium tools", href: "#" },
-        { name: "blog", href: "#" },
+        { name: "Contact Us", href: "#" },
+        { name: "Terms & Conditions", href: "#" },
       ],
     },
     {
-      name: "contact us",
+      name: "Contact Information",
       items: [
         { name: "Dr. Bharat Lohani", href: "mailto:blohani@iitk.ac.in" },
         { name: "Associate Professor", href: "mailto:blohani@iitk.ac.in" },

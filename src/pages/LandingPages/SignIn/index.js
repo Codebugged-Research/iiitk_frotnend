@@ -43,7 +43,7 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import AuthService from "../../../services/authservice";
 
 function SignInBasic() {
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const [email, setEmail] = useState("");
@@ -72,6 +72,27 @@ function SignInBasic() {
       console.log(err);
     }
   };
+
+  const handleKeyPress = async (event) => {
+    if (event.key === 'Enter') {
+      try {
+        await AuthService.login(email, password).then(
+          () => {
+            setValueSuccess("true")
+            localStorage.setItem("email", email)
+            navigate("/filter/segmented");
+            window.location.reload();
+          },
+          (error) => {
+            setValueError("true")
+            console.log(error);
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <>
@@ -123,7 +144,7 @@ function SignInBasic() {
                   {/* password */}
                   <MKBox>
                     <MKInput type="password" label="Password" fullWidth error={valueError} success={valueSuccess}
-                      onChange={(e) => setPassword(e.target.value)} />
+                      onChange={(e) => setPassword(e.target.value)} onKeyPress={handleKeyPress} />
                   </MKBox>
                   {/* remember me */}
                   <MKBox display="flex" alignItems="center" ml={-1}>

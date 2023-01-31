@@ -20,6 +20,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 
+import MKButton from "components/MKButton";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
@@ -60,11 +61,11 @@ function Presentation() {
       <DefaultNavbar
         routes={routes}
         action={{
-          type:  "external",
+          type: "external",
           route1: "/signin",
           route2: "/signin",
           label1: "Login",
-          label2: "Data Download",
+          label2: "Data Catalogue",
           color: "info",
         }}
         sticky
@@ -93,7 +94,7 @@ function Presentation() {
                 },
               })}
             >
-              LidaVerse{" "}
+              LidaVerse
             </MKTypography>
             <MKTypography
               variant="body1"
@@ -102,9 +103,17 @@ function Presentation() {
               px={{ xs: 6, lg: 12 }}
               mt={1}
             >
-              The simulator generates LiDAR data similar to a real LiDAR sensor for further display
-              and analysis.
+              A repository of Labelled LiDAR Point Cloud Files and Instance Objects.
             </MKTypography>
+            <MKBox mt={2} mb={1}>
+              <MKButton variant="gradient" color="info" fullWidth onClick={
+                () => {
+                  window.location.href = "/filter/segmented"
+                }
+              }>
+                Get Data
+              </MKButton>
+            </MKBox>
           </Grid>
         </Container>
       </MKBox>
@@ -120,22 +129,13 @@ function Presentation() {
         }}
       >
         <section id="about">
-         <Aboutpage/>
+          <Aboutpage />
         </section>
         <section id="services">
-        <AboutUs />
+          <AboutUs />
         </section>
         <section id="contactus">
-        <Newsletter/>
-        <MKBox pb={10}>
-          <Container>
-            <Grid sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-              <MKTypography variant="h4" fontWeight="bold" mb={0.5}>
-                Thank you for your support!
-              </MKTypography>
-            </Grid>
-          </Container>
-        </MKBox>
+          <Newsletter />
         </section>
       </Card>
       <MKBox pt={6} px={1} mt={6}>

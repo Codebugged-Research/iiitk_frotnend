@@ -77,7 +77,6 @@ function UserDetails() {
           last_name: lastName,
           email: email,
           phone: phone,
-          aadhar: aadhar,
           country: country,
           phone: phone,
           industry: industry,
@@ -109,7 +108,7 @@ function UserDetails() {
   const [industry, setIndustry] = useState(user.industry);
   const [country, setCountry] = useState(user.country);
   const [company, setCompany] = useState(user.company);
-  const [aadhar, setAadhar] = useState(user.aadhar);
+  // const [aadhar, setAadhar] = useState(user.aadhar);
 
   return (
     <MKBox>
@@ -224,8 +223,7 @@ function UserDetails() {
               sx={{ width: 400, ml: 5 }}
             />
           </Grid>
-          <Grid item>
-            {/* AADHAR */}
+          {/* <Grid item>
             <TextField
               className={classes.text}
               disabled={enable}
@@ -237,7 +235,7 @@ function UserDetails() {
               variant="filled"
               sx={{ width: 400 }}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         {/* edit button */}
         <MKButton

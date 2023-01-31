@@ -25,7 +25,7 @@ function Profile({ value }) {
           route1: "/signin",
           route2: "/filter/segmented",
           label1: "Login",
-          label2: "Data Download",
+          label2: "Data Catalogue",
           color: "info",
         }}
         transparent

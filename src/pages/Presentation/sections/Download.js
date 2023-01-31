@@ -85,7 +85,7 @@ function Download() {
                   <MKBox
                     component="a"
                     href="https://www.creative-tim.com/product/material-kit"
-                    target="_blank"
+                    target="_self"
                   >
                     <MKBox
                       component="img"
@@ -101,7 +101,7 @@ function Download() {
                     opacity={0.5}
                     component="a"
                     href="#"
-                    target="_blank"
+                    target="_self"
                     onClick={(e) => e.preventDefault()}
                   >
                     <MKBox
@@ -118,7 +118,7 @@ function Download() {
                     opacity={0.5}
                     component="a"
                     href="#"
-                    target="_blank"
+                    target="_self"
                     onClick={(e) => e.preventDefault()}
                   >
                     <MKBox
@@ -135,7 +135,7 @@ function Download() {
                     opacity={0.5}
                     component="a"
                     href="#"
-                    target="_blank"
+                    target="_self"
                     onClick={(e) => e.preventDefault()}
                   >
                     <MKBox
@@ -151,7 +151,7 @@ function Download() {
                   <MKBox
                     component="a"
                     href="https://www.creative-tim.com/product/material-kit-react"
-                    target="_blank"
+                    target="_self"
                   >
                     <MKBox
                       component="img"
@@ -167,7 +167,7 @@ function Download() {
                     opacity={0.5}
                     component="a"
                     href="#"
-                    target="_blank"
+                    target="_self"
                     onClick={(e) => e.preventDefault()}
                   >
                     <MKBox

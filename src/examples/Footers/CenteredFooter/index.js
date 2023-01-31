@@ -88,7 +88,7 @@ function CenteredFooter({ company, links, socials, light }) {
             <MKTypography
               component={Link}
               href={href}
-              target="_blank"
+              target="_self"
               rel="noreferrer"
               variant="body2"
               color={light ? "white" : "secondary"}

@@ -34,11 +34,11 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
     }
   });
 
-  React.useEffect(() => {}, [selected]);
+  React.useEffect(() => { }, [selected]);
   return (
     <div>
       <MKBox
-      fontSize="1rem"
+        fontSize="1rem"
         bgColor="white"
         borderRadius="xl"
         shadow="lg"
@@ -75,19 +75,19 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
               sx={
                 searchBar
                   ? {
-                      maxHeight: "300px",
-                      display: "block",
-                      overflowX: "clip",
-                      overflowY: "scroll",
-                      "&::-webkit-scrollbar": {
-                        width: "5px",
-                        height: "5px",
-                      },
-                      "&::-webkit-scrollbar-thumb": {
-                        borderRadius: "30px",
-                        background: "#4D8CC9",
-                      },
-                    }
+                    maxHeight: "300px",
+                    display: "block",
+                    overflowX: "clip",
+                    overflowY: "scroll",
+                    "&::-webkit-scrollbar": {
+                      width: "5px",
+                      height: "5px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      borderRadius: "30px",
+                      background: "#4D8CC9",
+                    },
+                  }
                   : "none"
               }
             >
@@ -114,7 +114,7 @@ function Cards({ name, options, selected, onChange, searchBar, placeholder }) {
                                     onChange={(e) => handleChange(e, option)}
                                   />
                                 }
-                                label={option.toUpperCase()}
+                                label={name.trim().toLowerCase() === "accuracy" ? (option.includes("above") || option.includes("all") ? option.toUpperCase() : option.slice(0, -2) + " " + option.slice(-2)) : option.toUpperCase()}
                               />
                             );
                           })}

@@ -86,7 +86,7 @@ function TransparentBlogCard({ image, title, description, action }) {
       {action.type === "internal" ? (
         <Link to={action.route}>{imageTemplate}</Link>
       ) : (
-        <MuiLink href={action.route} target="_blank" rel="noreferrer">
+        <MuiLink href={action.route} target="_self" rel="noreferrer">
           {imageTemplate}
         </MuiLink>
       )}
@@ -98,7 +98,7 @@ function TransparentBlogCard({ image, title, description, action }) {
             </MKTypography>
           </Link>
         ) : (
-          <MuiLink href={action.route} target="_blank" rel="noreferrer" sx={cardActionStyles}>
+          <MuiLink href={action.route} target="_self" rel="noreferrer" sx={cardActionStyles}>
             <MKTypography variant="h5" gutterBottom>
               {title}
             </MKTypography>
@@ -124,7 +124,7 @@ function TransparentBlogCard({ image, title, description, action }) {
           <MKTypography
             component={MuiLink}
             href={action.route}
-            target="_blank"
+            target="_self"
             rel="noreferrer"
             variant="body2"
             fontWeight="regular"

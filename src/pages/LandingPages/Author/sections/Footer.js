@@ -56,7 +56,7 @@ function Footer() {
                   opacity={0.8}
                   component={Link}
                   href="https://www.creative-tim.com"
-                  target="_blank"
+                  target="_self"
                   rel="noreferrer"
                 >
                   Home
@@ -69,7 +69,7 @@ function Footer() {
                   opacity={0.8}
                   component={Link}
                   href="https://www.creative-tim.com/presentation"
-                  target="_blank"
+                  target="_self"
                   rel="noreferrer"
                 >
                   About
@@ -82,7 +82,7 @@ function Footer() {
                   opacity={0.8}
                   component={Link}
                   href="https://www.creative-tim.com/blog"
-                  target="_blank"
+                  target="_self"
                   rel="noreferrer"
                 >
                   Blog
@@ -95,7 +95,7 @@ function Footer() {
                   opacity={0.8}
                   component={Link}
                   href="https://www.creative-tim.com"
-                  target="_blank"
+                  target="_self"
                   rel="noreferrer"
                 >
                   Services
@@ -115,7 +115,7 @@ function Footer() {
             <MKTypography
               component={Link}
               href="#dribbble"
-              target="_blank"
+              target="_self"
               rel="noreferrer"
               variant="body2"
               color="dark"
@@ -127,7 +127,7 @@ function Footer() {
             <MKTypography
               component={Link}
               href="#twitter"
-              target="_blank"
+              target="_self"
               rel="noreferrer"
               variant="body2"
               color="dark"
@@ -139,7 +139,7 @@ function Footer() {
             <MKTypography
               component={Link}
               href="#pinterest"
-              target="_blank"
+              target="_self"
               rel="noreferrer"
               variant="body2"
               color="dark"
@@ -151,7 +151,7 @@ function Footer() {
             <MKTypography
               component={Link}
               href="#github"
-              target="_blank"
+              target="_self"
               rel="noreferrer"
               variant="body2"
               color="dark"

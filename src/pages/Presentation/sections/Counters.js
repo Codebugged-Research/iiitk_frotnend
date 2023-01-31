@@ -23,35 +23,49 @@ import MKBox from "components/MKBox";
 
 // Material Kit 2 React examples
 import DefaultCounterCard from "examples/Cards/CounterCards/DefaultCounterCard";
+import { useEffect, useState } from "react";
+// import axios from "axios";
 
 function Counters() {
+  const [stat1, setStat1] = useState(0);
+  const [stat2, setStat2] = useState(0);
+  const [stat3, setStat3] = useState(0);
+  useEffect(() => {
+    // axios.get("http://localhost:5000/api/stats").then((res) => {
+    //   console.log(res.data);
+    //   setStat1(res.data[0].count);
+    // });
+    setStat1(100);
+    setStat2(200);
+    setStat3(300);
+  }, []);
   return (
     <MKBox component="section" py={3}>
       <Container>
         <Grid container item xs={12} lg={9} sx={{ mx: "auto" }}>
           <Grid item xs={12} md={4}>
             <DefaultCounterCard
-              count={70}
+              count={stat1}
               suffix="+"
-              title="Customers"
-              description="From clear to dusty environment you are covered"
+              title="Files Downloaded"
+              description="You can download the files in .zip format"
             />
           </Grid>
           <Grid item xs={12} md={4} display="flex">
             <Divider orientation="vertical" sx={{ display: { xs: "none", md: "block" }, mx: 0 }} />
             <DefaultCounterCard
-              count={5}
+              count={stat2}
               suffix="+"
-              title="Caputurable Terrains"
-              description="urban ,semi-urban,forest and rural terrains"
+              title="Labeled Files"
+              description="Labeled files are available in .pcd format"
             />
             <Divider orientation="vertical" sx={{ display: { xs: "none", md: "block" }, ml: 0 }} />
           </Grid>
           <Grid item xs={12} md={4}>
             <DefaultCounterCard
-              count={4}
-              title="Sensors"
-              description="You can measure using ALS,MLS,TLS and ULS sensors"
+              count={stat3}
+              title="Instance Objects"
+              description="You can download the files in .zip format"
             />
           </Grid>
         </Grid>

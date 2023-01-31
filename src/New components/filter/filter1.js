@@ -1,7 +1,7 @@
 // segmented files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
-import { Grid,Tabs, Tab ,Box } from "@mui/material";
+import { Grid, Tabs, Tab, Box } from "@mui/material";
 // import MKBox from "components/MKBox";
 import routes from "routes";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +22,8 @@ function Filter1() {
   const [charge, setCharge] = React.useState("all");
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
-  
-  React.useEffect(() => {}, [
+
+  React.useEffect(() => { }, [
     checked,
     env,
     datatype,
@@ -43,7 +43,7 @@ function Filter1() {
   // const downloadall = (data) =>{
   //   () => downloadAll()
   // }
-  
+
   return (
     <>
       <DefaultNavbar
@@ -80,11 +80,11 @@ function Filter1() {
             pb={0.5}
             mx={2}
             mt={2}
-          >
-          <Tabs value="one" onChange={handleChange} >
-            <Tab value="one" label="Segemented files" wrapped/>
-            <Tab value="two" label="IO files" wrapped/>
-          </Tabs>
+          >            
+            <Tabs value="one" onChange={handleChange} >
+              <Tab value="one" label="Segemented files" wrapped />
+              <Tab value="two" label="IO files" wrapped />
+            </Tabs>
           </Box>
           <Grid
             sx={{
@@ -101,22 +101,16 @@ function Filter1() {
             }}
           >
             <Cards
-              name="  Environment"
-              options={["clear", "rainy", "foggy", "dusty", "all"]}
-              selected={env}
-              onChange={setEnv}
-            />
-            <Cards
-              name="  Datatype"
-              options={["field", "simulated", "all"]}
+              name="  Data Source"
+              options={["real", "simulated", "all"]}
               selected={datatype}
               onChange={setDatatype}
             />
             <Cards
-              name="  Point Record"
-              options={["xyz", "xyzl", "xyzrgb", "xyzlrgb", "all"]}
-              selected={pointrecord}
-              onChange={setPointrecord}
+              name="  Sensor"
+              options={["als", "mls", "tls", "uls", "all"]}
+              selected={sensor}
+              onChange={setSensor}
             />
             <Cards
               name="  Terrain"
@@ -125,16 +119,16 @@ function Filter1() {
               onChange={setTerrain}
             />
             <Cards
-              name="  Sensor types"
-              options={["als", "mls", "tls", "uls", "all"]}
-              selected={sensor}
-              onChange={setSensor}
+              name="  Environment"
+              options={["clear", "rainy", "foggy", "dusty", "all"]}
+              selected={env}
+              onChange={setEnv}
             />
             <Cards
-              name="  Charge"
-              options={["Free", "Paid", "all"]}
-              selected={charge}
-              onChange={setCharge}
+              name="  Point Record"
+              options={["xyz", "xyzl", "xyzrgb", "xyzlrgb", "all"]}
+              selected={pointrecord}
+              onChange={setPointrecord}
             />
             <Cards
               name="  Accuracy"
@@ -143,14 +137,20 @@ function Filter1() {
               onChange={setAccuracy}
             />
             <Cards
-              name="  Data Density"
+              name="  Data Density PPSM"
               options={["<1", "1-5", "5-10", "10-15", "15-25", "25-50", "above50", "all"]}
               selected={dataDensity}
               onChange={setDataDensity}
             />
+            <Cards
+              name="  Payment"
+              options={["Free", "Paid", "all"]}
+              selected={charge}
+              onChange={setCharge}
+            />
           </Grid>
         </Grid>
-        <Grid mt={20} xs={9}  ml="2%">
+        <Grid mt={20} xs={9} ml="2%">
           <Main
             checked={checked}
             filterParams={{

@@ -36,15 +36,16 @@ function AboutUs() {
         <MKBox component="section" py={10}>
           <Container>
             <Grid xs={12} lg={4} sx={{ mx: "auto", textAlign: "left" }}>
-              <MKTypography variant="h2">Mission</MKTypography>
+              <MKTypography variant="h2">Services</MKTypography>
               {/* <MKTypography variant="h2" color="info" textGradient mb={2}>
                 &nbsp;&nbsp;&nbsp;Limulator
               </MKTypography> */}
               <MKTypography variant="body1" color="text" mb={2} mt={5}>
                 <ul>
-                  <li>Sharing labelled data for free and commercially</li>
-                  <li>Letting people run Limulator and generate data </li>
-                  <li>Letting people test their DL models on data available on site</li>
+                  <li>Instance Files</li>
+                  <li>Segmented file</li>
+                  <li>4 sensors</li>
+                  <li>Use of labelled data for training</li>
                 </ul>
               </MKTypography>
             </Grid>

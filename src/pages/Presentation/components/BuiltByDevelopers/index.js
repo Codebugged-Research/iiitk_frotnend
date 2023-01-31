@@ -59,7 +59,7 @@ function BuiltByDevelopers() {
           <MKTypography
             component="a"
             href="https://www.creative-tim.com/learning-lab/react/overview/material-kit/"
-            target="_blank"
+            target="_self"
             rel="noreferrer"
             variant="body2"
             color="white"
