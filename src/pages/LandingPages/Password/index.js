@@ -67,7 +67,7 @@ function PasswordReset() {
         .then((response) => {
           console.log("Refresh response", response);
           if (window.confirm("Password reset successful")) {
-            window.location.href = "/sign";
+            window.location.href = "/signin";
           }
           setValueSuccess("true");
         });
