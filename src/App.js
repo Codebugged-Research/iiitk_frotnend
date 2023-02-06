@@ -19,6 +19,7 @@ import SignUpBasic from "New components/singnup/singnup";
 import AboutUs from "pages/LandingPages/AboutUs";
 import Profile from "New components/profile/profile";
 import Presentation from "pages/Presentation";
+import PasswordReset from "pages/LandingPages/Password";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -50,10 +51,11 @@ export default function App() {
         <Route path="/filter/segmented" element={<Filter1/>} />
         <Route path="/filter/io" element={<Filter2 />} />
         <Route path="/signin" element={<SignInPage />} />
+        <Route path="/change-password" element={<PasswordReset />} />
         <Route path="/signup" element={<SignUpBasic />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/profile" component={<Profile />} />
-        <Route path="/home" component={<Presentation />}exact="true"/>
+        <Route path="/home" component={<Presentation />} exact="true"/>
         <Route path="*" component={<Navigate to="/home" />} />
         {/* <Route path="https://lidaverse.com/" component={<Navigate to="/home" />} /> */}
       </Routes>

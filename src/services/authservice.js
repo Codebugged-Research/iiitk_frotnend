@@ -48,9 +48,10 @@ const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("email");
   localStorage.removeItem("password");
+  localStorage.clear();
 };
 
-const getCurrentUser =  async () => {
+const getCurrentUser = async () => {
   const email = localStorage.getItem("email");
   await axios
     .get(`${API_URL}/users?filter[email][_eq]=${email}`, {

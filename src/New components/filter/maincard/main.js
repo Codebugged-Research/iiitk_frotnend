@@ -12,7 +12,7 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import Downloadcard from "../download card/download"
+import Downloadcard from "../download card/download";
 
 /*eslint-disable */
 let newCheckList = [];
@@ -36,21 +36,23 @@ const __DEV__ = document.domain === "localhost";
 function Main({ checked, filterParams }) {
   const [checkedBoxes, setCheckedBoxes] = React.useState(0);
   const [results, setResults] = React.useState([]);
-  const [downloadLinkList, setDownloadLinkList] = React.useState([]);
   const [checkList, setCheckList] = React.useState([]);
   const [charge, setCharge] = React.useState(0);
   const [checkBoxValue, setCheckBoxValue] = React.useState(false);
   // const [filterString, setFilterString] = React.useState("");
 
   const navigate = useNavigate();
-  const handleChange = (e, index, link) => {
+  const handleChange = (e, index, amount) => {
+    console.log("amount", amount);
     e.preventDefault();
     setCheckBoxValue(true);
     const isChecked = e.target.checked;
     if (isChecked) {
       setCheckedBoxes(checkedBoxes + 1);
+      setCharge(charge + amount);
     } else {
       setCheckedBoxes(checkedBoxes - 1);
+      setCharge(charge - amount);
     }
     for (let i = 0; i < index; i++) {
       if (newCheckList[i] === undefined) {
@@ -79,7 +81,11 @@ function Main({ checked, filterParams }) {
       filter = filter + "&filter[sensor][_eq]=" + filterParam.sensor;
     }
     if (filterParam.charge !== "all") {
-      filter = filter + "&filter[charge][_eq]=" + filterParam.charge;
+      if (filterParam.charge === "Free") {
+        filter = filter + "&filter[charge][_eq]=0.0";
+      } else if (filterParam.charge === "Paid") {
+        filter = filter + "&filter[charge][_gt]=0";
+      }
     }
     if (filterParam.dataDensity !== "all") {
       filter = filter + "&filter[data_density][_eq]=" + filterParam.dataDensity;
@@ -110,8 +116,8 @@ function Main({ checked, filterParams }) {
             newResults.push(...item.io_files);
           });
         }
-        console.log("newResults: ", newResults);
         checkList.fill(false, 0, newResults.length);
+        setCheckList(Array(newResults.length).fill(false));
         setResults(newResults);
       });
   };
@@ -133,15 +139,18 @@ function Main({ checked, filterParams }) {
       return;
     }
 
-    const data = await fetch("https://cms.lidaverse.com/razorpay/order/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        amount: amount === 0 ? charge : amount,
-      }),
-    }).then((t) => t.json());
+    const data = await fetch(
+      "https://cms.lidaverse.com/razorpay/order/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: amount === 0 ? charge : amount,
+        }),
+      }
+    ).then((t) => t.json());
 
     const options = {
       key: "rzp_test_U8AAmUy9CGfkfh",
@@ -152,7 +161,12 @@ function Main({ checked, filterParams }) {
       description: "Thank you",
       image: "my image",
       handler: async function (response) {
-        await createDownloadRecord(amount, response.razorpay_payment_id, response.razorpay_order_id, downloadfilelist)
+        await createDownloadRecord(
+          amount,
+          response.razorpay_payment_id,
+          response.razorpay_order_id,
+          downloadfilelist
+        );
       },
     };
     const paymentObject = new window.Razorpay(options);
@@ -162,31 +176,37 @@ function Main({ checked, filterParams }) {
   const user = JSON.parse(localStorage.getItem("auth"));
 
   const createDownloadRecord = async (amount, pid, oid, downloadfilelist) => {
-    console.log("Bearer " + JSON.parse(localStorage.getItem("auth")).data.access_token);
-    var response = await fetch("https://cms.lidaverse.com/items/data_download", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + JSON.parse(localStorage.getItem("auth")).data.access_token,
-      },
-      body: JSON.stringify({
-        destination_url: "zip/" + Date.now().toString() + ".zip",
-        total_price: amount === 0 ? charge : amount,
-        download_file_list: downloadfilelist,
-        filter_type: checked ? "segmented" : "io",
-        payment_id: pid,
-        order_id: oid
-      }),
-      Authorization: 'Bearer ' + user.access_token,
-    })
+    console.log(
+      "Bearer " + JSON.parse(localStorage.getItem("auth")).data.access_token
+    );
+    var response = await fetch(
+      "https://cms.lidaverse.com/items/data_download",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("auth")).data.access_token,
+        },
+        body: JSON.stringify({
+          destination_url: "zip/" + Date.now().toString() + ".zip",
+          total_price: amount === 0 ? charge : amount,
+          download_file_list: downloadfilelist,
+          filter_type: checked ? "segmented" : "io",
+          payment_id: pid,
+          order_id: oid,
+        }),
+        Authorization: "Bearer " + user.access_token,
+      }
+    );
     console.log(response.status);
     var res = await response.json();
     console.log(res);
     if (response.status === 200) {
       navigate("/home");
     }
-  }
-
+  };
 
   const downloadAll = async () => {
     // check this
@@ -196,23 +216,30 @@ function Main({ checked, filterParams }) {
       checkList[i] = true;
       if (results[i]) {
         downloadList.push({
-          url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
-          filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
+          url: checked
+            ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`
+            : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
+          filename: checked
+            ? `${results[i].segmented_file.filename_download}`
+            : `${results[i].directus_files_id.filename_download}`,
           type: "url",
         });
-        c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
+        c += checked
+          ? parseFloat(results[i].charge)
+          : parseFloat(results[i].pcd_instance_id.charge) /
+            results[i].pcd_instance_id.io_files.length;
       }
     }
     setCharge(c);
     setCheckList(...checkList);
     if (downloadList.length > 0) {
       if (c > 0) {
-        await displayRazorpay(c, "paid", "paid", downloadList)
+        await displayRazorpay(c, "paid", "paid", downloadList);
       } else {
-        await createDownloadRecord(c, "free", "free", downloadList)
+        await createDownloadRecord(c, "free", "free", downloadList);
       }
     } else {
-      alert("No files in filter!")
+      alert("No files in filter!");
     }
   };
 
@@ -220,60 +247,80 @@ function Main({ checked, filterParams }) {
     let downloadList = [];
     let c = 0;
     if (checkList.length === 0) {
-      alert("Please select card")
+      alert("Please select card");
     }
     for (let i = 0; i < checkList.length; i++) {
-      // if (checkList[i]) {
-      console.log("yes")
-      if (results[i]) {
+      if (checkList[i]) {
         downloadList.push({
-          url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
-          filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
+          url: checked
+            ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd`
+            : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
+          filename: checked
+            ? `${results[i].segmented_file.filename_download}`
+            : `${results[i].directus_files_id.filename_download}`,
           type: "url",
         });
-        c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
+        c += checked
+          ? parseFloat(results[i].charge)
+          : parseFloat(results[i].pcd_instance_id.charge) /
+            results[i].pcd_instance_id.io_files.length;
       }
       // }
     }
+    console.log("c", c);
     if (downloadList.length > 0) {
-      if (c > 0) {
-        await displayRazorpay(c, "paid", "paid", downloadList)
+      if (c >= 1) {
+        await displayRazorpay(c, "paid", "paid", downloadList);
+      } else if (c > 0 && c < 1) {
+        alert("Please select files worth more than 1 rupee");
       } else {
-        await createDownloadRecord(c, "free", "free", downloadList)
+        await createDownloadRecord(c, "free", "free", downloadList);
       }
     } else {
-      alert("No files in filter!")
+      alert("No files in filter!");
     }
   };
 
   const downloadInpage = async () => {
     let downloadList = [];
     let c = 0;
-    for (let i = 0; i < (results.length < 10 ? results.length : 10); i++) {
-      checkList[i] = true
+    for (let i = 0; i < results.length - (page - 1) * 10; i++) {
+      checkList[i] = true;
       downloadList.push({
-        url: checked ? `https://cms.lidaverse.com/assets/${results[i].segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${results[i].directus_files_id.id}.pcd`,
-        filename: checked ? `${results[i].segmented_file.filename_download}` : `${results[i].directus_files_id.filename_download}`,
+        url: checked
+          ? `https://cms.lidaverse.com/assets/${
+              results[(page - 1) * 10 + i].segmented_file.id
+            }.pcd`
+          : `https://cms.lidaverse.com/assets/${
+              results[(page - 1) * 10 + i].directus_files_id.id
+            }.pcd`,
+        filename: checked
+          ? `${results[(page - 1) * 10 + i].segmented_file.filename_download}`
+          : `${
+              results[(page - 1) * 10 + i].directus_files_id.filename_download
+            }`,
         type: "url",
       });
-      c += checked ? parseFloat(results[i].charge) : ((parseFloat(results[i].pcd_instance_id.charge)) / (results[i].pcd_instance_id.io_files.length));
-
+      c += checked
+        ? parseFloat(results[(page - 1) * 10 + i].charge)
+        : parseFloat(results[(page - 1) * 10 + i].pcd_instance_id.charge) /
+          results[(page - 1) * 10 + i].pcd_instance_id.io_files.length;
     }
     setCharge(c);
     setCheckList(...checkList);
     if (downloadList.length > 0) {
       if (c > 0) {
-        await displayRazorpay(c, "paid", "paid", downloadList)
+        await displayRazorpay(c, "paid", "paid", downloadList);
       } else {
-        await createDownloadRecord(c, "free", "free", downloadList)
+        await createDownloadRecord(c, "free", "free", downloadList);
       }
     } else {
-      alert("No files in filter!")
+      alert("No files in filter!");
     }
   };
 
   const genTerrain = (terrain) => {
-    switch(terrain) {
+    switch (terrain) {
       case "urban":
         return "Urban";
       case "semiurban":
@@ -285,9 +332,9 @@ function Main({ checked, filterParams }) {
       default:
         return terrain;
     }
-  }
+  };
   const genEnv = (env) => {
-    switch(env) {
+    switch (env) {
       case "clear":
         return "Clear";
       case "rainy":
@@ -299,7 +346,7 @@ function Main({ checked, filterParams }) {
       default:
         return env;
     }
-  }
+  };
 
   return (
     <div>
@@ -352,13 +399,18 @@ function Main({ checked, filterParams }) {
                 variant="h3"
                 bgColor="blue"
                 color="white"
-                fontSize={{ xl: "1.5rem", lg: "1.2rem", md: "1rem", sm: "1rem" }}
+                fontSize={{
+                  xl: "1.5rem",
+                  lg: "1.2rem",
+                  md: "1rem",
+                  sm: "1rem",
+                }}
               >
                 <p>Filter Results</p>
               </MKTypography>
             </MKBox>
             <MKBox pt={1} pl={1.5} ml="20%">
-              <Typography 
+              <Typography
                 variant="h6"
                 fontSize={{ xl: "1.0rem", lg: "0.6rem", md: "0.4rem" }}
               >
@@ -371,59 +423,71 @@ function Main({ checked, filterParams }) {
 
           {/*main card elements box */}
           <MKBox marginTop={10}>
-            {results.slice(page * 10 - 10, page * 10).map((detail, index) => (
-              <MKBox
-                key={index.toString()}
-                variant="gradient"
-                bgColor="grey"
-                coloredShadow="info"
-                borderRadius="lg"
-                p={2}
-                mx={10}
-                mt={3}
-                mb={3}
-                fontSize={{ xl: "1rem", lg: "0.8rem" }}
+            {results.length === 0 ? (
+              <Typography
+                variant="h6"
+                align="center"
+                fontSize={{ xl: "1.0rem", lg: "0.6rem", md: "0.4rem" }}
               >
-                <Grid display="flex">
-                  <Grid item md={10} container spacing={2}>
-                    <Grid item md={12} mb={3}>
-                      <h3>
-                        {checked
-                          ? detail.name
-                          : detail.directus_files_id.title + ` from (${detail.pcd_instance_id.name})`}
-                      </h3>
-                    </Grid>
-                    <Grid item ml={1.5}>
-                      <p>
-                        <strong>Place : </strong>{" "}
-                        {checked ? detail.place : detail.pcd_instance_id.place}
-                      </p>
-                    </Grid>
-                    <Grid item ml={1.5}>
-                      <p>
-                        <strong>Sensor : </strong>
-                        {checked
-                          ? detail.sensor.toUpperCase()
-                          : detail.pcd_instance_id.sensor.toUpperCase()}
-                      </p>
-                    </Grid>
-                    <Grid item ml={1.5}>
-                      <p>
-                        <strong> Environment : </strong>
-                        {checked
-                          ? genEnv(detail.environment)
-                          : genEnv(detail.pcd_instance_id.environment)}
-                      </p>
-                    </Grid>
-                    <Grid item ml={1.5}>
-                      <p>
-                        <strong>Terrain : </strong>
-                        {checked
-                          ? genTerrain(detail.terrain)
-                          : genTerrain(detail.pcd_instance_id.terrain)}
-                      </p>
-                    </Grid>
-                    {/* {checked ? (
+                No Results
+              </Typography>
+            ) : (
+              results.slice(page * 10 - 10, page * 10).map((detail, index) => (
+                <MKBox
+                  key={index.toString()}
+                  variant="gradient"
+                  bgColor="grey"
+                  coloredShadow="info"
+                  borderRadius="lg"
+                  p={2}
+                  mx={10}
+                  mt={3}
+                  mb={3}
+                  fontSize={{ xl: "1rem", lg: "0.8rem" }}
+                >
+                  <Grid display="flex">
+                    <Grid item md={10} container spacing={2}>
+                      <Grid item md={12} mb={3}>
+                        <h3>
+                          {checked
+                            ? detail.name
+                            : detail.directus_files_id.title +
+                              ` from (${detail.pcd_instance_id.name})`}
+                        </h3>
+                      </Grid>
+                      <Grid item ml={1.5}>
+                        <p>
+                          <strong>Place : </strong>{" "}
+                          {checked
+                            ? detail.place
+                            : detail.pcd_instance_id.place}
+                        </p>
+                      </Grid>
+                      <Grid item ml={1.5}>
+                        <p>
+                          <strong>Sensor : </strong>
+                          {checked
+                            ? detail.sensor.toUpperCase()
+                            : detail.pcd_instance_id.sensor.toUpperCase()}
+                        </p>
+                      </Grid>
+                      <Grid item ml={1.5}>
+                        <p>
+                          <strong> Environment : </strong>
+                          {checked
+                            ? genEnv(detail.environment)
+                            : genEnv(detail.pcd_instance_id.environment)}
+                        </p>
+                      </Grid>
+                      <Grid item ml={1.5}>
+                        <p>
+                          <strong>Terrain : </strong>
+                          {checked
+                            ? genTerrain(detail.terrain)
+                            : genTerrain(detail.pcd_instance_id.terrain)}
+                        </p>
+                      </Grid>
+                      {/* {checked ? (
                       <Grid item ml={1.5}>
                         <p>
                           <strong>IO FIles : </strong>
@@ -433,59 +497,67 @@ function Main({ checked, filterParams }) {
                     ) : (
                       <></>
                     )} */}
-                    <Grid item ml={1.5}>
-                      <p>
-                        <strong>Uploaded : </strong>
-                        <TimeAgo
-                          datetime={
-                            checked
-                              ? detail.date_created
-                              : detail.pcd_instance_id.date_created
-                          }
-                        />
-                      </p>
+                      <Grid item ml={1.5}>
+                        <p>
+                          <strong>Uploaded : </strong>
+                          <TimeAgo
+                            datetime={
+                              checked
+                                ? detail.date_created
+                                : detail.pcd_instance_id.date_created
+                            }
+                          />
+                        </p>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid md={3}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          sx={{
-                            border: "2px solid #92aed4",
-                            borderRadius: "0.35rem",
-                            width: "1rem",
-                            height: "1rem",
-                          }}
-                          className="ckb"
-                          checked={
-                            checkBoxValue
-                              ? checkList[(page - 1) * 10 + index]
-                              : false
-                          }
-                          onChange={(e) =>
-                            handleChange(e, (page - 1) * 10 + index, checked
-                              ? "https://cms.lidaverse.com/assets/" + detail.segmented_file
-                              : "https://cms.lidaverse.com/assets/" + detail.directus_files_id)
-                          }
-                        />
-                      }
-                      label=""
-                      sx={{ position: "relative", left: "85%", top: "2%" }}
-                    />
-                    <MKButton
-                      variant="gradient"
-                      color="info"
-                      onClick={() => {
-                        let u = `https://cms.lidaverse.com/visualize?fileid=${checked
-                          ? detail.segmented_file.id : detail.directus_files_id.id}`;
-                        console.log(u);
-                        window.open(u, "_self");
-                      }}
-                      sx={{ mt: 5 }}
-                    >
-                      Visualize
-                    </MKButton>
-                    {/*<MKButton
+                    <Grid md={3}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            sx={{
+                              border: "2px solid #92aed4",
+                              borderRadius: "0.35rem",
+                              width: "1rem",
+                              height: "1rem",
+                            }}
+                            className="ckb"
+                            checked={
+                              checkBoxValue
+                                ? checkList[(page - 1) * 10 + index]
+                                : false
+                            }
+                            onChange={(e) =>
+                              handleChange(
+                                e,
+                                (page - 1) * 10 + index,
+                                checked
+                                  ? parseFloat(detail.charge)
+                                  : parseFloat(detail.pcd_instance_id.charge) /
+                                      detail.pcd_instance_id.io_files.length
+                              )
+                            }
+                          />
+                        }
+                        label=""
+                        sx={{ position: "relative", left: "85%", top: "2%" }}
+                      />
+                      <MKButton
+                        variant="gradient"
+                        color="info"
+                        onClick={() => {
+                          let u = `https://cms.lidaverse.com/visualize?fileid=${
+                            checked
+                              ? detail.segmented_file.id
+                              : detail.directus_files_id.id
+                          }`;
+                          console.log(u);
+                          window.open(u, "_self");
+                        }}
+                        sx={{ mt: 5 }}
+                      >
+                        Visualize
+                      </MKButton>
+                      {/*<MKButton
                     variant="gradient"
                     color="info"
                     onClick={() => {
@@ -494,32 +566,36 @@ function Main({ checked, filterParams }) {
                     >
                     Details
                   </MKButton>*/}
-                    {/* <Grid sx={{ mt: "20%" }}> */}
-                    <MKButton
-                      variant="gradient"
-                      height="fit-content"
-                      width="fit-content"
-                      color="info"
-                      onClick={async () => {
-                        var d = [
-                          {
-                            "url": checked ? `https://cms.lidaverse.com/assets/${detail.segmented_file.id}.pcd` : `https://cms.lidaverse.com/assets/${detail.directus_files_id.id}.pcd`,
-                            "filename": checked ? `${detail.segmented_file.filename_download}` : `${detail.directus_files_id.filename_download}`,
-                            "type": "url"
-                          }
-                        ]
-                        await displayRazorpay(1, "paid", "paid", d);
-                      }
-                      }
-                      sx={{ mt: 3 }}
-                    >
-                      Download
-                    </MKButton>
-                    {/* </Grid> */}
+                      {/* <Grid sx={{ mt: "20%" }}> */}
+                      <MKButton
+                        variant="gradient"
+                        height="fit-content"
+                        width="fit-content"
+                        color="info"
+                        onClick={async () => {
+                          var d = [
+                            {
+                              url: checked
+                                ? `https://cms.lidaverse.com/assets/${detail.segmented_file.id}.pcd`
+                                : `https://cms.lidaverse.com/assets/${detail.directus_files_id.id}.pcd`,
+                              filename: checked
+                                ? `${detail.segmented_file.filename_download}`
+                                : `${detail.directus_files_id.filename_download}`,
+                              type: "url",
+                            },
+                          ];
+                          await displayRazorpay(1, "paid", "paid", d);
+                        }}
+                        sx={{ mt: 3 }}
+                      >
+                        Download
+                      </MKButton>
+                      {/* </Grid> */}
+                    </Grid>
                   </Grid>
-                </Grid>
-              </MKBox>
-            ))}
+                </MKBox>
+              ))
+            )}
           </MKBox>
           <MKBox
             width="100%"
@@ -545,7 +621,7 @@ function Main({ checked, filterParams }) {
             // name="Download Options"
             // btnName={["Download selected", "Download All", "Download in this page","Total amount"]}
             data={async () => {
-              await downloadAll()
+              await downloadAll();
             }}
             data1={() => downloadSelected()}
             data2={() => downloadInpage()}

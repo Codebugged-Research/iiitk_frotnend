@@ -96,7 +96,7 @@ function DTable() {
   React.useEffect(() => {
     axios
       .get(
-        "https://cms.lidaverse.com/items/data_download"
+        "https://cms.lidaverse.com/items/data_download?sort=-date_created"
         , {
           headers: {
             Authorization: `Bearer ${JSON.parse(localStorage.getItem("auth")).data.access_token

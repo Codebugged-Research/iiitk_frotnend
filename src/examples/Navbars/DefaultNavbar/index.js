@@ -452,7 +452,8 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
   const [labels , setLabels] = useState (localStorage.getItem("email")  ? "Logout": "Login")
 
   const logout = () => {
-      localStorage.removeItem("email") 
+      localStorage.removeItem("email");
+      localStorage.clear();
       setLabels ("Login")
 };
   

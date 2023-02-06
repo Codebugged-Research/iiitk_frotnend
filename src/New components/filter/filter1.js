@@ -1,6 +1,8 @@
 // segmented files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
+import MKBox from "components/MKBox";
+import MKButton from "components/MKButton";
 import { Grid, Tabs, Tab, Box } from "@mui/material";
 // import MKBox from "components/MKBox";
 import routes from "routes";
@@ -9,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import Cards from "./card/card";
 import Main from "./maincard/main";
 // import Downloadcard from "./download card/download";
-
 
 function Filter1() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Filter1() {
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
 
-  React.useEffect(() => { }, [
+  React.useEffect(() => {}, [
     checked,
     env,
     datatype,
@@ -37,7 +38,7 @@ function Filter1() {
 
   const handleChange = (e) => {
     e.preventDefault();
-    navigate("/filter/io")
+    navigate("/filter/io");
   };
 
   // const downloadall = (data) =>{
@@ -74,18 +75,36 @@ function Filter1() {
             },
           }}
         >
-          <Box
-            p={0}
-            pt={0.5}
-            pb={0.5}
-            mx={2}
-            mt={2}
-          >            
-            <Tabs value="one" onChange={handleChange} >
+          <Box p={0} pt={0.5} pb={0.5} mx={2} mt={2}>
+            <Tabs value="one" onChange={handleChange}>
               <Tab value="one" label="Segemented files" wrapped />
               <Tab value="two" label="IO files" wrapped />
             </Tabs>
           </Box>
+
+          <MKBox
+            px={3}
+          >
+            <MKButton
+              variant="gradient"
+              // component={Link}
+              to="/presentation"
+              color="info"
+              fullWidth
+              onClick={() => {
+                setEnv("all");
+                setDatatype("all");
+                setPointrecord("all");
+                setTerrain("all");
+                setSensor("all");
+                setCharge("all");
+                setDataDensity("all");
+                setAccuracy("all");
+              }}
+            >
+              Clear Filters
+            </MKButton>
+          </MKBox>
           <Grid
             sx={{
               height: " 700px",
@@ -114,7 +133,7 @@ function Filter1() {
             />
             <Cards
               name="  Terrain"
-              options={["urban", "semi-urban", "rural", "forest", "all"]}
+              options={["urban", "semiurban", "rural", "forest", "all"]}
               selected={terrain}
               onChange={setTerrain}
             />
@@ -132,13 +151,29 @@ function Filter1() {
             />
             <Cards
               name="  Accuracy"
-              options={["0-5cm", "5-10cm", "10-15cm", "15-20cm", "20-above", "all"]}
+              options={[
+                "1-5cm",
+                "5-10cm",
+                "10-15cm",
+                "15-20cm",
+                "20-above",
+                "all",
+              ]}
               selected={accuracy}
               onChange={setAccuracy}
             />
             <Cards
               name="  Data Density PPSM"
-              options={["<1", "1-5", "5-10", "10-15", "15-25", "25-50", "above50", "all"]}
+              options={[
+                "<1",
+                "1-5",
+                "5-10",
+                "10-15",
+                "15-25",
+                "25-50",
+                "above50",
+                "all",
+              ]}
               selected={dataDensity}
               onChange={setDataDensity}
             />

@@ -64,7 +64,11 @@ function SignUpBasic() {
       console.log(data);
       navigate("/home");
       window.location.reload();
-    } else {
+    }
+    else if(firstName === "" || lastName === "" || email === "" || password === "" || confirmPassword === "" || country === "" || Phone === ""){
+      alert("All fields are required");
+    }
+    else {
       alert("Password and Confirm Password should be same");
     }
   };

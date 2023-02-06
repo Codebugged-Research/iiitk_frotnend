@@ -1,6 +1,8 @@
 // io files page
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import React from "react";
+import MKBox from "components/MKBox";
+import MKButton from "components/MKButton";
 import { Grid, Tabs, Tab, Box } from "@mui/material";
 import routes from "routes";
 // import MKBox from "components/MKBox";
@@ -22,7 +24,7 @@ function Filter2() {
   const [dataDensity, setDataDensity] = React.useState("all");
   const [accuracy, setAccuracy] = React.useState("all");
 
-  React.useEffect(() => { }, [
+  React.useEffect(() => {}, [
     checked,
     env,
     datatype,
@@ -35,7 +37,7 @@ function Filter2() {
   ]);
   const handleChange = (e) => {
     e.preventDefault();
-    navigate("/filter/segmented")
+    navigate("/filter/segmented");
   };
   return (
     <>
@@ -70,18 +72,34 @@ function Filter2() {
             },
           }}
         >
-          <Box
-            p={1}
-            pt={0.5}
-            pb={0.5}
-            mx={2.6}
-            mt={2}
-          >
+          <Box p={1} pt={0.5} pb={0.5} mx={2.6} mt={2}>
             <Tabs value="two" onChange={handleChange}>
               <Tab value="one" label="Segemented files" wrapped />
               <Tab value="two" label="IO files" wrapped />
             </Tabs>
           </Box>
+          <MKBox px={3}>
+            <MKButton
+              variant="gradient"
+              // component={Link}
+              to="/presentation"
+              color="info"
+              fullWidth
+              onClick={() => {
+                setLabels("all");
+                setEnv("all");
+                setDatatype("all");
+                setPointrecord("all");
+                setTerrain("all");
+                setSensor("all");
+                setCharge("all");
+                setDataDensity("all");
+                setAccuracy("all");
+              }}
+            >
+              Clear Filters
+            </MKButton>
+          </MKBox>
           <Grid
             sx={{
               height: " 700px",
@@ -138,13 +156,29 @@ function Filter2() {
             />
             <Cards
               name="  Accuracy"
-              options={["0-5cm", "5-10cm", "10-15cm", "15-20cm", "20-above", "all"]}
+              options={[
+                "0-5cm",
+                "5-10cm",
+                "10-15cm",
+                "15-20cm",
+                "20-above",
+                "all",
+              ]}
               selected={accuracy}
               onChange={setAccuracy}
             />
             <Cards
               name="  Data Density"
-              options={["<1", "1-5", "5-10", "10-15", "15-25", "25-50", "above50", "all"]}
+              options={[
+                "<1",
+                "1-5",
+                "5-10",
+                "10-15",
+                "15-25",
+                "25-50",
+                "above50",
+                "all",
+              ]}
               selected={dataDensity}
               onChange={setDataDensity}
             />

@@ -14,13 +14,12 @@ Coded by www.creative-tim.com
 */
 
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 // react-router-dom components
-import { Link, useNavigate } from "react-router-dom";
-
+import { useSearchParams } from "react-router-dom";
+import axios from "axios";
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
 
 // Material Kit 2 React components
@@ -39,60 +38,56 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
-import AuthService from "../../../services/authservice";
-
-function SignInBasic() {
-  const [rememberMe, setRememberMe] = useState(true);
-
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  const [email, setEmail] = useState("");
+function PasswordReset() {
   const [password, setPassword] = useState("");
   const [valueError, setValueError] = useState("");
   const [valueSuccess, setValueSuccess] = useState("");
+  const [searchParams] = useSearchParams();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleReset = async (e) => {
     e.preventDefault();
+    if(searchParams.get("token") === null) {
+      alert("Invalid token");
+      return;
+    }
+    if (password.length < 8) {
+      setValueError("true");
+      alert("Password must be at least 8 characters long");
+      return;
+    }
     try {
-      await AuthService.login(email, password).then(
-        () => {
+      console.log("password", password);
+      await axios
+        .post(`https://cms.lidaverse.com/auth/password/reset`, {
+          password,
+          token: searchParams.get("token"),
+        })
+        .then((response) => {
+          console.log("Refresh response", response);
+          if (window.confirm("Password reset successful")) {
+            window.location.href = "/sign";
+          }
           setValueSuccess("true");
-          localStorage.setItem("email", email);
-          navigate("/filter/segmented");
-          window.location.reload();
-        },
-        (error) => {
-          setValueError("true");
-          console.log(error);
-        }
-      );
+        });
     } catch (err) {
       console.log(err);
+      alert("Password reset failed");
+      setValueError("true");
     }
   };
 
   const handleKeyPress = async (event) => {
     if (event.key === "Enter") {
       try {
-        await AuthService.login(email, password).then(
-          () => {
-            setValueSuccess("true");
-            localStorage.setItem("email", email);
-            navigate("/filter/segmented");
-            window.location.reload();
-          },
-          (error) => {
-            setValueError("true");
-            console.log(error);
-          }
-        );
+        console.log("password", password);
       } catch (err) {
         console.log(err);
       }
     }
   };
-
+  console.log("token", searchParams.get("token"));
   return (
     <>
       <DefaultNavbar routes={routes} sticky />
@@ -151,22 +146,11 @@ function SignInBasic() {
                   color="white"
                   m={2}
                 >
-                  Login
+                  Password Reset
                 </MKTypography>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
-                  {/* email */}
-                  <MKBox mb={2}>
-                    <MKInput
-                      type="email"
-                      label="Email"
-                      fullWidth
-                      error={valueError}
-                      success={valueSuccess}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </MKBox>
                   {/* password */}
                   <MKBox>
                     <MKInput
@@ -179,78 +163,14 @@ function SignInBasic() {
                       onKeyPress={handleKeyPress}
                     />
                   </MKBox>
-                  {/* remember me */}
-                  <MKBox display="flex" alignItems="center" ml={-1}>
-                    <Switch
-                      checked={rememberMe}
-                      onChange={handleSetRememberMe}
-                    />
-                    <MKTypography
-                      variant="button"
-                      fontWeight="regular"
-                      color="text"
-                      onClick={handleSetRememberMe}
-                      sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-                    >
-                      &nbsp;&nbsp;Remember me
-                    </MKTypography>
-                  </MKBox>
                   <MKBox mt={2} mb={1}>
                     <MKButton
                       variant="gradient"
                       color="info"
                       fullWidth
-                      onClick={handleLogin}
+                      onClick={handleReset}
                     >
-                      Login
-                    </MKButton>
-                  </MKBox>
-                  <MKBox mt={1} mb={1} textAlign="center">
-                    <MKTypography variant="button" color="text">
-                      Don&apos;t have an account?{" "}
-                      <MKTypography
-                        component={Link}
-                        to="/signup"
-                        variant="button"
-                        color="info"
-                        fontWeight="medium"
-                        textGradient
-                      >
-                        Sign up
-                      </MKTypography>
-                    </MKTypography>
-                  </MKBox>
-                  <MKBox mt={2} mb={1}>
-                    <MKButton
-                      variant="gradient"
-                      color="info"
-                      fullWidth
-                      onClick={async () => {
-                        if (email === "") {
-                          alert("Please enter your email address");
-                        } else {
-                          await axios
-                            .post(
-                              "https://cms.lidaverse.com/auth/password/request",
-                              {
-                                email,
-                                reset_url:
-                                  "https://lidaverse.com/change-password",
-                              }
-                            )
-                            .then((response) => {
-                              console.log(response);
-                              alert(
-                                "Please check your email to reset your password"
-                              );
-                            })
-                            .catch((error) => {
-                              alert(error);
-                            });
-                        }
-                      }}
-                    >
-                      Forget password?
+                      Reset
                     </MKButton>
                   </MKBox>
                 </MKBox>
@@ -266,4 +186,4 @@ function SignInBasic() {
   );
 }
 
-export default SignInBasic;
+export default PasswordReset;
